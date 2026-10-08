@@ -90,6 +90,15 @@ p{margin:0}
 .lin .det b{color:var(--ink);font-weight:600}
 .lin .dir{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
 .menu-lin{border:0;background:transparent;font-size:24px;color:var(--sutil);width:48px;height:48px;border-radius:10px;cursor:pointer}
+.lin .acoes-lin{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.mini{border:1.5px solid var(--botao);background:var(--card);color:var(--botao);font:700 14px var(--texto);min-height:38px;padding:0 13px;border-radius:10px;cursor:pointer}
+.mini.cheio{background:var(--botao);color:#fff}
+.mini.neutro{border-color:var(--fio);color:var(--sutil)}
+.lin .atrib{font-size:14.5px;color:var(--ink);margin-top:4px}
+.lin .atrib b{font-weight:600}
+.modal .opcoes{display:flex;flex-direction:column;gap:8px;max-height:46vh;overflow:auto}
+.modal .opcoes button{text-align:left;border:1.5px solid var(--fio);background:var(--card);border-radius:12px;padding:12px 14px;font:600 16px var(--texto);color:var(--ink);cursor:pointer}
+.modal .opcoes button:active{background:#F2F9FD}
 .prog{height:7px;border-radius:4px;background:var(--fio);overflow:hidden}
 .prog i{display:block;height:100%;background:var(--sabesp);transition:width .25s}
 .abas{display:flex;background:var(--card);border:1.5px solid var(--fio);border-radius:14px;overflow:hidden}
@@ -237,7 +246,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <button class="modulo off" onclick="toast('Em construção. Por enquanto, use Obras Lineares.')"><span class="ico">🏭</span><div><b>Obras Localizadas</b><span class="selo" style="margin-top:6px">Em construção</span></div></button>
     <div class="conta" id="conta"></div>
   </div>
-  <div class="rodape">Tudo fica no aparelho até você exportar.<br>versão 0.13 · 07/10/2026</div>
+  <div class="rodape">Sem login, tudo fica no aparelho. Conectado, sobe para a equipe sozinho.<br>versão 0.14 · 07/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -248,7 +257,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <button class="btn claro" id="btnExemplo" onclick="carregarExemplo()">Testar com o exemplo (CT Gamelinha 3)</button>
   <p class="ajuda" style="font-size:14.5px">Os responsáveis pela vistoria são informados no resumo, no fim.</p>
-  <div class="rodape"><span id="espaco"></span>versão 0.13 · 07/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.14 · 07/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -315,7 +324,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <button class="btn claro" onclick="addResp()">+ Adicionar responsável</button>
   </div>
   <h3>Exportar</h3>
-  <p class="ajuda">Gera um arquivo com as respostas e as fotos para enviar pelo OneDrive, WhatsApp ou onde você escolher. O relatório completo é gerado no Conversor a partir dele.</p>
+  <p class="ajuda">Opcional quando a equipe está conectada: gera um arquivo com as respostas, as fotos e o relatório para guardar ou enviar por fora (OneDrive, WhatsApp, e-mail).</p>
   <p class="falta" id="faltaExp" style="cursor:default"></p>
   <button class="btn" id="btnPreparar" onclick="prepararExport()">Preparar arquivo para exportar</button>
   <div id="exportPronto" class="oculta" style="display:flex;flex-direction:column;gap:9px">
@@ -323,7 +332,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div class="dois"><button class="btn" onclick="compartilharExport()">Compartilhar</button><button class="btn claro" onclick="baixarExport()">Baixar</button></div>
   </div>
   <p class="ajuda oculta" id="exportadaTxt" style="text-align:center"></p>
-  <button class="btn claro" onclick="relatorioRapido()">Ver relatório rápido (PDF)</button>
+  <button class="btn claro" onclick="relatorioRapido()">Ver relatório completo (PDF)</button>
   <button class="btn claro" id="btnEncerrar" onclick="alternarEncerrada()">Encerrar vistoria</button>
   <p class="ajuda" id="encCaption" style="text-align:center;font-size:14px">Encerrar bloqueia a edição das fichas. Dá para reabrir depois.</p>
   <button class="btn texto" id="btnInicio" onclick="voltarAoInicio()">‹ Voltar ao início</button>
@@ -362,7 +371,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.13';
+const VERSAO='0.14';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -483,6 +492,7 @@ async function enviarVistoria(v){
   }
   const versao=(row?row.versao:0)+1;
   const corpo={id:v.id,ct_nome:String(nomeV(v)||'Rede'),dados:dadosServidor(v),versao,atualizado_por:uid,encerrada_em:v.encerradaEm||null,exportada_em:v.exportadaEm||null};
+  if(temResumo)corpo.resumo=resumoServidor(v);
   if(!row)corpo.criado_por=uid;
   await sb('/rest/v1/vistorias',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},json:corpo});
   // fotos: só as referenciadas por registros e ainda não enviadas
@@ -502,7 +512,10 @@ async function enviarVistoria(v){
 async function listarRemotas(locais){
   try{
     if(!Object.keys(equipeNomes).length)await carregarNomesEquipe();
-    const rows=await sb('/rest/v1/vistorias?select=id,ct_nome,versao,atualizado_por,atualizado_em,encerrada_em&order=atualizado_em.desc');
+    await carregarAtribuicoes();
+    let rows;
+    try{ rows=await sb('/rest/v1/vistorias?select=id,ct_nome,versao,atualizado_por,atualizado_em,encerrada_em,resumo&order=atualizado_em.desc'); }
+    catch(e){ if(!/42703|resumo/.test(String(e.message)))throw e; temResumo=false; rows=await sb('/rest/v1/vistorias?select=id,ct_nome,versao,atualizado_por,atualizado_em,encerrada_em&order=atualizado_em.desc'); }
     const porId=new Map(locais.map(v=>[v.id,v]));
     const remotas=[];
     for(const r of rows){
@@ -540,6 +553,165 @@ async function sbBlob(caminho){
   const r=await fetch(SB_URL+caminho,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+s.access_token}});
   if(!r.ok)throw new Error('foto HTTP '+r.status); return r.blob();
 }
+/* ---------- atribuições e estados ---------- */
+let atribuicoes={}, atribIndisp=false, temResumo=true;
+async function carregarAtribuicoes(){
+  if(atribIndisp)return;
+  try{ const rows=await sb('/rest/v1/atribuicoes?select=vistoria_id,usuario,quando&order=quando.asc'); atribuicoes={}; for(const r of rows)(atribuicoes[r.vistoria_id]=atribuicoes[r.vistoria_id]||[]).push(r); }
+  catch(e){ if(/42P01|404|atribuicoes/.test(String(e.message)))atribIndisp=true; }
+}
+function resumoServidor(v){
+  const c=contagens(v); let ini=null,fim=null,fotos=0;
+  for(const k in v.registros){ const r=v.registros[k]; if(!r||r.estado==='rascunho')continue; if(r.inicio&&(!ini||r.inicio<ini))ini=r.inicio; const f=r.fim||r.inicio; if(f&&(!fim||f>fim))fim=f; fotos+=(r.fotos||[]).length; }
+  return {total:c.total,reg:c.reg,ok:c.ok,res:c.res,rasc:c.rasc,trans:c.trans,fotos,inicio:ini,fim,responsaveis:(v.responsaveis||[]).map(r=>r.nome)};
+}
+function estadoVistoria(x){ // x: vistoria local ou linha do servidor
+  const enc=x.encerradaEm||x.encerrada_em;
+  const rs=(x.resumo&&x.resumo.total!==undefined)?x.resumo:(x.pontos?contagens(x):{reg:0,rasc:0});
+  if(enc)return {k:'encerrada',t:'encerrada',cls:'verde'};
+  if((rs.reg||0)>0||(rs.rasc||0)>0)return {k:'andamento',t:'em andamento',cls:'azul'};
+  if((atribuicoes[x.id]||[]).length)return {k:'assumida',t:'assumida',cls:'azul'};
+  return {k:'avistoriar',t:'a vistoriar',cls:'cinza'};
+}
+function textoAtrib(vid){ return (atribuicoes[vid]||[]).map(x=>nomeEquipe(x.usuario)).join(', '); }
+function euAtribuido(vid){ return !!(sessao&&sessao.user&&(atribuicoes[vid]||[]).some(x=>x.usuario===sessao.user.id)); }
+function souCoordenador(){ return !!(sessao&&sessao.perfil&&sessao.perfil.papel==='coordenador'); }
+async function assumir(vid,usuario){
+  if(!sessao||!sessao.perfil)return; usuario=usuario||sessao.user.id;
+  try{
+    await sb('/rest/v1/atribuicoes',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},json:{vistoria_id:vid,usuario,atribuido_por:sessao.user.id}});
+    registrarEvento('atribuida',{usuario},vid); toast(usuario===sessao.user.id?'Vistoria assumida por você':'Vistoria atribuída a '+nomeEquipe(usuario));
+  }catch(e){ await modal({titulo:'Não deu para assumir',texto:/23503/.test(String(e.message))?'Esta vistoria ainda não chegou ao servidor. Aguarde a sincronização e tente de novo.':String(e.message||e),ok:'Entendi',soOk:true}); }
+  await renderVistorias();
+}
+async function deixar(vid,usuario){
+  if(!sessao||!sessao.perfil)return; usuario=usuario||sessao.user.id;
+  try{ await sb('/rest/v1/atribuicoes?vistoria_id=eq.'+encodeURIComponent(vid)+'&usuario=eq.'+usuario,{method:'DELETE',headers:{'Prefer':'return=minimal'}}); registrarEvento('liberada',{usuario},vid); toast(usuario===sessao.user.id?'Você deixou esta vistoria':'Atribuição de '+nomeEquipe(usuario)+' removida'); }
+  catch(e){ toast('Não deu: '+(e.message||e)); }
+  await renderVistorias();
+}
+async function atribuir(vid){
+  if(!Object.keys(equipeNomes).length)await carregarNomesEquipe();
+  const ja=new Set((atribuicoes[vid]||[]).map(x=>x.usuario));
+  const ops=Object.keys(equipeNomes).sort((a,b)=>equipeNomes[a].localeCompare(equipeNomes[b])).map(id=>({id,txt:(ja.has(id)?'✓ ':'')+equipeNomes[id]+(ja.has(id)?'  (toque para remover)':'')}));
+  if(!ops.length){toast('Nenhum colega na equipe ainda');return;}
+  const sel=await modal({titulo:'Atribuir a vistoria',texto:'Toque no nome de quem vai fazer. Pode ser mais de uma pessoa.',opcoes:ops,cancel:'Fechar'});
+  if(!sel)return;
+  if(ja.has(sel))await deixar(vid,sel); else await assumir(vid,sel);
+}
+
+/* ---------- relatório completo ---------- */
+function blobDataUrl(blob){ return new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(blob);}); }
+async function abrirRelatorio(vid){
+  const w=window.open('','_blank'); // aberta no toque, antes de qualquer espera, senão o celular bloqueia
+  if(!w){toast('O navegador bloqueou a nova aba. Libere pop-ups para este endereço.');return;}
+  w.document.write('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório</title></head><body><p style="font:16px system-ui;padding:20px">Montando o relatório…</p></body></html>');
+  try{
+    let v=(V&&V.id===vid)?V:await dbGet('vistorias',vid);
+    if(!v){ v=await baixarVistoria(vid,false,true); if(!v)throw new Error('não foi possível obter a vistoria'); }
+    const fs=await fotosDa(vid); const fotos={};
+    for(const f of fs)fotos[f.id]={src:await blobDataUrl(f.blob),quando:f.quando,lat:f.lat,lon:f.lon};
+    w.document.open(); w.document.write(htmlRelatorio(v,fotos)); w.document.close();
+    registrarEvento('relatorio',{},vid);
+  }catch(err){ w.document.body.innerHTML='<p style="font:16px system-ui;padding:20px">Não deu para montar o relatório: '+esc(err&&err.message||err)+'</p>'; }
+}
+function svgPlanta(v,W,H){
+  const pts=v.pontos.filter(p=>p.lat!=null&&p.lon!=null); if(pts.length<2)return '';
+  const la=[],lo=[]; pts.forEach(p=>{la.push(p.lat);lo.push(p.lon);}); (v.trechos||[]).forEach(t=>t.latlngs.forEach(q=>{la.push(q[0]);lo.push(q[1]);}));
+  const minLa=Math.min(...la),maxLa=Math.max(...la),minLo=Math.min(...lo),maxLo=Math.max(...lo);
+  const k=Math.cos((minLa+maxLa)/2*Math.PI/180); const dx=((maxLo-minLo)*k)||1e-7, dy=(maxLa-minLa)||1e-7;
+  const pad=34; const s=Math.min((W-2*pad)/dx,(H-2*pad)/dy); const ox=(W-dx*s)/2, oy=(H-dy*s)/2;
+  const X=o=>ox+(o-minLo)*k*s, Y=a=>oy+(maxLa-a)*s;
+  const linhas=(v.trechos||[]).map(t=>'<polyline fill="none" stroke="'+esc(t.cor||'#8A96A0')+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="'+t.latlngs.map(q=>X(q[1]).toFixed(1)+','+Y(q[0]).toFixed(1)).join(' ')+'"/>').join('');
+  const cor=e=>({ok:'#1E7B34',ressalva:'#B7791F'}[e]||'#9AA6AE');
+  const nos=pts.map(p=>{const r=v.registros[p.id];const e=r?(recalcEstado(r)||'consta'):'consta';const x=X(p.lon),y=Y(p.lat);const reg=e==='ok'||e==='ressalva';
+    return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(reg?6.5:4)+'" fill="'+(reg?cor(e):'#fff')+'" stroke="'+(reg?'#fff':'#9AA6AE')+'" stroke-width="1.6"/>'+(reg?'<text x="'+(x+8.5).toFixed(1)+'" y="'+(y+3.8).toFixed(1)+'" font-size="10.5" font-weight="700" fill="#111" font-family="ui-monospace,Consolas,monospace" paint-order="stroke" stroke="#F7FAFB" stroke-width="3">'+esc(p.nome)+'</text>':'');}).join('');
+  let m=100; for(const c of [25,50,100,200,500,1000]){ m=c; if(c*s/111320>=70)break; }
+  const px=m*s/111320, bx=pad-10, by=H-14;
+  const escala='<line x1="'+bx+'" y1="'+by+'" x2="'+(bx+px).toFixed(1)+'" y2="'+by+'" stroke="#111" stroke-width="2"/><line x1="'+bx+'" y1="'+(by-4)+'" x2="'+bx+'" y2="'+(by+4)+'" stroke="#111" stroke-width="2"/><line x1="'+(bx+px).toFixed(1)+'" y1="'+(by-4)+'" x2="'+(bx+px).toFixed(1)+'" y2="'+(by+4)+'" stroke="#111" stroke-width="2"/><text x="'+(bx+px/2).toFixed(1)+'" y="'+(by-7)+'" font-size="10" text-anchor="middle" fill="#111">'+m+' m</text>';
+  const norte='<g transform="translate('+(W-24)+',26)"><polygon points="0,-14 5,6 0,2 -5,6" fill="#111"/><text y="20" font-size="10" text-anchor="middle" fill="#111">N</text></g>';
+  return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="display:block;background:#F7FAFB;border-radius:8px" xmlns="http://www.w3.org/2000/svg">'+linhas+nos+escala+norte+'</svg>';
+}
+function htmlRelatorio(v,fotos){
+  fotos=fotos||{};
+  const h=esc, c=contagens(v);
+  const estadoPv=p=>{const r=v.registros[p.id];return r?(recalcEstado(r)||'consta'):'consta';};
+  const regs=v.pontos.filter(p=>{const e=estadoPv(p);return e==='ok'||e==='ressalva';});
+  const semReg=v.pontos.filter(p=>!regs.includes(p));
+  let ini=null,fim=null,nFotos=0; const dias=new Set();
+  for(const p of regs){const r=v.registros[p.id]; if(r.inicio){ if(!ini||r.inicio<ini)ini=r.inicio; dias.add(fmtData(r.inicio)); } const f=r.fim||r.inicio; if(f&&(!fim||f>fim))fim=f; nFotos+=(r.fotos||[]).length;}
+  const cats={'divergencia':0,'nao-verificado':0,'nao-operando':0}; let nNao=0;
+  for(const p of regs)for(const q of PERGUNTAS){const a=v.registros[p.id].respostas[q.id]; if(a&&a.v==='nao'){nNao++; if(cats[a.cat]!==undefined)cats[a.cat]++;}}
+  const CAT_CURTA={'nao-operando':'não operando','nao-verificado':'não verificado','divergencia':'divergência'};
+  const ct=v.ct||{}; const est=estadoVistoria(v);
+  const resp=(v.responsaveis||[]).map(r=>h(r.nome)+(r.matricula?' <small>(matr. '+h(r.matricula)+')</small>':'')).join(', ');
+  const atrib=textoAtrib(v.id);
+  const emissor=(sessao&&sessao.perfil&&sessao.perfil.nome)?sessao.perfil.nome:'';
+  const logo=(document.getElementById('hdrLogo')||{}).src||'';
+  const cadDe=p=>p.extra?'registrado em campo, fora do cadastro':('chega '+(p.chega.length?p.chega.map(x=>h(x.combo)+(x.de?' <small>de '+h(x.de)+'</small>':'')).join(', '):'<small>início de rede</small>')+' · sai '+(p.sai.length?p.sai.map(x=>h(x.combo)+(x.para?' <small>para '+h(x.para)+'</small>':'')).join(', '):'<small>fim de rede</small>')+(p.prof!=null?' · prof. '+n2(p.prof)+' m':''));
+  const celula=(a)=>{ if(!a||!a.v)return '<td class="vazio">·</td>'; if(a.v==='sim')return '<td class="ok">Sim</td>'; return '<td class="nao">Não<small>'+h(CAT_CURTA[a.cat]||'')+'</small></td>'; };
+  const sintese=regs.map(p=>{const r=v.registros[p.id];return '<tr><td class="pv">'+h(p.nome)+(p.transicao?'<small>transição</small>':'')+(p.extra?'<small>fora do cadastro</small>':'')+'</td><td class="cad">'+cadDe(p)+'</td>'+celula(r.respostas.operando)+celula(r.respostas.diametro)+celula(r.respostas.material)+'<td class="num">'+(r.fotos||[]).length+'</td><td class="quando">'+(r.inicio?fmtData(r.inicio)+'<br>'+fmtHora(r.inicio):'')+'</td></tr>';}).join('');
+  const fichas=regs.map((p,i)=>{
+    const r=v.registros[p.id]; const e=estadoPv(p);
+    const linhas=PERGUNTAS.map(q=>{const a=r.respostas[q.id]; if(!a)return ''; const jt=a.justificativa!==undefined?a.justificativa:justTexto(a);
+      return '<tr><th>'+h(q.titulo)+'?</th>'+celula(a)+'<td class="just">'+(a.v==='nao'?(h(jt)||'<i>sem motivo informado</i>'):'<span class="conf">confere com o cadastro</span>')+'</td></tr>';}).join('');
+    const fts=(r.fotos||[]).map((fid,j)=>{const f=fotos[fid]; if(!f)return '<figure class="semfoto">Foto '+(j+1)+'<br><small>não disponível neste aparelho</small></figure>'; const src=typeof f==='string'?f:f.src; const meta=typeof f==='string'?null:f;
+      return '<figure><img src="'+h(src)+'" alt="Foto '+(j+1)+' do '+h(p.nome)+'"><figcaption>Foto '+(j+1)+(meta&&meta.quando?' · '+fmtData(meta.quando)+' '+fmtHora(meta.quando):'')+(meta&&meta.lat!=null?' · GPS '+meta.lat.toFixed(5)+', '+meta.lon.toFixed(5):'')+'</figcaption></figure>';}).join('');
+    return '<section class="ficha"><div class="fh"><h3>'+h(p.nome)+'</h3><span class="tag '+(e==='ok'?'ok':'obs')+'">'+(e==='ok'?'confere':'com observação')+'</span>'+(p.transicao?'<span class="tag">transição'+(p.tipoTransicao?' de '+h(p.tipoTransicao):'')+'</span>':'')+(p.extra?'<span class="tag">fora do cadastro</span>':'')+'<span class="n">'+(i+1)+' de '+regs.length+'</span></div>'
+      +'<p class="cad">Cadastro: '+cadDe(p)+'</p><table class="q">'+linhas+'</table>'+(r.obs?'<p class="obs"><b>Observação do vistoriador:</b> '+h(r.obs)+'</p>':'')
+      +(fts?'<div class="fotos">'+fts+'</div>':'<p class="meta">Sem fotos.</p>')
+      +'<p class="meta">Registrado em '+(r.inicio?fmtData(r.inicio)+' das '+fmtHora(r.inicio)+' às '+fmtHora(r.fim||r.inicio):'data não informada')+'</p></section>';
+  }).join('');
+  const barra=(n,tot,cor)=>'<div class="bar"><i style="width:'+(tot?Math.round(n/tot*100):0)+'%;background:'+cor+'"></i></div>';
+  const totResp=regs.length*3||1;
+  const meta=[['Município',ct.municipio?h(ct.municipio)+(ct.uf?' / '+h(ct.uf):''):'—'],['Bairro',ct.bairro?h(ct.bairro):'—'],['Unidade de Negócio',ct.un?h(ct.un.nome)+(ct.un.sigla?' ('+h(ct.un.sigla)+')':''):'—'],['Centro de custo',ct.cc?h(ct.cc):'—'],
+    ['Situação',h(est.t)+(v.encerradaEm?' em '+fmtData(v.encerradaEm)+' às '+fmtHora(v.encerradaEm):'')],['Vistoria em campo',ini?([...dias].join(', ')+' · das '+fmtHora(ini)+' às '+fmtHora(fim||ini)):'ainda sem registros'],
+    ['Vistoriadores',resp||(atrib?h(atrib):'<i>não informados</i>')],['Atribuída a',atrib?h(atrib):'—'],['Rede no cadastro',c.total+' PVs'+(c.trans?' · '+c.trans+' transições':'')+(v.resumo&&v.resumo.extensao?' · '+n2(v.resumo.extensao)+' m':'')],['Origem',(v.origem&&v.origem.arquivo?h(v.origem.arquivo):'KMZ do Conversor')+(v.origem&&v.origem.conversor?' · Conversor '+h(v.origem.conversor):'')]];
+  const agora=agoraIso();
+  return '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relatório de vistoria · '+h(nomeV(v))+'</title><style>'
+    +'@page{size:A4;margin:14mm 13mm 16mm}*{box-sizing:border-box}body{font:11.5pt/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111;margin:0;background:#E9EEF1}'
+    +'.folha{max-width:210mm;margin:0 auto;background:#fff;padding:14mm 13mm 16mm}@media print{body{background:#fff}.folha{max-width:none;padding:0}.nao-imprime{display:none !important}}'
+    +'header{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:4px solid #0093DD;padding-bottom:10px;margin-bottom:12px}header img{height:34px}header .org{font-size:10pt;color:#3D4954;text-align:right;line-height:1.3}header .org b{display:block;color:#111;font-size:11pt}'
+    +'h1{font-size:19pt;margin:4px 0 0;color:#0072AD;letter-spacing:-.01em}.ct{font:700 15pt ui-monospace,Consolas,monospace;margin:2px 0 12px}'
+    +'.meta{display:grid;grid-template-columns:1fr 1fr;gap:5px 18px;font-size:10.5pt;margin:0 0 14px}.meta div{display:flex;gap:8px;border-bottom:1px solid #EEF1F3;padding:3px 0}.meta span{color:#3D4954;min-width:124px;flex:0 0 124px}.meta small{color:#3D4954}'
+    +'.nums{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 14px}.nums div{border:1px solid #D9E0E4;border-radius:10px;padding:9px 10px;text-align:center}.nums b{display:block;font-size:20pt;line-height:1.1;color:#0072AD}.nums .ok b{color:#1E7B34}.nums .obs b{color:#B7791F}.nums small{font-size:9.5pt;color:#3D4954;line-height:1.25;display:block;margin-top:3px}'
+    +'h2{font-size:12.5pt;margin:18px 0 8px;color:#0072AD;border-bottom:1.5px solid #D9E0E4;padding-bottom:4px;break-after:avoid}'
+    +'.cats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:10.5pt}.cats div{border:1px solid #D9E0E4;border-radius:10px;padding:8px 10px}.cats b{font-size:14pt}.bar{height:6px;background:#EEF1F3;border-radius:4px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%}'
+    +'.legenda{display:flex;gap:14px;font-size:9.5pt;color:#3D4954;margin-top:6px;flex-wrap:wrap}.legenda i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}'
+    +'table{border-collapse:collapse;width:100%;font-size:10pt}table.s th{background:#F2F5F6;text-align:left;padding:6px 7px;border-bottom:2px solid #D9E0E4;font-size:9.5pt;color:#3D4954}table.s td{border-bottom:1px solid #EEF1F3;padding:6px 7px;vertical-align:top}td.pv{font:700 10.5pt ui-monospace,Consolas,monospace;white-space:nowrap}td.pv small{display:block;font:600 8pt system-ui;color:#7A3B00;text-transform:uppercase;letter-spacing:.03em}td.cad small,.cad small{color:#3D4954}td.ok{color:#1E7B34;font-weight:700;white-space:nowrap}td.nao{color:#C0392B;font-weight:700;white-space:nowrap}td.nao small{display:block;font-weight:600;font-size:8.5pt;color:#7A3B00}td.vazio{color:#9AA6AE;text-align:center}td.num{text-align:center}td.quando{white-space:nowrap;color:#3D4954;font-size:9.5pt}'
+    +'section.ficha{border:1px solid #D9E0E4;border-radius:12px;padding:12px 14px;margin:10px 0;break-inside:avoid}.fh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.fh h3{font:700 14pt ui-monospace,Consolas,monospace;margin:0}.fh .n{margin-left:auto;color:#9AA6AE;font-size:9.5pt}.tag{font:700 8.5pt system-ui;letter-spacing:.04em;text-transform:uppercase;background:#EEF1F3;color:#3D4954;border-radius:6px;padding:3px 7px}.tag.ok{background:#E3F4E6;color:#1E7B34}.tag.obs{background:#FFF4D6;color:#7A3B00}'
+    +'p.cad{margin:6px 0 8px;font-size:10.5pt}table.q th{text-align:left;font-weight:600;padding:5px 6px 5px 0;width:34%;border-top:1px solid #EEF1F3;vertical-align:top}table.q td{border-top:1px solid #EEF1F3;padding:5px 6px;vertical-align:top}table.q td.just{width:46%}table.q .conf{color:#3D4954}'
+    +'p.obs{margin:8px 0 0;font-size:10.5pt;background:#F7FAFB;border-radius:8px;padding:7px 10px}.fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}figure{margin:0}figure img{width:100%;height:58mm;object-fit:cover;border-radius:8px;display:block;background:#EEF1F3}figcaption{font-size:8.5pt;color:#3D4954;margin-top:3px;line-height:1.3}figure.semfoto{height:58mm;border:1px dashed #D9E0E4;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#9AA6AE;font-size:9.5pt}'
+    +'p.meta{font-size:9.5pt;color:#3D4954;margin:8px 0 0}.semreg{font-size:10.5pt;line-height:1.7}.semreg code{font:700 10pt ui-monospace,Consolas,monospace;background:#F2F5F6;border-radius:5px;padding:1px 6px;margin-right:4px;white-space:nowrap;display:inline-block;margin-bottom:3px}'
+    +'.trilha{font-size:10pt;color:#3D4954;line-height:1.6}.trilha b{color:#111;font-weight:600}footer{margin-top:18px;border-top:1px solid #D9E0E4;padding-top:8px;font-size:9pt;color:#3D4954;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}'
+    +'.nao-imprime{position:sticky;top:0;background:#0072AD;color:#fff;padding:10px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between;z-index:2}.nao-imprime button{border:0;border-radius:10px;padding:10px 16px;font:700 14px system-ui;background:#fff;color:#0072AD;cursor:pointer}.nao-imprime span{font-size:14px}'
+    +'@media (max-width:640px){.meta,.cats{grid-template-columns:1fr}.nums{grid-template-columns:repeat(3,1fr)}.fotos{grid-template-columns:1fr 1fr}figure img{height:40vw}.folha{padding:14px}table.s td.cad,table.s th:nth-child(2){display:none}}'
+    +'</style></head><body>'
+    +'<div class="nao-imprime"><span>Relatório pronto. Para salvar em PDF, imprima e escolha "Salvar como PDF".</span><button onclick="window.print()">Imprimir ou salvar PDF</button></div>'
+    +'<div class="folha">'
+    +'<header>'+(logo?'<img src="'+h(logo)+'" alt="Sabesp">':'<b style="font-size:16pt;color:#0093DD">Sabesp</b>')+'<div class="org"><b>Encerramento de Ativos Regulatórios</b>Relatório de vistoria em campo · emitido em '+fmtData(agora)+' às '+fmtHora(agora)+'</div></header>'
+    +'<h1>Vistoria de rede coletora de esgoto</h1><div class="ct">'+h(nomeV(v))+'</div>'
+    +'<div class="meta">'+meta.map(m=>'<div><span>'+m[0]+'</span><div>'+m[1]+'</div></div>').join('')+'</div>'
+    +'<div class="nums"><div><b>'+c.total+'</b><small>PVs no cadastro</small></div><div><b>'+c.reg+'</b><small>PVs registrados em campo</small></div><div class="ok"><b>'+c.ok+'</b><small>conferem com o cadastro</small></div><div class="obs"><b>'+c.res+'</b><small>com observação</small></div><div><b>'+nFotos+'</b><small>fotos carimbadas</small></div></div>'
+    +'<h2>Observações por natureza</h2>'
+    +(nNao?'<div class="cats"><div>Divergência do cadastro<br><b>'+cats['divergencia']+'</b> <small>resposta'+(cats['divergencia']===1?'':'s')+'</small>'+barra(cats['divergencia'],totResp,'#B7791F')+'</div><div>Não verificado em campo<br><b>'+cats['nao-verificado']+'</b> <small>resposta'+(cats['nao-verificado']===1?'':'s')+'</small>'+barra(cats['nao-verificado'],totResp,'#8A96A0')+'</div><div>Não está operando<br><b>'+cats['nao-operando']+'</b> <small>resposta'+(cats['nao-operando']===1?'':'s')+'</small>'+barra(cats['nao-operando'],totResp,'#C0392B')+'</div></div><p class="meta">As observações não impedem o andamento: são pontos a esclarecer com a gerenciadora, para que o cadastro e o campo contem a mesma história.</p>'
+      :'<p class="semreg">'+(regs.length?'Tudo o que foi registrado confere com o cadastro.':'Ainda não há PVs registrados nesta vistoria.')+'</p>')
+    +(svgPlanta(v,760,420)?'<h2>Planta da rede com o resultado</h2>'+svgPlanta(v,760,420)+'<div class="legenda"><span><i style="background:#1E7B34"></i>registrado, confere</span><span><i style="background:#B7791F"></i>registrado, com observação</span><span><i style="background:#fff;border:1.5px solid #9AA6AE"></i>consta no cadastro, sem registro</span><span>traços: trechos do cadastro, cor por diâmetro e material</span></div>':'')
+    +'<h2>Síntese dos PVs registrados</h2>'
+    +(regs.length?'<table class="s"><thead><tr><th>PV</th><th>Cadastro</th><th>Operando</th><th>Diâmetro</th><th>Material</th><th>Fotos</th><th>Registro</th></tr></thead><tbody>'+sintese+'</tbody></table>':'<p class="semreg">Nenhum PV registrado.</p>')
+    +'<h2>Fichas de campo</h2>'+(fichas||'<p class="semreg">Nenhuma ficha.</p>')
+    +'<h2>PVs do cadastro sem registro nesta vistoria</h2><p class="semreg">'+(semReg.length?semReg.map(p=>'<code>'+h(p.nome)+'</code>').join(' ')+'<br><small style="color:#3D4954">Constam no cadastro e não foram abertos em campo. Não é observação: só não entraram nesta vistoria.</small>':'Todos os PVs do cadastro foram registrados.')+'</p>'
+    +'<h2>Trilha</h2><div class="trilha">'
+    +'<div><b>Carregada no app</b> em '+fmtData(v.criadaEm)+' às '+fmtHora(v.criadaEm)+(v.origem&&v.origem.geradoEm?' · KMZ gerado pelo Conversor em '+fmtData(v.origem.geradoEm)+' às '+fmtHora(v.origem.geradoEm):'')+'</div>'
+    +(ini?'<div><b>Registros em campo</b> de '+fmtData(ini)+' '+fmtHora(ini)+' a '+fmtData(fim||ini)+' '+fmtHora(fim||ini)+'</div>':'')
+    +(v.encerradaEm?'<div><b>Encerrada</b> em '+fmtData(v.encerradaEm)+' às '+fmtHora(v.encerradaEm)+'</div>':'<div><b>Vistoria ainda aberta</b>: este relatório retrata o estado atual e pode mudar.</div>')
+    +(v.sync&&v.sync.enviadoEm?'<div><b>Servidor da equipe</b>: versão '+(v.sync.versaoServidor||'')+', última gravação em '+fmtData(v.sync.enviadoEm)+' às '+fmtHora(v.sync.enviadoEm)+'</div>':'<div><b>Servidor da equipe</b>: ainda não sincronizada</div>')
+    +(v.exportadaEm?'<div><b>Exportada em arquivo</b> em '+fmtData(v.exportadaEm)+' às '+fmtHora(v.exportadaEm)+'</div>':'')
+    +'<div><b>Emitido</b> em '+fmtData(agora)+' às '+fmtHora(agora)+(emissor?' por '+h(emissor):'')+'</div></div>'
+    +'<footer><span>Sabesp · Encerramento de Ativos Regulatórios · '+h(nomeV(v))+'</span><span>Vistorias em Campo v'+VERSAO+' · fotos carimbadas com data, hora e GPS no momento do registro</span></footer>'
+    +'</div></body></html>';
+}
+
 function renderSyncBar(estado){
   const el=$('syncBar'); if(!el)return;
   if(!sessao||!sessao.perfil){ el.hidden=false; el.innerHTML='<span class="ajuda" style="font-size:14px">Para compartilhar com a equipe, entre na abertura.</span>'; return; }
@@ -697,6 +869,7 @@ async function render(st){
 }
 async function garantirV(vid){
   if(V&&V.id===vid)return true;
+  if(!vid){ ir('vistorias',{},true); return false; } // estado restaurado sem vistoria (não deixa o app travar)
   const v=await dbGet('vistorias',vid);
   if(!v){ toast('Essa vistoria não está mais no aparelho.'); ir('vistorias',{},true); return false; }
   if(v.esquema&&v.esquema>ESQUEMA){ await modal({titulo:'Vistoria de uma versão mais nova',texto:'Esta vistoria foi feita numa versão mais nova do app. Atualize o app para abrir.',ok:'Entendi',soOk:true}); ir('vistorias',{},true); return false; }
@@ -721,21 +894,35 @@ async function renderVistorias(){
   renderSyncBar();
   const remotas=(sessao&&sessao.perfil)?await listarRemotas(todas):[];
   if(!todas.length&&!remotas.length)box.innerHTML='<div class="vazio"><div class="ico">🗂️</div>Nenhuma vistoria neste aparelho.<br>Abra um KMZ gerado pelo Conversor para começar.</div>';
-  else box.innerHTML=todas.map(v=>{
-    const c=contagens(v);
-    const est=v.encerradaEm?'<span class="selo verde">encerrada</span>':'<span class="selo azul">em andamento</span>';
-    const sy=(sessao&&sessao.perfil&&v.sync)?(v.sync.conflito?'<span class="selo aten">conflito: toque em ⋯</span>':(v.sync.pendente?'<span class="selo cinza">pendente de envio</span>':(v.sync.enviadoEm?'<span class="selo verde">sincronizada '+fmtHora(v.sync.enviadoEm)+'</span>':''))):'';
-    const alt=v.alteradaEm&&v.exportadaEm&&v.alteradaEm>v.exportadaEm?'<span class="selo aten">alterada após exportar</span>':(v.exportadaEm?'<span class="selo cinza">exportada '+fmtData(v.exportadaEm)+'</span>':'');
-    return `<div class="lin" role="button" tabindex="0" onclick="ir('pvs',{vid:'${v.id}'})" onkeydown="if(event.key==='Enter')this.click()">
-      <span class="est ${c.res?'ressalva':(c.reg?'ok':'')}" style="${c.reg?'':'color:var(--sutil)'}">${c.reg}</span>
-      <div><div class="nome tx">${esc(nomeV(v))}</div><div class="det">Carregada ${fmtData(v.criadaEm)} ${fmtHora(v.criadaEm)} · <b>${c.reg} de ${c.total}</b> registrados${c.res?' · '+c.res+' com observação':''}</div><div style="display:flex;gap:6px;margin-top:5px;flex-wrap:wrap">${est}${alt}${sy}</div></div>
-      <button class="menu-lin" aria-label="Opções" onclick="event.stopPropagation();menuVistoria('${v.id}')">⋯</button></div>`;
-  }).join('')+(remotas.length?'<h3 style="margin:14px 0 8px;font-size:16px">Na equipe, ainda não neste aparelho</h3>'+remotas.map(r=>`<div class="lin" role="button" tabindex="0" onclick="baixarVistoria('${esc(r.id)}')" onkeydown="if(event.key==='Enter')this.click()">
-      <span class="est" style="color:var(--sutil)">↓</span>
-      <div><div class="nome tx">${esc(String(r.ct_nome||'').replace(/_/g,' '))}</div><div class="det">Gravada por ${esc(nomeEquipe(r.atualizado_por))} em ${fmtData(r.atualizado_em)} ${fmtHora(r.atualizado_em)}${r.encerrada_em?' · encerrada':''}</div><div style="margin-top:5px"><span class="selo azul">toque para baixar</span></div></div></div>`).join(''):'');
+  else box.innerHTML=todas.map(v=>cardVistoria(v,false)).join('')+(remotas.length?'<h3 style="margin:14px 0 8px;font-size:16px">Na equipe, ainda não neste aparelho</h3>'+remotas.map(r=>cardVistoria(r,true)).join(''):'');
   if(atualizouSilencio){ atualizouSilencio=false; renderVistorias().catch(()=>{}); return; }
   limparOrfas(todas).catch(()=>{});
   mostrarEspaco().catch(()=>{});
+}
+function cardVistoria(v,remoto){
+  const logado=!!(sessao&&sessao.perfil); const id=v.id;
+  const nome=remoto?String(v.ct_nome||'').replace(/_/g,' '):nomeV(v);
+  const rs=remoto?(v.resumo||{}):contagens(v);
+  const reg=rs.reg||0,total=rs.total||(v.pontos?v.pontos.length:0),res=rs.res||0;
+  const est=estadoVistoria(v);
+  const chips=['<span class="selo '+est.cls+'">'+est.t+'</span>'];
+  if(!remoto){
+    if(logado&&v.sync)chips.push(v.sync.conflito?'<span class="selo aten">conflito: toque em ⋯</span>':(v.sync.pendente?'<span class="selo cinza">pendente de envio</span>':(v.sync.enviadoEm?'<span class="selo verde">sincronizada '+fmtHora(v.sync.enviadoEm)+'</span>':'')));
+    if(v.alteradaEm&&v.exportadaEm&&v.alteradaEm>v.exportadaEm)chips.push('<span class="selo aten">alterada após exportar</span>'); else if(v.exportadaEm)chips.push('<span class="selo cinza">exportada '+fmtData(v.exportadaEm)+'</span>');
+  }else chips.push('<span class="selo cinza">no servidor</span>');
+  const quando=remoto?'Gravada por '+esc(nomeEquipe(v.atualizado_por))+' em '+fmtData(v.atualizado_em)+' '+fmtHora(v.atualizado_em):'Carregada '+fmtData(v.criadaEm)+' '+fmtHora(v.criadaEm);
+  const det=quando+(total?' · <b>'+reg+' de '+total+'</b> registrados':'')+(res?' · '+res+' com observação':'');
+  const atrib=logado?textoAtrib(id):'';
+  const noServidor=remoto||(v.sync&&v.sync.enviadoEm);
+  const acoes=[];
+  if(logado&&!atribIndisp&&noServidor){ acoes.push(euAtribuido(id)?'<button class="mini neutro" onclick="event.stopPropagation();deixar(\''+id+'\')">Deixar</button>':'<button class="mini" onclick="event.stopPropagation();assumir(\''+id+'\')">Assumir</button>'); if(souCoordenador())acoes.push('<button class="mini" onclick="event.stopPropagation();atribuir(\''+id+'\')">Atribuir</button>'); }
+  if(reg>0||est.k==='encerrada')acoes.push('<button class="mini cheio" onclick="event.stopPropagation();abrirRelatorio(\''+id+'\')">Relatório</button>');
+  if(remoto)acoes.push('<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+id+'\')">Baixar</button>');
+  const abrir=remoto?"baixarVistoria('"+id+"')":"ir('pvs',{vid:'"+id+"'})";
+  return '<div class="lin" role="button" tabindex="0" onclick="'+abrir+'" onkeydown="if(event.key===\'Enter\')this.click()">'
+    +'<span class="est '+(res?'ressalva':(reg?'ok':''))+'" style="'+(reg?'':'color:var(--sutil)')+'">'+(remoto&&!total?'↓':reg)+'</span>'
+    +'<div><div class="nome tx">'+esc(nome)+'</div><div class="det">'+det+'</div>'+(atrib?'<div class="atrib">Com <b>'+esc(atrib)+'</b></div>':'')+'<div style="display:flex;gap:6px;margin-top:5px;flex-wrap:wrap">'+chips.join('')+'</div>'+(acoes.length?'<div class="acoes-lin">'+acoes.join('')+'</div>':'')+'</div>'
+    +(remoto?'<span></span>':'<button class="menu-lin" aria-label="Opções" onclick="event.stopPropagation();menuVistoria(\''+id+'\')">⋯</button>')+'</div>';
 }
 async function limparOrfas(todas){
   const ids=new Set(todas.map(v=>v.id)); const usadas=new Set();
@@ -1224,11 +1411,11 @@ async function prepararExport(){
   $('btnPreparar').disabled=true; const rot=$('btnPreparar').textContent; $('btnPreparar').textContent='Preparando…';
   try{
     const zip=new JSZip(); const v=dadosExport(); const fs=await fotosDa(V.id);
-    const nomes={}; let n=0;
-    for(const f of fs){ const p=V.pontos.find(x=>x.id===f.pontoId); const r=V.registros[f.pontoId]; if(!p||!r||!r.fotos.includes(f.id))continue; const idx=r.fotos.indexOf(f.id)+1; const nome='fotos/'+p.id+'_'+idx+'.jpg'; zip.file(nome,f.blob); nomes[f.id]=nome; n++; (v.registros[f.pontoId].fotosMeta=v.registros[f.pontoId].fotosMeta||[]).push({arquivo:nome,quando:f.quando||null,lat:f.lat!=null?f.lat:null,lon:f.lon!=null?f.lon:null}); }
+    const nomes={}, fotosRel={}; let n=0;
+    for(const f of fs){ const p=V.pontos.find(x=>x.id===f.pontoId); const r=V.registros[f.pontoId]; if(!p||!r||!r.fotos.includes(f.id))continue; const idx=r.fotos.indexOf(f.id)+1; const nome='fotos/'+p.id+'_'+idx+'.jpg'; zip.file(nome,f.blob); nomes[f.id]=nome; fotosRel[f.id]={src:nome,quando:f.quando,lat:f.lat,lon:f.lon}; n++; (v.registros[f.pontoId].fotosMeta=v.registros[f.pontoId].fotosMeta||[]).push({arquivo:nome,quando:f.quando||null,lat:f.lat!=null?f.lat:null,lon:f.lon!=null?f.lon:null}); }
     for(const k in v.registros)v.registros[k].fotos=v.registros[k].fotos.map(id=>nomes[id]||id);
     zip.file('vistoria.json',JSON.stringify(v,null,1));
-    zip.file('resumo.html',htmlResumo(v,nomes));
+    zip.file('relatorio.html',htmlRelatorio(V,fotosRel));
     const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'},m=>{$('btnPreparar').textContent='Preparando… '+Math.round(m.percent)+'%';});
     zipPronto={blob,nome:nomeArquivo()+'.zip',fotos:n};
     $('exportInfo').textContent='Arquivo pronto: '+zipPronto.nome+' ('+Math.round(blob.size/1024)+' KB, '+n+' foto'+(n===1?'':'s')+'). Agora escolha como enviar.';
@@ -1249,34 +1436,7 @@ async function baixarExport(){
   const a=document.createElement('a'); a.href=URL.createObjectURL(zipPronto.blob); a.download=zipPronto.nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),8000);
   await marcarExportada(); toast('Arquivo baixado. Confira na pasta Downloads.');
 }
-function htmlResumo(v,nomes){
-  const c=contagens(v);
-  const fichas=v.pontos.filter(p=>v.registros[p.id]&&v.registros[p.id].estado!=='rascunho').map(p=>{
-    const r=v.registros[p.id];
-    const linhas=PERGUNTAS.map(q=>{const a=r.respostas[q.id];const jt=a.justificativa!==undefined?a.justificativa:justTexto(a);return '<tr><td>'+esc(q.titulo)+'?</td><td class="'+(a.v==='sim'?'ok':'nao')+'">'+(a.v==='sim'?'Sim':'Não')+'</td><td>'+(a.v==='nao'?esc(jt)+' <i>('+esc(CAT_TXT[a.cat]||'')+')</i>':'')+'</td></tr>';}).join('');
-    const fotos=r.fotos.map(f=>'<img src="'+esc(nomes[f]||f)+'">').join('');
-    return '<section><h3>'+esc(p.nome)+(p.transicao?' <span class="selo">transição</span>':'')+(p.extra?' <span class="selo">fora do cadastro</span>':'')+'</h3><p class="cad">'+(p.extra?'registrado em campo':'chega '+esc(p.chega.map(x=>x.combo).join(', ')||'início')+' · sai '+esc(p.sai.map(x=>x.combo).join(', ')||'fim')+(p.prof!=null?' · prof. '+n2(p.prof)+' m':''))+'</p><table>'+linhas+'</table>'+(r.obs?'<p><b>Observação:</b> '+esc(r.obs)+'</p>':'')+'<div class="fotos">'+fotos+'</div><p class="meta">Registrado em '+fmtData(r.inicio)+' das '+fmtHora(r.inicio)+' às '+fmtHora(r.fim||r.inicio)+'</p></section>';
-  }).join('');
-  const consta=v.pontos.filter(p=>!v.registros[p.id]||v.registros[p.id].estado==='rascunho').map(p=>esc(p.nome)).join(', ');
-  return '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Vistoria '+esc(v.ct.nome)+'</title><style>body{font:14px/1.5 system-ui,sans-serif;color:#111;max-width:820px;margin:0 auto;padding:24px}h1{font-size:24px;margin:0}h2{font-size:17px;margin:22px 0 8px;border-bottom:2px solid #0093DD;padding-bottom:4px}h3{font-size:16px;margin:0 0 4px;font-family:ui-monospace,monospace}section{border:1px solid #D9E0E4;border-radius:10px;padding:12px 14px;margin:10px 0;break-inside:avoid}table{border-collapse:collapse;width:100%;font-size:13.5px}td{border-top:1px solid #EEF1F3;padding:5px 6px;vertical-align:top}td.ok{color:#1E7B34;font-weight:700}td.nao{color:#C0392B;font-weight:700}.fotos{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.fotos img{width:180px;height:135px;object-fit:cover;border-radius:6px;border:1px solid #D9E0E4}.meta,.cad{color:#3D4954;font-size:12.5px;margin:2px 0}.selo{font-size:11px;background:#FFE9D6;color:#7A3B00;border-radius:5px;padding:2px 6px;font-family:system-ui}.nums{display:flex;gap:16px;margin:10px 0}.nums b{font-size:26px;display:block}.nums div{border:1px solid #D9E0E4;border-radius:10px;padding:8px 16px}@media print{.imp{display:none}}</style></head><body>'
-    +'<button class="imp" onclick="window.print()" style="float:right;padding:10px 16px;border:0;border-radius:8px;background:#0072AD;color:#fff;font-weight:700">Imprimir ou salvar PDF</button>'
-    +'<h1>Vistoria em campo · '+esc(v.ct.nome)+'</h1><p class="cad">'+[v.ct.municipio?esc(v.ct.municipio)+(v.ct.uf?' / '+esc(v.ct.uf):''):'',v.ct.un?'UN '+esc(v.ct.un.nome)+' ('+esc(v.ct.un.sigla)+')':'',v.ct.cc?'CC '+esc(v.ct.cc):''].filter(Boolean).join(' · ')+'</p>'
-    +'<p class="cad">Carregada em '+fmtData(v.criadaEm)+' · '+(v.responsaveis.length?'Responsáveis: '+v.responsaveis.map(r=>esc(r.nome)+(r.matricula?' (matr. '+esc(r.matricula)+')':'')).join(', '):'Responsáveis não informados')+' · Vistorias em Campo v'+VERSAO+'</p>'
-    +'<div class="nums"><div><b>'+c.ok+'</b>registrados sem observação</div><div><b>'+c.res+'</b>com observação</div><div><b>'+(c.consta+c.rasc)+'</b>sem registro</div></div>'
-    +'<h2>Fichas dos PVs registrados</h2>'+(fichas||'<p>Nenhum PV registrado.</p>')
-    +'<h2>PVs que constam no cadastro e não foram registrados</h2><p>'+(consta||'Todos foram registrados.')+'</p>'
-    +'<p class="meta">Este resumo foi gerado no celular. O relatório completo é gerado no Conversor de Rede para KMZ a partir do arquivo exportado.</p></body></html>';
-}
-async function relatorioRapido(){
-  const w=window.open('','_blank'); // aberta no toque, antes de qualquer espera, senão o celular bloqueia
-  if(!w){toast('O navegador bloqueou a nova aba. Libere pop-ups para este endereço.');return;}
-  w.document.write('<p style="font:16px system-ui;padding:20px">Montando o relatório…</p>');
-  try{
-    const fs=await fotosDa(V.id); const nomes={};
-    for(const f of fs){ nomes[f.id]=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f.blob);}); }
-    w.document.open(); w.document.write(htmlResumo(V,nomes)); w.document.close();
-  }catch(err){ w.document.body.innerHTML='<p style="font:16px system-ui;padding:20px">Não deu para montar o relatório: '+esc(err&&err.message||err)+'</p>'; }
-}
+function relatorioRapido(){ return abrirRelatorio(V.id); }
 async function alternarEncerrada(){
   if(V.encerradaEm){ if(await modal({titulo:'Reabrir '+nomeV(V)+'?',texto:'Ela volta a aceitar edições.',ok:'Reabrir',cancel:'Cancelar'})){V.encerradaEm=null;zipPronto=null;await salvarV();await pref('ultimaVistoria',V.id);renderResumo();toast('Vistoria reaberta');} return; }
   const c=contagens();
@@ -1287,12 +1447,14 @@ async function alternarEncerrada(){
 
 /* ===================== modal e toast ===================== */
 let modalResolve=null;
-function modal({titulo,texto,ok='OK',cancel='Cancelar',perigo=false,soOk=false,input=null}){
+function modal({titulo,texto,ok='OK',cancel='Cancelar',perigo=false,soOk=false,input=null,opcoes=null}){
   return new Promise(res=>{
     if(modalResolve)modalResolve(false);
     modalResolve=res;
+    const soCancel=!!opcoes;
     $('modal').innerHTML='<h3>'+esc(titulo)+'</h3>'+(texto?'<p>'+esc(texto)+'</p>':'')+(input!==null?'<input type="text" id="modalIn" placeholder="'+esc(input)+'" autocomplete="off">':'')
-      +'<div class="acoes"'+(soOk?' style="grid-template-columns:1fr"':'')+'>'+(soOk?'':'<button class="btn claro" onclick="fecharModal(false)">'+esc(cancel)+'</button>')+'<button class="btn '+(perigo?'perigo':'')+'" onclick="fecharModal(true)">'+esc(ok)+'</button></div>';
+      +(opcoes?'<div class="opcoes">'+opcoes.map(o=>'<button onclick="fecharModal(\''+esc(String(o.id)).replace(/'/g,'')+'\')">'+esc(o.txt)+'</button>').join('')+'</div>':'')
+      +'<div class="acoes"'+((soOk||soCancel)?' style="grid-template-columns:1fr"':'')+'>'+(soOk?'':'<button class="btn claro" onclick="fecharModal(false)">'+esc(cancel)+'</button>')+(soCancel?'':'<button class="btn '+(perigo?'perigo':'')+'" onclick="fecharModal(true)">'+esc(ok)+'</button>')+'</div>';
     $('modalFundo').classList.add('on');
     if(input!==null)setTimeout(()=>{const i=$('modalIn');if(i){i.focus();i.onkeydown=e=>{if(e.key==='Enter')fecharModal(true);};}},60);
   });
@@ -1300,7 +1462,7 @@ function modal({titulo,texto,ok='OK',cancel='Cancelar',perigo=false,soOk=false,i
 function fecharModal(ok){
   const inp=$('modalIn'); const val=inp?inp.value:true;
   $('modalFundo').classList.remove('on');
-  const r=modalResolve; modalResolve=null; if(r)r(ok?(inp?val:true):false);
+  const r=modalResolve; modalResolve=null; if(r)r(ok===true?(inp?val:true):(ok||false));
 }
 $('modalFundo').addEventListener('click',e=>{if(e.target===$('modalFundo'))fecharModal(false);});
 let toastTimer=null;
