@@ -77,6 +77,7 @@ p{margin:0}
 .btn[disabled]{background:#D9E0E4;color:var(--sutil);cursor:not-allowed}
 .btn.claro{background:var(--card);color:var(--botao);border:1.5px solid var(--botao)}
 .btn.claro[disabled]{border-color:#D9E0E4;color:#8A96A0;background:var(--card)}
+.btn.claro.destaque{background:#E6F4FC;border-color:var(--sabesp)}
 .btn.texto{background:transparent;color:var(--botao);min-height:48px;font-weight:600;font-size:16px}
 #btnLimpar.btn.texto{color:var(--crit)}
 .btn.perigo{background:var(--crit)}
@@ -255,6 +256,8 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 .oculta{display:none!important}
 .leaflet-container{font:inherit}
 .leaflet-tooltip.tt{font:700 12px var(--mono);padding:2px 6px}
+.leaflet-tooltip.tt.mini{font-size:11px;padding:1px 5px;opacity:.95}
+.mapa-acoes+.mapa-acoes{margin-top:-6px}
 </style>
 </head>
 <body>
@@ -277,7 +280,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div class="conta" id="conta"></div>
     <div class="instalar oculta" id="instalarBox"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.22 · 08/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.23 · 08/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -287,13 +290,13 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <input type="file" id="arqKmz" class="oculta">
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.22 · 08/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.23 · 08/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
-  <div class="rodape">versão 0.22 · 08/10/2026</div>
+  <div class="rodape">versão 0.23 · 08/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -318,9 +321,11 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <div id="painelMapa" class="oculta" style="display:contents">
     <div class="aviso oculta" id="mapaAviso"></div>
     <div id="mapa"></div>
-    <div class="mapa-acoes"><button class="btn claro" onclick="ondeEstou()">📍 Onde estou</button><button class="btn claro" onclick="maisPerto()">🎯 PV mais perto</button></div>
+    <div class="mapa-acoes"><button class="btn claro" id="btnSeguir" onclick="alternarSeguir()">📍 Seguir GPS</button><button class="btn claro" onclick="maisPerto()">🎯 PV mais perto</button></div>
+    <div class="mapa-acoes"><button class="btn claro" id="btnNomes" onclick="alternarNomes()">🏷️ Nomes: automático</button><button class="btn claro" onclick="ondeEstou()">Centrar em mim</button></div>
+    <p class="info oculta" id="gpsMapaTxt" style="margin:0"></p>
     <button class="btn texto" id="btnMapaOffline" onclick="guardarMapaOffline()">Guardar o mapa desta rede para usar sem sinal</button>
-    <p class="ajuda" style="font-size:15px">Círculo maior: transição. Verde: registrado. Laranja: com observação. Azul: em andamento. Cinza: sem registro.</p>
+    <p class="ajuda" style="font-size:15px">Círculo maior: transição. Verde: registrado. Laranja: com observação. Azul: em andamento. Cinza: sem registro. Os nomes aparecem em todos os PVs ao aproximar o zoom; "Nomes: sempre" força em qualquer zoom.</p>
   </div>
 </section>
 
@@ -408,7 +413,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.22';
+const VERSAO='0.23';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -1112,6 +1117,7 @@ async function render(st){
   if(meu!==renderSeq)return;
   telaAtual=st.tela; ultimoState=st;
   if(st.tela!=='ficha')pararGps();
+  if(st.tela!=='pvs')pararSeguir();
   document.querySelectorAll('.tela').forEach(t=>t.classList.toggle('on',t.id==='t-'+st.tela));
   $('app').classList.toggle('largo',st.tela==='carteira');
   const cfg=TELAS[st.tela]||{};
@@ -1328,7 +1334,7 @@ async function abrirPacote(pk,arquivo){
 }
 
 /* ===================== T2 lista de PVs e mapa ===================== */
-let mapa=null,camadaPontos=null,camadaRede=null,marcaGps=null;
+let mapa=null,camadaPontos=null,camadaRede=null,marcaGps=null,marcasPv=[],gpsWatchMapa=null,circuloGps=null,ultimoPan=0;
 function renderPvs(){
   $('hdrTit').textContent=nomeV(V);
   const partes=[];if(V.ct.municipio)partes.push(V.ct.municipio);if(V.ct.un)partes.push('UN '+V.ct.un.nome);partes.push(V.pontos.length+' PVs');
@@ -1397,20 +1403,61 @@ function montarMapa(){
     let erros=0; tiles.on('tileerror',()=>{if(++erros>=3){$('mapaAviso').textContent='Sem internet. O mapa mostra só a rede e os PVs.';$('mapaAviso').classList.remove('oculta');}});
     tiles.on('load',()=>{$('mapaAviso').classList.add('oculta');});
     camadaRede=L.layerGroup().addTo(mapa); camadaPontos=L.layerGroup().addTo(mapa);
+    mapa.on('zoomend',aplicarNomes);
   }
   camadaRede.clearLayers();camadaPontos.clearLayers();
   for(const t of V.trechos)L.polyline(t.latlngs,{color:t.cor||'#2a78d6',weight:4,opacity:.9}).addTo(camadaRede);
-  const pts=[];
+  const pts=[]; marcasPv=[];
   for(const p of V.pontos){
     if(p.lat==null)continue; pts.push([p.lat,p.lon]);
     const e=estadoDe(p.id);
     const m=L.circleMarker([p.lat,p.lon],{radius:p.transicao?11:7,color:'#fff',weight:2.5,fillColor:corEstado(e),fillOpacity:1}).addTo(camadaPontos);
-    const tt=document.createElement('span'); tt.textContent=p.nome+({ok:' ✓',ressalva:' !',rascunho:' …'}[e]||''); m.bindTooltip(tt,{permanent:p.transicao,direction:'top',offset:[0,-8],className:'tt'});
+    m._pv=p; m._rotulo=p.nome+({ok:' ✓',ressalva:' !',rascunho:' …'}[e]||'');
     m.on('click',()=>ir('ficha',{vid:V.id,pid:p.id}));
+    marcasPv.push(m);
   }
   mapa.invalidateSize();
   if(pts.length)mapa.fitBounds(pts,{padding:[24,24],maxZoom:18});
+  aplicarNomes(); atualizaBtnNomes(); atualizaBtnSeguir();
   if(posGps)mostrarGps();
+}
+function nomesSempre(){ return !!(V&&V.ui&&V.ui.nomesMapa==='sempre'); }
+function aplicarNomes(){
+  if(!mapa)return;
+  const todos=nomesSempre()||mapa.getZoom()>=17;
+  for(const m of marcasPv){
+    const perm=todos||m._pv.transicao;
+    if(m._perm===perm)continue; m._perm=perm;
+    m.unbindTooltip(); m.bindTooltip(m._rotulo,{permanent:perm,direction:'top',offset:[0,m._pv.transicao?-10:-7],className:'tt'+(perm&&!m._pv.transicao?' mini':'')});
+  }
+}
+function alternarNomes(){ if(!V)return; V.ui.nomesMapa=nomesSempre()?'auto':'sempre'; salvarV(); aplicarNomes(); atualizaBtnNomes(); }
+function atualizaBtnNomes(){ const b=$('btnNomes'); if(b)b.textContent='🏷️ Nomes: '+(nomesSempre()?'sempre':'automático'); }
+// seguir GPS: posição ao vivo, círculo de precisão, distância ao PV mais perto
+function alternarSeguir(){ if(gpsWatchMapa!=null)pararSeguir(); else iniciarSeguir(); }
+function iniciarSeguir(){
+  if(!navigator.geolocation){toast('Este aparelho não tem GPS disponível no navegador.');return;}
+  if(gpsWatchMapa!=null)return;
+  const txt=$('gpsMapaTxt'); if(txt){txt.textContent='Procurando o GPS…';txt.classList.remove('oculta');}
+  gpsWatchMapa=navigator.geolocation.watchPosition(p=>{
+    posGps={lat:p.coords.latitude,lon:p.coords.longitude,em:Date.now(),prec:p.coords.accuracy};
+    mostrarGps();
+    if(mapa&&(!mapa.getBounds().pad(-0.2).contains([posGps.lat,posGps.lon])||Date.now()-ultimoPan>20000)){ mapa.panTo([posGps.lat,posGps.lon],{animate:true}); ultimoPan=Date.now(); }
+    atualizaDistancia();
+  },err=>{ const el=$('gpsMapaTxt'); if(el)el.textContent=err&&err.code===1?'GPS sem permissão. Libere a localização para este site nas configurações do navegador.':'GPS sem sinal no momento. Continuo tentando…'; },{enableHighAccuracy:true,maximumAge:3000,timeout:15000});
+  atualizaBtnSeguir();
+}
+function pararSeguir(){ if(gpsWatchMapa!=null){navigator.geolocation.clearWatch(gpsWatchMapa);gpsWatchMapa=null;} if(circuloGps){circuloGps.remove();circuloGps=null;} const txt=$('gpsMapaTxt'); if(txt)txt.classList.add('oculta'); atualizaBtnSeguir(); }
+function atualizaBtnSeguir(){ const b=$('btnSeguir'); if(b){ b.textContent=gpsWatchMapa!=null?'⏹ Parar de seguir':'📍 Seguir GPS'; b.classList.toggle('destaque',gpsWatchMapa!=null); } }
+function atualizaDistancia(){
+  const el=$('gpsMapaTxt'); if(!el||!V||!posGps)return;
+  let melhor=null;
+  for(const p of V.pontos){ if(p.lat==null)continue; const d=distM(posGps.lat,posGps.lon,p.lat,p.lon); if(!melhor||d<melhor.d)melhor={p,d}; }
+  const prec=posGps.prec?Math.round(posGps.prec):null;
+  if(!melhor){ el.textContent='GPS ok'+(prec?' (precisão '+prec+' m)':''); return; }
+  const d=Math.round(melhor.d);
+  el.innerHTML=(d<=(prec||8)+4?'<b>Você está em cima do '+esc(melhor.p.nome)+'</b>':'<b>'+esc(melhor.p.nome)+'</b> é o PV mais perto: '+d+' m')+(prec?' <span style="opacity:.75">· precisão do GPS '+prec+' m</span>':'');
+  el.classList.remove('oculta');
 }
 function pedirGps(timeout){
   return new Promise(res=>{
@@ -1426,7 +1473,12 @@ function iniciarGps(){
 function pararGps(){ if(gpsWatch!=null){navigator.geolocation.clearWatch(gpsWatch);gpsWatch=null;} }
 let gpsErro=null;
 function atualizaGpsTxt(){ const g=gpsRecente(); const el=$('gpsTxt'); if(!el)return; if(g&&P&&P.lat!=null){el.textContent='GPS ok · você está a '+Math.round(distM(g.lat,g.lon,P.lat,P.lon))+' m do PV do cadastro';} else el.textContent=g?'GPS ok':(gpsErro||'GPS: procurando…'); }
-function mostrarGps(){ if(!mapa||!posGps)return; if(marcaGps)marcaGps.remove(); marcaGps=L.circleMarker([posGps.lat,posGps.lon],{radius:8,color:'#fff',weight:2,fillColor:'#0093DD',fillOpacity:1}).addTo(mapa).bindTooltip('Você'); }
+function mostrarGps(){
+  if(!mapa||!posGps)return;
+  if(marcaGps)marcaGps.remove(); marcaGps=L.circleMarker([posGps.lat,posGps.lon],{radius:8,color:'#fff',weight:2,fillColor:'#0093DD',fillOpacity:1}).addTo(mapa).bindTooltip('Você');
+  if(circuloGps)circuloGps.remove(); circuloGps=null;
+  if(posGps.prec&&posGps.prec>3)circuloGps=L.circle([posGps.lat,posGps.lon],{radius:posGps.prec,color:'#0093DD',weight:1,fillColor:'#0093DD',fillOpacity:.12,interactive:false}).addTo(mapa);
+}
 async function ondeEstou(){
   toast('Procurando o GPS…'); const p=await pedirGps();
   if(!p){toast('O GPS não respondeu. Confira se a localização está ligada.');return;}
