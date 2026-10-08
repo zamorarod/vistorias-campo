@@ -380,7 +380,11 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 .toast.on{display:flex}
 #visor{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
 #visor.on{display:flex}
-#visor img{max-width:100%;max-height:70vh;border-radius:8px}
+#visor .quadro{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:auto;-webkit-overflow-scrolling:touch;cursor:zoom-in}
+#visor img{max-width:100%;max-height:100%;border-radius:8px;object-fit:contain;touch-action:pinch-zoom}
+#visor.cem .quadro{display:block;cursor:grab}
+#visor.cem img{max-width:none;max-height:none;width:auto;height:auto;border-radius:0}
+#visor .zoom{background:#1F2A33;color:#fff;border:1.5px solid #5B6770 !important}
 #visor .dica{color:#fff;font-size:15px;text-align:center;line-height:1.4}
 #visor .acoes{display:flex;gap:10px;width:100%;max-width:420px}
 #visor .acoes button{flex:1;border:0;border-radius:12px;padding:13px;font:700 17px var(--texto);cursor:pointer;min-height:52px}
@@ -427,7 +431,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.32 · 08/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.34 · 08/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -438,27 +442,27 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste um KMZ do Conversor para esta janela.<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.32 · 08/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.34 · 08/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.32 · 08/10/2026</div>
+  <div class="rodape">versão 0.34 · 08/10/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.32 · 08/10/2026</div>
+  <div class="rodape">versão 0.34 · 08/10/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.32 · 08/10/2026</div>
+  <div class="rodape">versão 0.34 · 08/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -541,7 +545,8 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnPreparar" onclick="prepararExport()">Preparar arquivo para exportar</button>
   <div id="exportPronto" class="oculta" style="display:flex;flex-direction:column;gap:9px">
     <div class="info" id="exportInfo"></div>
-    <div class="dois"><button class="btn" onclick="compartilharExport()">Compartilhar</button><button class="btn claro" onclick="baixarExport()">Baixar</button></div>
+    <div class="dois"><button class="btn" onclick="compartilharExport()">Compartilhar relatório</button><button class="btn claro" onclick="baixarExport()">Baixar pacote</button></div>
+    <p class="ajuda" style="font-size:14px;margin:0">Compartilhar envia o relatório com as fotos pelo WhatsApp, e-mail ou outro aplicativo. Baixar guarda o pacote completo (dados, fotos soltas e relatório) na pasta Downloads; é o arquivo que o Conversor lê.</p>
   </div>
   <p class="ajuda oculta" id="exportadaTxt" style="text-align:center"></p>
   <button class="btn claro" onclick="relatorioRapido()">Ver relatório completo (PDF)</button>
@@ -578,12 +583,12 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 
 <div class="modal-fundo" id="modalFundo"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"><span id="toastTxt"></span></div>
-<div id="visor"><img alt="foto ampliada"><div class="dica" id="visorDica"></div><div class="acoes"><button class="fechar" onclick="fecharVisor()">Fechar</button><button class="remover oculta" id="visorRemover" onclick="removerFotoVisor()">Remover foto</button></div></div>
+<div id="visor"><div class="quadro" id="visorQuadro" ondblclick="alternarZoomVisor()"><img alt="foto ampliada"></div><div class="dica" id="visorDica"></div><div class="acoes"><button class="fechar" onclick="fecharVisor()">Fechar</button><button class="zoom" id="visorZoom" onclick="alternarZoomVisor()">100%</button><button class="remover oculta" id="visorRemover" onclick="removerFotoVisor()">Remover foto</button></div></div>
 
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.32';
+const VERSAO='0.34';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -1129,9 +1134,9 @@ async function imprimirLote(){
   const w=window.open('','_blank'); if(!w){toast('O navegador bloqueou a nova aba. Libere pop-ups para este endereço.');return;}
   w.document.write('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatórios</title></head><body><p style="font:16px system-ui;padding:20px">Montando '+relSel.size+' relatório'+(relSel.size>1?'s':'')+'…</p></body></html>');
   try{
-    const partes=[]; let cabeca=''; const urls=[];
-    for(const id of relSel){ const r=await montarRelatorio(id); urls.push(...r.urls); const m=r.html.match(/<style>([\s\S]*?)<\/style>/); if(!cabeca&&m)cabeca=m[1]; const f=r.html.match(/<div class="folha">([\s\S]*)<\/div>\s*<\/body>/); partes.push('<div class="folha" style="break-before:page;margin-bottom:24px">'+(f?f[1]:'')+'</div>'); }
-    const html='<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatórios de vistoria · '+relSel.size+'</title><style>'+cabeca+'.folha:first-of-type{break-before:auto}</style></head><body><div class="nao-imprime"><span>'+relSel.size+' relatório'+(relSel.size>1?'s':'')+', um por página. Para salvar em PDF, imprima e escolha "Salvar como PDF".</span><button onclick="window.print()">Imprimir ou salvar PDF</button></div>'+partes.join('')+'</body></html>';
+    const partes=[]; let cabeca='', amp=''; const urls=[];
+    for(const id of relSel){ const r=await montarRelatorio(id); urls.push(...r.urls); const m=r.html.match(/<style>([\s\S]*?)<\/style>/); if(!cabeca&&m)cabeca=m[1]; const f=r.html.match(/<div class="folha">([\s\S]*)<\/div>\s*<\/body>/); if(!amp){ const am=r.html.match(/<div id="amp"[\s\S]*?<\/script>/); if(am)amp=am[0]; } partes.push('<div class="folha" style="break-before:page;margin-bottom:24px">'+(f?f[1]:'')+'</div>'); }
+    const html='<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatórios de vistoria · '+relSel.size+'</title><style>'+cabeca+'.folha:first-of-type{break-before:auto}</style></head><body><div class="nao-imprime"><span>'+relSel.size+' relatório'+(relSel.size>1?'s':'')+', um por página. Para salvar em PDF, imprima e escolha "Salvar como PDF".</span><button onclick="window.print()">Imprimir ou salvar PDF</button></div>'+amp+partes.join('')+'</body></html>';
     w.document.open(); w.document.write(html); w.document.close();
     w.addEventListener('pagehide',()=>{ for(const u of urls)URL.revokeObjectURL(u); });
     registrarEvento('relatorio_lote',{n:relSel.size});
@@ -1224,7 +1229,7 @@ function htmlRelatorio(v,fotos){
     const linhas=PERGUNTAS.map(q=>{const a=r.respostas[q.id]; if(!a)return ''; const jt=a.justificativa!==undefined?a.justificativa:justTexto(a);
       return '<tr><th>'+h(q.titulo)+'?</th>'+celula(a)+'<td class="just">'+(a.v==='nao'?(h(jt)||'<i>sem motivo informado</i>'):'<span class="conf">confere com o cadastro</span>')+'</td></tr>';}).join('');
     const fts=(r.fotos||[]).map((fid,j)=>{const f=fotos[fid]; if(!f)return '<figure class="semfoto">Foto '+(j+1)+'<br><small>não disponível neste aparelho</small></figure>'; const src=typeof f==='string'?f:f.src; const meta=typeof f==='string'?null:f;
-      return '<figure><img src="'+h(src)+'" alt="Foto '+(j+1)+' do '+h(p.nome)+'"><figcaption>Foto '+(j+1)+(meta&&meta.quando?' · '+fmtData(meta.quando)+' '+fmtHora(meta.quando):'')+(meta&&meta.lat!=null?' · GPS '+meta.lat.toFixed(5)+', '+meta.lon.toFixed(5):'')+'</figcaption></figure>';}).join('');
+      return '<figure><img src="'+h(src)+'" alt="Foto '+(j+1)+' do '+h(p.nome)+'" onclick="ampliar(this)" style="cursor:zoom-in"><figcaption>Foto '+(j+1)+(meta&&meta.quando?' · '+fmtData(meta.quando)+' '+fmtHora(meta.quando):'')+(meta&&meta.lat!=null?' · GPS '+meta.lat.toFixed(5)+', '+meta.lon.toFixed(5):'')+'</figcaption></figure>';}).join('');
     return '<section class="ficha"><div class="fh"><h3>'+h(p.nome)+'</h3><span class="tag '+(e==='ok'?'ok':'obs')+'">'+(e==='ok'?'confere':'com observação')+'</span>'+(p.transicao?'<span class="tag">transição'+(p.tipoTransicao?' de '+h(p.tipoTransicao):'')+'</span>':'')+(p.extra?'<span class="tag">fora do cadastro</span>':'')+'<span class="n">'+(i+1)+' de '+regs.length+'</span></div>'
       +'<p class="cad">Cadastro: '+cadDe(p)+'</p><table class="q">'+linhas+'</table>'+(r.obs?'<p class="obs"><b>Observação do vistoriador:</b> '+h(r.obs)+'</p>':'')
       +(fts?'<div class="fotos">'+fts+'</div>':'<p class="meta">Sem fotos.</p>')
@@ -1257,7 +1262,10 @@ function htmlRelatorio(v,fotos){
     +'.trilha{font-size:10pt;color:#3D4954;line-height:1.6}.trilha b{color:#111;font-weight:600}footer{margin-top:18px;border-top:1px solid #D9E0E4;padding-top:8px;font-size:9pt;color:#3D4954;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}'
     +'.nao-imprime{position:sticky;top:0;background:#0072AD;color:#fff;padding:10px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between;z-index:2}.nao-imprime button{border:0;border-radius:10px;padding:10px 16px;font:700 14px system-ui;background:#fff;color:#0072AD;cursor:pointer}.nao-imprime span{font-size:14px}'
     +'@media (max-width:640px){.meta,.cats{grid-template-columns:1fr}.nums{grid-template-columns:repeat(3,1fr)}.fotos{grid-template-columns:1fr 1fr}figure img{height:40vw}.folha{padding:14px}table.s td.cad,table.s th:nth-child(2){display:none}}'
+    +'#amp{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;flex-direction:column;z-index:99}#amp.on{display:flex}#amp .q{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto;cursor:zoom-in}#amp img{max-width:100%;max-height:100%;object-fit:contain}#amp.cem .q{display:block;cursor:grab}#amp.cem img{max-width:none;max-height:none}#amp .b{display:flex;gap:10px;justify-content:center;padding:10px;background:#111}#amp .b button{border:0;border-radius:10px;padding:10px 16px;font:700 14px system-ui;background:#fff;color:#111;cursor:pointer;min-height:44px}#amp .b span{color:#fff;font-size:13px;align-self:center}@media print{#amp{display:none !important}}'
     +'</style></head><body>'
+    +'<div id="amp" ondblclick="ampZoom()"><div class="q" id="ampQ"><img id="ampImg" alt="foto ampliada"></div><div class="b"><button onclick="ampFechar()">Fechar</button><button id="ampBtn" onclick="ampZoom()">100%</button><span id="ampTxt"></span></div></div>'
+    +'<script>function ampliar(img){var a=document.getElementById("amp");document.getElementById("ampImg").src=img.src;var c=img.parentNode.querySelector("figcaption");document.getElementById("ampTxt").textContent=(c?c.textContent:"")+" · toque duas vezes para ampliar";a.classList.remove("cem");document.getElementById("ampBtn").textContent="100%";a.classList.add("on");}function ampFechar(){document.getElementById("amp").classList.remove("on","cem");}function ampZoom(){var a=document.getElementById("amp"),cem=!a.classList.contains("cem");a.classList.toggle("cem",cem);document.getElementById("ampBtn").textContent=cem?"Ajustar":"100%";if(cem){var q=document.getElementById("ampQ");setTimeout(function(){q.scrollLeft=(q.scrollWidth-q.clientWidth)/2;q.scrollTop=(q.scrollHeight-q.clientHeight)/2;},30);}}document.addEventListener("keydown",function(e){if(e.key==="Escape")ampFechar();});<\/script>'
     +'<div class="nao-imprime"><span>Relatório pronto. Para salvar em PDF, imprima e escolha "Salvar como PDF".</span><button onclick="window.print()">Imprimir ou salvar PDF</button></div>'
     +'<div class="folha">'
     +'<header>'+(logo?'<img src="'+h(logo)+'" alt="Sabesp">':'<b style="font-size:16pt;color:#0093DD">Sabesp</b>')+'<div class="org"><b>Encerramento de Ativos Regulatórios</b>Relatório de vistoria em campo · emitido em '+fmtData(agora)+' às '+fmtHora(agora)+'</div></header>'
@@ -2094,11 +2102,13 @@ function urlFoto(f){ if(!fotosCache[f.id])fotosCache[f.id]=URL.createObjectURL(f
 async function abrirVisor(fid,i){
   const f=await dbGet('fotos',fid); if(!f){toast('Essa foto não está mais no aparelho.');return;}
   fotoNoVisor={fid,i}; $('visor').querySelector('img').src=urlFoto(f);
-  $('visorDica').textContent='Foto '+(i+1)+' · '+fmtData(f.quando)+' '+fmtHora(f.quando)+(f.lat!=null?' · GPS gravado':' · sem GPS');
+  $('visorDica').textContent='Foto '+(i+1)+' · '+fmtData(f.quando)+' '+fmtHora(f.quando)+(f.lat!=null?' · GPS gravado':' · sem GPS')+' · toque duas vezes para ampliar';
+  $('visor').classList.remove('cem'); $('visorZoom').textContent='100%';
   $('visorRemover').classList.toggle('oculta',bloqueada());
   $('visor').classList.add('on');
 }
-function fecharVisor(){ $('visor').classList.remove('on'); fotoNoVisor=null; }
+function fecharVisor(){ $('visor').classList.remove('on','cem'); $('visorZoom').textContent='100%'; fotoNoVisor=null; }
+function alternarZoomVisor(){ const v=$('visor'); const cem=!v.classList.contains('cem'); v.classList.toggle('cem',cem); $('visorZoom').textContent=cem?'Ajustar':'100%'; if(cem){ const q=$('visorQuadro'); setTimeout(()=>{ q.scrollLeft=(q.scrollWidth-q.clientWidth)/2; q.scrollTop=(q.scrollHeight-q.clientHeight)/2; },30); } }
 async function removerFotoVisor(){
   const fv=fotoNoVisor; if(!fv)return;
   fecharVisor();
@@ -2245,14 +2255,15 @@ async function prepararExport(){
   $('btnPreparar').disabled=true; const rot=$('btnPreparar').textContent; $('btnPreparar').textContent='Preparando…';
   try{
     const zip=new JSZip(); const v=dadosExport(); const fs=await fotosDa(V.id);
-    const nomes={}, fotosRel={}; let n=0;
-    for(const f of fs){ const p=V.pontos.find(x=>x.id===f.pontoId); const r=V.registros[f.pontoId]; if(!p||!r||!r.fotos.includes(f.id))continue; const idx=r.fotos.indexOf(f.id)+1; const nome='fotos/'+p.id+'_'+idx+'.jpg'; zip.file(nome,f.blob); nomes[f.id]=nome; fotosRel[f.id]={src:nome,quando:f.quando,lat:f.lat,lon:f.lon}; n++; (v.registros[f.pontoId].fotosMeta=v.registros[f.pontoId].fotosMeta||[]).push({arquivo:nome,quando:f.quando||null,lat:f.lat!=null?f.lat:null,lon:f.lon!=null?f.lon:null}); }
+    const nomes={}, fotosRel={}, fotosData={}; let n=0;
+    for(const f of fs){ const p=V.pontos.find(x=>x.id===f.pontoId); const r=V.registros[f.pontoId]; if(!p||!r||!r.fotos.includes(f.id))continue; const idx=r.fotos.indexOf(f.id)+1; const nome='fotos/'+p.id+'_'+idx+'.jpg'; zip.file(nome,f.blob); nomes[f.id]=nome; fotosRel[f.id]={src:nome,quando:f.quando,lat:f.lat,lon:f.lon}; fotosData[f.id]={src:await blobDataUrl(f.blob),quando:f.quando,lat:f.lat,lon:f.lon}; n++; (v.registros[f.pontoId].fotosMeta=v.registros[f.pontoId].fotosMeta||[]).push({arquivo:nome,quando:f.quando||null,lat:f.lat!=null?f.lat:null,lon:f.lon!=null?f.lon:null}); }
     for(const k in v.registros)v.registros[k].fotos=v.registros[k].fotos.map(id=>nomes[id]||id);
     zip.file('vistoria.json',JSON.stringify(v,null,1));
-    zip.file('relatorio.html',htmlRelatorio(V,fotosRel));
+    const htmlUnico=htmlRelatorio(V,fotosData); // fotos embutidas: abre em qualquer celular, mesmo de dentro do ZIP
+    zip.file('relatorio.html',htmlUnico);
     const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'},m=>{$('btnPreparar').textContent='Preparando… '+Math.round(m.percent)+'%';});
-    zipPronto={blob,nome:nomeArquivo()+'.zip',fotos:n};
-    $('exportInfo').textContent='Arquivo pronto: '+zipPronto.nome+' ('+Math.round(blob.size/1024)+' KB, '+n+' foto'+(n===1?'':'s')+'). Agora escolha como enviar.';
+    zipPronto={blob,nome:nomeArquivo()+'.zip',fotos:n,relatorio:new File([htmlUnico],nomeArquivo()+'_relatorio.html',{type:'text/html'})};
+    $('exportInfo').textContent='Pronto: relatório com '+n+' foto'+(n===1?'':'s')+' ('+Math.round(zipPronto.relatorio.size/1024)+' KB) para compartilhar, e o pacote completo ('+Math.round(blob.size/1024)+' KB) para baixar.';
     $('exportPronto').classList.remove('oculta'); $('exportPronto').scrollIntoView({block:'center',behavior:'smooth'});
   }catch(err){ toast('Não consegui montar o arquivo: '+(err&&err.message||err)); }
   $('btnPreparar').textContent=rot; atualizaExp();
@@ -2260,15 +2271,18 @@ async function prepararExport(){
 async function marcarExportada(){ V.exportadaEm=agoraIso(); await salvarV(); renderResumo(); }
 async function compartilharExport(){
   if(!zipPronto)return;
-  const file=new File([zipPronto.blob],zipPronto.nome,{type:'application/zip'});
-  if(!(navigator.canShare&&navigator.canShare({files:[file]}))){ toast('Este navegador não compartilha arquivos. Use Baixar.'); return; }
-  try{ await navigator.share({files:[file],title:'Vistoria '+V.ct.nome}); await marcarExportada(); toast('Vistoria exportada'); }
-  catch(e){ if(e&&e.name==='AbortError')toast('Envio cancelado. O arquivo continua pronto.'); else toast('Não deu para compartilhar: '+(e&&e.message||e)+'. Tente Baixar.'); }
+  const rel=zipPronto.relatorio; const zipF=new File([zipPronto.blob],zipPronto.nome,{type:'application/zip'});
+  const pode=f=>!!(navigator.canShare&&navigator.canShare({files:[f]}));
+  let file=null, oque='';
+  if(pode(rel)){ file=rel; oque='relatório'; } else if(pode(zipF)){ file=zipF; oque='pacote'; }
+  if(!file){ await modal({titulo:'Este navegador não compartilha arquivos',texto:'Use "Baixar pacote" e envie o arquivo pelo aplicativo que preferir, a partir da pasta Downloads.',ok:'Entendi',soOk:true}); return; }
+  try{ await navigator.share({files:[file],title:'Vistoria '+nomeV(V),text:'Relatório da vistoria '+nomeV(V)+' · Vistorias em Campo'}); await marcarExportada(); toast(oque==='relatório'?'Relatório enviado':'Pacote enviado'); registrarEvento('compartilhada',{oque},V.id); }
+  catch(e){ if(e&&e.name==='AbortError')toast('Envio cancelado. O arquivo continua pronto.'); else toast(erroHumano(e)); }
 }
 async function baixarExport(){
   if(!zipPronto)return;
   const a=document.createElement('a'); a.href=URL.createObjectURL(zipPronto.blob); a.download=zipPronto.nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),8000);
-  await marcarExportada(); toast('Arquivo baixado. Confira na pasta Downloads.');
+  await marcarExportada(); toast('Pacote baixado. Confira na pasta Downloads.');
 }
 function relatorioRapido(){ return abrirRelatorio(V.id); }
 async function alternarEncerrada(){
