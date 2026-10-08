@@ -169,6 +169,14 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 .chip.on::before{content:'✓ ';font-weight:800}
 .chip[disabled]{opacity:.55;cursor:not-allowed}
 .dois{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+/* conta da equipe (abertura) */
+.conta{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.conta .quem{background:var(--card);border:1.5px solid var(--fio);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:15.5px}
+.conta .quem b{display:block;font-size:16px}
+.conta .quem small{color:var(--sutil);font-size:14px}
+.conta .quem span{flex:1;min-width:0}
+.conta .quem button{border:0;background:transparent;color:var(--botao);font:700 15px var(--texto);min-height:44px;padding:0 6px;cursor:pointer}
+#folhaEntrar input[type=email],#folhaEntrar input[type=password]{width:100%;padding:13px 14px;font:inherit;font-size:16.5px;border:1.5px solid var(--fio);border-radius:12px;background:var(--card)}
 /* resumo */
 .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .num{background:var(--card);border:1.5px solid var(--fio);border-radius:14px;padding:12px 6px;text-align:center}
@@ -223,8 +231,9 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <h2 style="text-align:center;font-size:20px;margin:10px 0 0">Escolha o tipo de vistoria</h2>
     <button class="modulo" onclick="ir('vistorias')"><span class="ico">〰️</span><div><b>Obras Lineares</b><span>Coletores, redes, interligações, linhas de recalque, interceptores</span></div></button>
     <button class="modulo off" onclick="toast('Em construção. Por enquanto, use Obras Lineares.')"><span class="ico">🏭</span><div><b>Obras Localizadas</b><span class="selo" style="margin-top:6px">Em construção</span></div></button>
+    <div class="conta" id="conta"></div>
   </div>
-  <div class="rodape">Tudo fica no aparelho até você exportar.<br>versão 0.10 · 07/10/2026</div>
+  <div class="rodape">Tudo fica no aparelho até você exportar.<br>versão 0.11 · 07/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -234,7 +243,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <button class="btn claro" id="btnExemplo" onclick="carregarExemplo()">Testar com o exemplo (CT Gamelinha 3)</button>
   <p class="ajuda" style="font-size:14.5px">Os responsáveis pela vistoria são informados no resumo, no fim.</p>
-  <div class="rodape"><span id="espaco"></span>versão 0.10 · 07/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.11 · 07/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -329,6 +338,18 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <div class="ff"><div class="falta" id="folhaFalta" style="cursor:default"></div><button class="btn" id="folhaOk" onclick="confirmarJust()">Confirmar</button></div>
 </div>
 
+<!-- entrar na equipe (tela cheia) -->
+<div class="folha" id="folhaEntrar" role="dialog" aria-modal="true">
+  <div class="fh"><button class="cancelar" onclick="fecharEntrar()">‹ Cancelar</button><h3>Entrar na equipe</h3></div>
+  <div class="fc">
+    <p class="ajuda">Use o e-mail e a senha criados pelo coordenador. Sem entrar, o app continua funcionando normalmente neste aparelho.</p>
+    <div><label for="entrarEmail">E-mail</label><input type="email" id="entrarEmail" autocomplete="username" inputmode="email" placeholder="nome@exemplo.com"></div>
+    <div><label for="entrarSenha">Senha</label><input type="password" id="entrarSenha" autocomplete="current-password" placeholder="Sua senha"></div>
+    <div class="falta" id="entrarErro" style="cursor:default"></div>
+  </div>
+  <div class="ff"><button class="btn" id="btnEntrarOk" onclick="confirmarEntrar()">Entrar</button></div>
+</div>
+
 <div class="modal-fundo" id="modalFundo"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"><span id="toastTxt"></span></div>
 <div id="visor"><img alt="foto ampliada"><div class="dica" id="visorDica"></div><div class="acoes"><button class="fechar" onclick="fecharVisor()">Fechar</button><button class="remover oculta" id="visorRemover" onclick="removerFotoVisor()">Remover foto</button></div></div>
@@ -336,7 +357,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.10';
+const VERSAO='0.11';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -348,6 +369,85 @@ const PERGUNTAS=[
     {cat:'divergencia',t:'Divergência do cadastro',chips:['Parece PVC','Parece PVC corrugado','Parece PEAD','Parece PEAD corrugado','Parece cerâmica','Parece concreto','Parece ferro fundido','Envelopada (concreto aparente)','Outro material']},NAO_VERIF]}
 ];
 const CAT_TXT={'nao-operando':'não está operando','nao-verificado':'não verificado em campo','divergencia':'divergência do cadastro'};
+
+/* ===================== equipe (Supabase, via REST) ===================== */
+// Projeto vistorias-campo, região São Paulo. A chave abaixo é a pública (publishable):
+// só funciona dentro das regras de acesso do banco; a chave secreta nunca entra no app.
+const SB_URL='https://vibtavpvioqpbzsboxrs.supabase.co';
+const SB_KEY='sb_publishable_ZXj_2QSb7u2dmT83BINCww_zOLmmaRO';
+let sessao=null; // {access_token, refresh_token, expires_at, user:{id,email}, perfil:{nome,matricula,papel}}
+async function sbAuth(caminho,body){
+  const r=await fetch(SB_URL+'/auth/v1/'+caminho,{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok){const e=new Error(j.msg||j.error_description||j.error||('HTTP '+r.status));e.codigo=j.error_code||j.error||r.status;throw e;}
+  return j;
+}
+function guardarSessao(j){
+  sessao={access_token:j.access_token,refresh_token:j.refresh_token,expires_at:Date.now()+((j.expires_in||3600)-60)*1000,user:{id:j.user&&j.user.id,email:j.user&&j.user.email},perfil:(sessao&&sessao.perfil)||null};
+  return pref('sessao',sessao);
+}
+async function sessaoValida(){
+  if(!sessao)return null;
+  if(Date.now()<sessao.expires_at)return sessao;
+  try{ const j=await sbAuth('token?grant_type=refresh_token',{refresh_token:sessao.refresh_token}); await guardarSessao(j); return sessao; }
+  catch(e){ if(e.codigo===400||/refresh/i.test(String(e.message)))await sair(true); return null; }
+}
+async function sb(caminho,opts={}){ // chamada autenticada ao banco/storage
+  const s=await sessaoValida(); if(!s)throw new Error('sem-sessao');
+  const h=Object.assign({'apikey':SB_KEY,'Authorization':'Bearer '+s.access_token},opts.headers||{});
+  if(opts.json!==undefined){h['Content-Type']='application/json';opts.body=JSON.stringify(opts.json);}
+  const r=await fetch(SB_URL+caminho,Object.assign({},opts,{headers:h}));
+  if(!r.ok){const tx=await r.text().catch(()=>'');throw new Error('HTTP '+r.status+(tx?' '+tx.slice(0,140):''));}
+  const ct=r.headers.get('content-type')||''; return ct.includes('json')?r.json():r.text();
+}
+async function carregarPerfil(){
+  if(!sessao||!sessao.user||!sessao.user.id)return null;
+  const rows=await sb('/rest/v1/equipe?id=eq.'+sessao.user.id+'&select=nome,matricula,papel,ativo');
+  const p=rows&&rows[0]; if(!p||p.ativo===false){ sessao.perfil=null; await pref('sessao',sessao); return null; }
+  sessao.perfil={nome:p.nome||'',matricula:p.matricula||'',papel:p.papel||'vistoriador'}; await pref('sessao',sessao);
+  if(sessao.perfil.nome){ const u={nome:sessao.perfil.nome,matricula:sessao.perfil.matricula}; const ult=((await pref('ultimosResponsaveis'))||[]).filter(x=>x.nome!==u.nome); ult.unshift(u); await pref('ultimosResponsaveis',ult.slice(0,6)); }
+  return sessao.perfil;
+}
+async function registrarEvento(tipo,detalhe,vistoriaId){ try{ await sb('/rest/v1/eventos',{method:'POST',headers:{'Prefer':'return=minimal'},json:{usuario:sessao.user.id,vistoria_id:vistoriaId||null,tipo,detalhe:detalhe||null}}); }catch(e){} }
+async function iniciarSessao(){
+  try{ sessao=(await pref('sessao'))||null; }catch(e){ sessao=null; }
+  if(sessao){ try{ if(await sessaoValida())await carregarPerfil(); }catch(e){} }
+  renderConta();
+}
+function renderConta(){
+  const el=$('conta'); if(!el)return;
+  if(sessao&&sessao.user){
+    const p=sessao.perfil;
+    el.innerHTML='<div class="quem"><span><b>'+esc(p&&p.nome?p.nome:sessao.user.email)+'</b><small>'+(p&&p.matricula?'matr. '+esc(p.matricula)+' · ':'')+(p?'equipe':'login sem cadastro na equipe')+' · '+esc(sessao.user.email)+'</small></span><button onclick="sair()">Sair</button></div>';
+  }else{
+    el.innerHTML='<button class="btn claro" onclick="abrirEntrar()">Entrar na equipe</button><p class="ajuda" style="text-align:center;font-size:14px;margin:0">Opcional. Com a equipe conectada, as vistorias passam a ser compartilhadas (em breve).</p>';
+  }
+}
+function abrirEntrar(){ $('entrarErro').textContent=''; $('entrarSenha').value=''; $('folhaEntrar').classList.add('on'); setTimeout(()=>$('entrarEmail').focus(),60); }
+function fecharEntrar(){ $('folhaEntrar').classList.remove('on'); }
+async function confirmarEntrar(){
+  const email=$('entrarEmail').value.trim(), senha=$('entrarSenha').value;
+  if(!email||!senha){ $('entrarErro').textContent='Preencha e-mail e senha.'; return; }
+  const b=$('btnEntrarOk'); b.disabled=true; const rot=b.textContent; b.textContent='Entrando…'; $('entrarErro').textContent='';
+  try{
+    const j=await sbAuth('token?grant_type=password',{email,password:senha});
+    sessao=null; await guardarSessao(j);
+    const perfil=await carregarPerfil();
+    fecharEntrar(); renderConta();
+    toast(perfil&&perfil.nome?'Bem-vindo, '+perfil.nome.split(' ')[0]:'Conectado');
+    if(!perfil)await modal({titulo:'Login sem cadastro na equipe',texto:'Você entrou, mas este login ainda não está na lista da equipe (ou está desativado). Peça ao coordenador para rodar o passo "Nomes e matrículas". Enquanto isso o app segue funcionando local.',ok:'Entendi',soOk:true});
+    else registrarEvento('login',{app:'Vistorias em Campo '+VERSAO});
+  }catch(e){
+    const m=String(e.message||'');
+    $('entrarErro').textContent=/Invalid login|invalid_credentials|400/.test(m)?'E-mail ou senha não conferem.':(/Failed to fetch|NetworkError|network/i.test(m)?'Sem conexão. Você pode continuar sem entrar e tentar depois.':'Não deu para entrar: '+m);
+  }
+  b.disabled=false; b.textContent=rot;
+}
+async function sair(silencioso){
+  const s=sessao; sessao=null; await pref('sessao',null);
+  if(s&&!silencioso){ try{ await fetch(SB_URL+'/auth/v1/logout',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+s.access_token}}); }catch(e){} toast('Você saiu da equipe'); }
+  renderConta();
+}
 
 /* ===================== armazenamento (IndexedDB) ===================== */
 let db=null;
@@ -478,7 +578,7 @@ async function render(st){
   $('hdrLogo').classList.toggle('oculta',!cfg.logo);
   $('hdrVolta').classList.toggle('oculta',st.tela==='abertura');
   $('hdrAcao').classList.add('oculta');
-  if(st.tela==='abertura'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderAbertura(); }
+  if(st.tela==='abertura'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderAbertura(); renderConta(); }
   else if(st.tela==='vistorias'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderVistorias(); }
   else if(st.tela==='pvs'){ if(!(await garantirV(st.vid)))return; P=null; renderPvs(); }
   else if(st.tela==='ficha'){ if(!(await garantirV(st.vid)))return; P=V.pontos.find(p=>p.id===st.pid); if(!P){ir('pvs',{vid:V.id},true);return;} renderFicha(); }
@@ -1083,12 +1183,13 @@ function fecharModal(ok){
 $('modalFundo').addEventListener('click',e=>{if(e.target===$('modalFundo'))fecharModal(false);});
 let toastTimer=null;
 function toast(txt){ const t=$('toast'); $('toastTxt').textContent=txt; t.classList.add('on'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('on'),3000); }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const s=sobreposicaoAberta(); if(s==='folha')cancelarJust(); else if(s==='modal')fecharModal(false); else if(s==='visor')fecharVisor(); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if($('folhaEntrar').classList.contains('on')){fecharEntrar();return;} const s=sobreposicaoAberta(); if(s==='folha')cancelarJust(); else if(s==='modal')fecharModal(false); else if(s==='visor')fecharVisor(); } });
 
 /* ===================== início ===================== */
 (async function(){
   try{ await abrirDb(); }catch(e){ document.querySelector('main').innerHTML='<div class="vazio">Este navegador não deixou o app guardar dados no aparelho (modo anônimo?). Abra fora do modo anônimo.</div>'; return; }
   if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+  iniciarSessao(); // equipe: restaura o login guardado e carrega o perfil (sem travar a abertura)
   // aviso se o app já estiver aberto em outra aba (duas abas gravando a mesma vistoria se atropelam)
   try{ const bc=new BroadcastChannel('vistorias-campo'); const eu=uid(); bc.onmessage=m=>{ if(m.data&&m.data.t==='ping'&&m.data.de!==eu)bc.postMessage({t:'pong',para:m.data.de}); if(m.data&&m.data.t==='pong'&&m.data.para===eu)modal({titulo:'O app já está aberto em outra aba',texto:'Use uma aba só, senão uma gravação pode apagar a outra. Feche esta ou a outra.',ok:'Entendi',soOk:true}); }; bc.postMessage({t:'ping',de:eu}); }catch(e){}
   // restaura a tela se o app foi recarregado há pouco (câmera, memória, puxar para atualizar)
