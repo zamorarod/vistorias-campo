@@ -199,6 +199,33 @@ p{margin:0}
 .cad .det b{font-family:var(--mono)}
 .cad .k{font:700 12.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--sutil);margin-right:6px}
 .fotos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+/* ficha de mesa */
+body.mesa #t-ficha.on{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,36%);gap:0 18px;align-content:start;align-items:start}
+body.mesa #t-ficha.on>*{grid-column:1;margin-bottom:12px}
+body.mesa #t-ficha.on>#blocoFotos{grid-column:2;grid-row:1/span 12;position:sticky;top:86px;background:var(--card);border:1.5px solid var(--fio);border-radius:16px;padding:14px 16px;margin:0}
+body.mesa #t-ficha .fotos{grid-template-columns:1fr 1fr}
+body.mesa #t-ficha .slot{aspect-ratio:4/3}
+body.mesa #t-ficha .slot:not(.tem){display:none}
+body.mesa #fotoMesaNota{display:block}
+#fotoMesaNota{display:none}
+body.mesa #t-ficha .barra{position:static;margin:0;padding:0;background:transparent;border:0}
+#fichaTrilha{display:none;border-top:1px solid #EEF1F3;margin-top:12px;padding-top:10px;font-size:13.5px;color:var(--sutil);line-height:1.6}
+body.mesa #fichaTrilha{display:block}
+#fichaTrilha b{color:var(--ink);font-weight:700}
+#fichaNav{display:none}
+body.mesa #fichaNav{display:flex;gap:10px}
+body.mesa #fichaNav .btn{min-height:44px;font-size:15px}
+.correcao{background:#E6F4FC;border:1.5px solid #9CC9E6;border-radius:12px;padding:10px 14px;font-size:14.5px;color:var(--ink);display:flex;flex-direction:column;gap:8px}
+.correcao input{font:15px var(--texto);padding:9px 10px;border:1.5px solid var(--fio);border-radius:10px;width:100%;box-sizing:border-box;background:#fff}
+/* relatório ao lado na carteira */
+#carteiraLado{display:none}
+body.mesa #t-carteira.on.comLado{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,46%);gap:16px;align-items:start}
+body.mesa #t-carteira.on.comLado>#carteiraBox{grid-column:1;display:flex;flex-direction:column;gap:14px;min-width:0}
+body.mesa #t-carteira.on.comLado>#carteiraLado{display:flex;grid-column:2;flex-direction:column;gap:10px;position:sticky;top:86px;background:var(--card);border:1.5px solid var(--fio);border-radius:16px;padding:12px 14px}
+body.mesa #t-carteira.on.comLado>.rodape{grid-column:1/3}
+#carteiraLado iframe{width:100%;height:calc(100vh - 210px);min-height:480px;border:0;border-radius:12px;background:#E9EEF1}
+#carteiraLado .cab{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#carteiraLado .cab b{flex:1;font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .slot{aspect-ratio:1;border:2px dashed #7F8C95;border-radius:14px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--sutil);font:600 13.5px var(--texto);cursor:pointer;overflow:hidden;position:relative;text-align:center;line-height:1.2;padding:0}
 .slot .cam{font-size:28px}
 .slot[disabled]{opacity:.45;cursor:not-allowed}
@@ -333,7 +360,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div class="conta" id="conta"></div>
     <div class="instalar oculta" id="instalarBox"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.26 · 08/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.27 · 08/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -344,13 +371,14 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste um KMZ do Conversor para esta janela.<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.26 · 08/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.27 · 08/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
-  <div class="rodape">versão 0.26 · 08/10/2026</div>
+  <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
+  <div class="rodape">versão 0.27 · 08/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -390,6 +418,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <!-- T3 FICHA -->
 <section class="tela" id="t-ficha">
   <div class="leitura oculta" id="fichaLeitura"><span>Vistoria encerrada. A ficha está só para leitura.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button></div>
+  <div class="correcao oculta" id="fichaCorrecao"><span><b>Modo coordenador.</b> Você pode corrigir esta ficha pelo computador. A correção fica na trilha com seu nome, data e hora.</span><input type="text" id="motivoCorrecao" placeholder="Motivo da correção (opcional), ex.: conferido com a gerenciadora" maxlength="140"></div>
   <div class="cad" id="cad" onclick="this.classList.toggle('aberto')"></div>
   <div class="perg" id="pg-operando"><div class="q">Está operando?</div><div class="sn"><button class="sim" onclick="responder('operando','sim')">Sim</button><button class="nao" onclick="responder('operando','nao')">Não</button></div><div class="justv" id="jvbox-operando"><b>Não:</b><span id="jv-operando"></span><button onclick="abrirJust('operando')">Editar</button></div></div>
   <div class="perg" id="pg-diametro"><div class="q">Diâmetro confere?<small id="qs-diametro"></small></div><div class="sn"><button class="sim" onclick="responder('diametro','sim')">Sim</button><button class="nao" onclick="responder('diametro','nao')">Não</button></div><div class="justv" id="jvbox-diametro"><b>Não:</b><span id="jv-diametro"></span><button onclick="abrirJust('diametro')">Editar</button></div></div>
@@ -398,9 +427,12 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;flex-wrap:wrap;row-gap:2px"><label style="margin:0;white-space:nowrap">Fotos <span style="font-weight:400;color:var(--sutil)">(pelo menos 1)</span></label><span class="gps" id="gpsTxt"></span></div>
     <div class="fotos" id="fotos"></div>
     <p class="ajuda" style="font-size:14px;margin-top:6px">Sugestão: uma do local e uma da tampa aberta, vistas de fora. Cada foto sai carimbada com data, hora e posição.</p>
+    <p class="ajuda" id="fotoMesaNota" style="font-size:14px;margin-top:6px">Clique na foto para ampliar. Tirar foto nova só pelo celular, no local.</p>
+    <div id="fichaTrilha"></div>
   </div>
   <input type="file" id="cam" accept="image/*" capture="environment" class="oculta">
   <div><label for="obs">Observação <span style="font-weight:400;color:var(--sutil)">(se quiser)</span></label><textarea id="obs" rows="2" placeholder="Ex.: tampa na calçada, em frente ao nº 120" oninput="setObs(this.value)"></textarea></div>
+  <div id="fichaNav"><button class="btn claro" onclick="fichaVizinha(-1)">‹ PV anterior</button><button class="btn claro" onclick="fichaVizinha(1)">PV seguinte ›</button></div>
   <div id="acoesFicha" style="border-top:1px solid var(--fio);padding-top:8px;margin-top:4px;display:flex;flex-direction:column;gap:2px">
     <button class="btn texto" id="btnVoltarLista" onclick="salvarFicha(false)">Voltar à lista</button>
     <button class="btn texto" id="btnLimpar" onclick="limparFicha()">Limpar este PV</button>
@@ -471,7 +503,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.26';
+const VERSAO='0.27';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -856,7 +888,7 @@ function desenharCarteira(soTabela){
   const box=$('carteiraBox'); const todos=carteiraItens, f=carteiraF;
   const sel=filtrarCarteira(todos); const tot=totaisCarteira(sel);
   const nums='<div class="cart-nums"><div><b>'+tot.vist+'</b><small>vistorias</small></div><div><b>'+tot.avist+'</b><small>a vistoriar ou assumidas</small></div><div><b>'+tot.campo+'</b><small>em campo</small></div><div><b>'+tot.enc+'</b><small>encerradas</small></div><div><b>'+tot.reg+'</b><small>PVs registrados</small></div><div class="ok"><b>'+tot.ok+'</b><small>conferem</small></div><div class="obs"><b>'+tot.res+'</b><small>com observação</small></div><div><b>'+tot.fotos+'</b><small>fotos</small></div></div>';
-  const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="'+(i.reg||i.estado.k==='encerrada'?'abrirRelatorio(\''+i.id+'\')':(i.local?'ir(\'pvs\',{vid:\''+i.id+'\'})':'baixarVistoria(\''+i.id+'\')'))+'">'
+  const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="'+(i.reg||i.estado.k==='encerrada'?'verRelatorio(\''+i.id+'\')':(i.local?'ir(\'pvs\',{vid:\''+i.id+'\'})':'baixarVistoria(\''+i.id+'\')'))+'">'
     +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+(i.un?' · UN '+esc(i.un):'')+'</small></td>'
     +'<td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.servidor?'':'<small class="sub">só neste aparelho</small>')+'</td>'
     +'<td>'+(i.com.length?esc(i.com.join(', ')):'<span class="sutil">ninguém</span>')+(i.responsaveis.length&&i.responsaveis.join(', ')!==i.com.join(', ')?'<small class="sub">resp.: '+esc(i.responsaveis.join(', '))+'</small>':'')+'</td>'
@@ -865,7 +897,7 @@ function desenharCarteira(soTabela){
     +'<td class="n">'+(i.res?'<b class="obs">'+i.res+'</b>':'<span class="sutil">0</span>')+'</td>'
     +'<td class="n">'+i.fotos+'</td>'
     +'<td class="quando">'+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+'<small>'+esc(i.por)+'</small></td>'
-    +'<td class="acoes">'+(i.reg||i.estado.k==='encerrada'?'<button class="mini cheio" onclick="event.stopPropagation();abrirRelatorio(\''+i.id+'\')">Relatório</button>':'')+(i.local?'<button class="mini" onclick="event.stopPropagation();ir(\'pvs\',{vid:\''+i.id+'\'})">Abrir</button>':'<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+i.id+'\')">Baixar</button>')+'</td></tr>'; }).join('');
+    +'<td class="acoes">'+(i.reg||i.estado.k==='encerrada'?'<button class="mini cheio" onclick="event.stopPropagation();verRelatorio(\''+i.id+'\')">Relatório</button>':'')+(i.local?'<button class="mini" onclick="event.stopPropagation();ir(\'pvs\',{vid:\''+i.id+'\'})">Abrir</button>':'<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+i.id+'\')">Baixar</button>')+'</td></tr>'; }).join('');
   const tabela='<div class="cart-tabela"><table><thead><tr><th>Vistoria</th><th>Situação</th><th>Atribuída a</th><th>Em campo</th><th>PVs</th><th>Com obs.</th><th>Fotos</th><th>Última gravação</th><th></th></tr></thead><tbody>'+(linhas||'<tr><td colspan="9" class="vazio">Nenhuma vistoria com esses filtros.</td></tr>')+'</tbody></table></div>';
   if(soTabela){ $('cartNums').innerHTML=nums; $('cartTabela').innerHTML=tabela; return; }
   const meses=[...new Set(todos.map(i=>mesDe(i.inicio||i.atualizadoEm)).filter(Boolean))].sort().reverse();
@@ -932,21 +964,40 @@ function imprimirCarteira(){
 
 /* ---------- relatório completo ---------- */
 function blobDataUrl(blob){ return new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(blob);}); }
+async function montarRelatorio(vid){
+  let v=(V&&V.id===vid)?V:await dbGet('vistorias',vid);
+  if(!v){ v=await baixarVistoria(vid,false,true); if(!v)throw new Error('não foi possível obter a vistoria'); }
+  const usadas=new Set(); for(const k in (v.registros||{}))for(const f of (v.registros[k].fotos||[]))usadas.add(f);
+  const fs=(await fotosDa(vid)).filter(f=>usadas.has(f.id)); const fotos={}; const urls=[];
+  for(const f of fs){ const u=URL.createObjectURL(f.blob); urls.push(u); fotos[f.id]={src:u,quando:f.quando,lat:f.lat,lon:f.lon}; } // blob: em vez de base64: cabe na memória com centenas de fotos
+  return {v,html:htmlRelatorio(v,fotos),urls};
+}
 async function abrirRelatorio(vid){
   const w=window.open('','_blank'); // aberta no toque, antes de qualquer espera, senão o celular bloqueia
   if(!w){toast('O navegador bloqueou a nova aba. Libere pop-ups para este endereço.');return;}
   w.document.write('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório</title></head><body><p style="font:16px system-ui;padding:20px">Montando o relatório…</p></body></html>');
   try{
-    let v=(V&&V.id===vid)?V:await dbGet('vistorias',vid);
-    if(!v){ v=await baixarVistoria(vid,false,true); if(!v)throw new Error('não foi possível obter a vistoria'); }
-    const usadas=new Set(); for(const k in (v.registros||{}))for(const f of (v.registros[k].fotos||[]))usadas.add(f);
-    const fs=(await fotosDa(vid)).filter(f=>usadas.has(f.id)); const fotos={}; const urls=[];
-    for(const f of fs){ const u=URL.createObjectURL(f.blob); urls.push(u); fotos[f.id]={src:u,quando:f.quando,lat:f.lat,lon:f.lon}; } // blob: em vez de base64: cabe na memória com centenas de fotos
-    w.document.open(); w.document.write(htmlRelatorio(v,fotos)); w.document.close();
-    w.addEventListener('pagehide',()=>{ for(const u of urls)URL.revokeObjectURL(u); });
+    const r=await montarRelatorio(vid);
+    w.document.open(); w.document.write(r.html); w.document.close();
+    w.addEventListener('pagehide',()=>{ for(const u of r.urls)URL.revokeObjectURL(u); });
     registrarEvento('relatorio',{},vid);
   }catch(err){ w.document.body.innerHTML='<p style="font:16px system-ui;padding:20px">Não deu para montar o relatório: '+esc(err&&err.message||err)+'</p>'; }
 }
+let ladoUrls=[];
+function verRelatorio(vid){ return ehMesa()&&telaAtual==='carteira'?abrirRelatorioLado(vid):abrirRelatorio(vid); }
+async function abrirRelatorioLado(vid){
+  const sec=$('t-carteira'), lado=$('carteiraLado'); if(!sec||!lado)return;
+  sec.classList.add('comLado'); lado.innerHTML='<div class="vazio">Montando o relatório…</div>';
+  try{
+    for(const u of ladoUrls)URL.revokeObjectURL(u); ladoUrls=[];
+    const r=await montarRelatorio(vid); ladoUrls=r.urls;
+    lado.innerHTML='<div class="cab"><b>Relatório · '+esc(nomeV(r.v))+'</b><button class="mini cheio" onclick="imprimirLado()">PDF</button><button class="mini" onclick="abrirRelatorio(\''+esc(String(vid).replace(/[\'"\\]/g,''))+'\')">Nova aba</button><button class="mini neutro" onclick="fecharLado()">Fechar</button></div><iframe id="ladoFrame" title="Relatório da vistoria"></iframe>';
+    $('ladoFrame').srcdoc=r.html;
+    registrarEvento('relatorio',{lado:true},vid);
+  }catch(err){ lado.innerHTML='<div class="vazio">Não deu para montar o relatório. '+esc(erroHumano(err))+'</div>'; }
+}
+function imprimirLado(){ const f=$('ladoFrame'); if(f&&f.contentWindow){ f.contentWindow.focus(); f.contentWindow.print(); } }
+function fecharLado(){ const sec=$('t-carteira'), lado=$('carteiraLado'); if(sec)sec.classList.remove('comLado'); if(lado)lado.innerHTML=''; for(const u of ladoUrls)URL.revokeObjectURL(u); ladoUrls=[]; }
 function plantaMapa(v,W,H){
   const pts=v.pontos.filter(p=>p.lat!=null&&p.lon!=null); if(pts.length<2)return '';
   const la=[],lo=[]; pts.forEach(p=>{la.push(p.lat);lo.push(p.lon);}); (v.trechos||[]).forEach(tr=>tr.latlngs.forEach(q=>{la.push(q[0]);lo.push(q[1]);}));
@@ -1001,7 +1052,8 @@ function htmlRelatorio(v,fotos){
     return '<section class="ficha"><div class="fh"><h3>'+h(p.nome)+'</h3><span class="tag '+(e==='ok'?'ok':'obs')+'">'+(e==='ok'?'confere':'com observação')+'</span>'+(p.transicao?'<span class="tag">transição'+(p.tipoTransicao?' de '+h(p.tipoTransicao):'')+'</span>':'')+(p.extra?'<span class="tag">fora do cadastro</span>':'')+'<span class="n">'+(i+1)+' de '+regs.length+'</span></div>'
       +'<p class="cad">Cadastro: '+cadDe(p)+'</p><table class="q">'+linhas+'</table>'+(r.obs?'<p class="obs"><b>Observação do vistoriador:</b> '+h(r.obs)+'</p>':'')
       +(fts?'<div class="fotos">'+fts+'</div>':'<p class="meta">Sem fotos.</p>')
-      +'<p class="meta">Registrado em '+(r.inicio?fmtData(r.inicio)+' das '+fmtHora(r.inicio)+' às '+fmtHora(r.fim||r.inicio):'data não informada')+'</p></section>';
+      +'<p class="meta">Registrado em '+(r.inicio?fmtData(r.inicio)+' das '+fmtHora(r.inicio)+' às '+fmtHora(r.fim||r.inicio):'data não informada')+'</p>'
+      +((r.correcoes&&r.correcoes.length)?'<p class="meta">Corrigido de mesa: '+r.correcoes.map(c=>fmtData(c.quando)+' '+fmtHora(c.quando)+' por '+h(c.por)+(c.motivo?' ('+h(c.motivo)+')':'')).join('; ')+'</p>':'')+'</section>';
   }).join('');
   const barra=(n,tot,cor)=>'<div class="bar"><i style="width:'+(tot?Math.round(n/tot*100):0)+'%;background:'+cor+'"></i></div>';
   const totResp=regs.length*3||1;
@@ -1147,7 +1199,30 @@ function salvarV(){
 function marcarAlterada(){ if(V&&V.exportadaEm)V.alteradaEm=agoraIso(); zipPronto=null; }
 function novaResp(){return {v:null,chips:[],txt:'',cat:'',rascunho:null,guardado:null};}
 function reg(pid){ if(!V.registros[pid])V.registros[pid]={estado:'rascunho',inicio:agoraIso(),fim:null,respostas:{operando:novaResp(),diametro:novaResp(),material:novaResp()},fotos:[],obs:''}; return V.registros[pid]; }
-const bloqueada=()=>!!(V&&(V.encerradaEm||!V.iniciadaEm));
+const modoCorrecao=()=>ehMesa()&&souCoordenador();
+function bloqueada(){ if(!V)return false; if(ehMesa())return !modoCorrecao(); return !!(V.encerradaEm||!V.iniciadaEm); } // no computador só o coordenador edita (correção com trilha)
+function anotarCorrecao(r){
+  if(!modoCorrecao()||!V||!P)return;
+  const quem=(sessao&&sessao.perfil&&sessao.perfil.nome)||'coordenador'; const mi=$('motivoCorrecao'); const motivo=mi?mi.value.trim():'';
+  r.correcoes=r.correcoes||[]; const ult=r.correcoes[r.correcoes.length-1];
+  if(ult&&ult.por===quem&&Date.now()-new Date(ult.quando).getTime()<10*60*1000){ ult.quando=agoraIso(); if(motivo)ult.motivo=motivo; }
+  else { r.correcoes.push({quando:agoraIso(),por:quem,motivo}); registrarEvento('corrigida',{pv:P.nome,motivo},V.id); }
+  renderFichaTrilha();
+}
+function renderFichaTrilha(){
+  const el=$('fichaTrilha'); if(!el||!V||!P)return; const r=V.registros[P.id];
+  if(!r){ el.innerHTML='<b>Trilha deste PV</b><br>Sem registro ainda.'; return; }
+  const linhas=[];
+  if(r.inicio)linhas.push(fmtData(r.inicio)+' '+fmtHora(r.inicio)+' · ficha aberta em campo'+(V.iniciadaPor?' · '+esc(V.iniciadaPor):''));
+  if(r.fim&&r.estado&&r.estado!=='rascunho')linhas.push(fmtData(r.fim)+' '+fmtHora(r.fim)+' · registrada'+(r.estado==='ressalva'?' com observação':''));
+  for(const c of (r.correcoes||[]))linhas.push(fmtData(c.quando)+' '+fmtHora(c.quando)+' · <b>corrigida de mesa</b> por '+esc(c.por)+(c.motivo?' · '+esc(c.motivo):''));
+  el.innerHTML='<b>Trilha deste PV</b><br>'+linhas.join('<br>');
+}
+function fichaVizinha(d){
+  if(!V||!P)return; const ps=pontosFiltrados(); let i=ps.findIndex(p=>p.id===P.id); if(i<0)i=V.pontos.findIndex(p=>p.id===P.id);
+  const lista=ps.length?ps:V.pontos; const j=i+d; if(j<0||j>=lista.length){toast(d>0?'Este é o último PV da lista':'Este é o primeiro PV da lista');return;}
+  clearTimeout(salvarTimer); salvarTimer=null; gravarRascunho(); ir('ficha',{vid:V.id,pid:lista[j].id},true);
+}
 function primeiroRegistro(v){ let ini=null; for(const k in (v.registros||{})){ const r=v.registros[k]; if(r&&r.inicio&&(!ini||r.inicio<ini))ini=r.inicio; } return ini; }
 function estadoDe(pid){ const r=V.registros[pid]; if(!r)return 'consta'; return recalcEstado(r)||'consta'; } // um registro vazio criado só por abrir a ficha não conta
 function justTexto(a){ return [a.chips.join(', '),(a.txt||'').trim()].filter(Boolean).join('. '); }
@@ -1200,8 +1275,10 @@ window.addEventListener('dragleave',e=>{ if(--arrastos<=0){arrastos=0;document.b
 window.addEventListener('drop',e=>{ if(!e.dataTransfer||!e.dataTransfer.files||!e.dataTransfer.files.length)return; e.preventDefault(); arrastos=0; document.body.classList.remove('arrastando'); const f=e.dataTransfer.files[0]; if(telaAtual!=='vistorias')ir('vistorias',{},telaAtual==='abertura'); setTimeout(()=>lerArquivoKmz(f),telaAtual==='vistorias'?0:400); });
 // teclado na lista de PVs: / busca, ↑ ↓ navega, Enter abre
 document.addEventListener('keydown',e=>{
-  if(!ehMesa()||telaAtual!=='pvs'||sobreposicaoAberta())return;
+  if(!ehMesa()||sobreposicaoAberta())return;
   const emCampo=/INPUT|TEXTAREA|SELECT/.test(document.activeElement&&document.activeElement.tagName);
+  if(telaAtual==='ficha'){ if(!emCampo&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){ e.preventDefault(); fichaVizinha(e.key==='ArrowRight'?1:-1); } return; }
+  if(telaAtual!=='pvs')return;
   if(e.key==='/'&&!emCampo){ e.preventDefault(); const b=$('busca'); if(b){b.focus();b.select();} return; }
   if(e.key==='ArrowDown'||e.key==='ArrowUp'||(e.key==='Enter'&&!emCampo)){
     const itens=[...document.querySelectorAll('#listaPvs .lin')]; if(!itens.length)return;
@@ -1267,6 +1344,7 @@ async function render(st){
   if(st.tela==='abertura'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderAbertura(); renderConta(); }
   else if(st.tela==='vistorias'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=(sessao&&sessao.perfil)?'Vistorias da equipe e deste aparelho':cfg.sub; V=null;P=null; await renderVistorias(); }
   else if(st.tela==='carteira'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderCarteira(); }
+  if(st.tela!=='carteira'&&$('t-carteira').classList.contains('comLado'))fecharLado();
   else if(st.tela==='pvs'){ if(!(await garantirV(st.vid)))return; P=null; renderPvs(); }
   else if(st.tela==='ficha'){ if(!(await garantirV(st.vid)))return; P=V.pontos.find(p=>p.id===st.pid); if(!P){ir('pvs',{vid:V.id},true);return;} renderFicha(); }
   else if(st.tela==='resumo'){ if(!(await garantirV(st.vid)))return; P=null; $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=nomeV(V); await renderResumo(); }
@@ -1499,7 +1577,7 @@ function renderPvs(){
   const fim=$('btnIrResumo'); if(fim)fim.classList.toggle('oculta',!(c.reg>0&&c.consta+c.rasc===0&&!V.encerradaEm));
   const av=$('pvsAviso');
   if(V.encerradaEm){av.textContent='Vistoria encerrada em '+fmtData(V.encerradaEm)+'. As fichas estão só para leitura. Para editar, reabra no resumo.';av.classList.remove('oculta');}
-  else if(!V.iniciadaEm){av.innerHTML='<b>Vistoria ainda não iniciada.</b> Quando chegar ao local, toque em Iniciar: ficam registrados data, hora, quem iniciou e a posição. Até lá dá para ver os PVs e o mapa, sem registrar.<button class="btn" style="margin-top:10px" onclick="iniciarVistoria()">Iniciar vistoria em campo</button>';av.classList.remove('oculta');}
+  else if(!V.iniciadaEm){av.innerHTML=ehMesa()?('<b>Vistoria ainda não iniciada.</b> O início é registrado no celular, no local, com data, hora e GPS.'+(modoCorrecao()?' Como coordenador, você pode preencher fichas daqui; elas ficam na trilha como correção de mesa.':'')):'<b>Vistoria ainda não iniciada.</b> Quando chegar ao local, toque em Iniciar: ficam registrados data, hora, quem iniciou e a posição. Até lá dá para ver os PVs e o mapa, sem registrar.<button class="btn" style="margin-top:10px" onclick="iniciarVistoria()">Iniciar vistoria em campo</button>';av.classList.remove('oculta');}
   else av.classList.add('oculta');
   renderListaPvs();
   if(ehMesa()){ setTimeout(montarMapa,50); } else setAba(V.ui.aba||'lista',true);
@@ -1679,8 +1757,11 @@ function renderFicha(){
   $('qs-material').textContent=mats?'cadastro: '+mats:'sem cadastro para comparar';
   $('obs').value=r.obs||'';
   const leitura=bloqueada(); $('fichaLeitura').classList.toggle('oculta',!leitura);
-  if(leitura)$('fichaLeitura').innerHTML=V.encerradaEm?'<span>Vistoria encerrada. A ficha está só para leitura.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button>':'<span>Vistoria ainda não iniciada. Toque em Iniciar quando estiver no local.</span><button class="acao-hdr" onclick="iniciarVistoria().then(()=>renderFicha())">Iniciar</button>';
+  $('fichaCorrecao').classList.toggle('oculta',!modoCorrecao());
+  if(leitura)$('fichaLeitura').innerHTML=ehMesa()?'<span>No computador a ficha é só para leitura. Correções são feitas pelo coordenador; registros, no celular.</span>':(V.encerradaEm?'<span>Vistoria encerrada. A ficha está só para leitura.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button>':'<span>Vistoria ainda não iniciada. Toque em Iniciar quando estiver no local.</span><button class="acao-hdr" onclick="iniciarVistoria().then(()=>renderFicha())">Iniciar</button>');
+  renderFichaTrilha();
   ['btnVoltarLista','btnLimpar','barraFicha','acoesFicha'].forEach(id=>$(id).classList.toggle('oculta',leitura));
+  if(ehMesa()&&leitura){ $('acoesFicha').classList.remove('oculta'); $('btnVoltarLista').classList.remove('oculta'); $('btnLimpar').classList.add('oculta'); }
   $('btnExcluirPv').classList.toggle('oculta',leitura||!P.extra);
   $('obs').disabled=leitura;
   renderRespostas(); renderFotos();
@@ -1726,7 +1807,7 @@ async function responder(k,v){
   a.v='sim'; a.chips=[]; a.txt=''; a.cat=''; a.rascunho=null;
   renderRespostas(); gravarRascunho();
 }
-function gravarRascunho(){ const r=reg(P.id); const e=recalcEstado(r); if(e===null){delete V.registros[P.id];}else{r.estado=e;} marcarAlterada(); return salvarV(); }
+function gravarRascunho(){ const r=reg(P.id); const e=recalcEstado(r); if(e===null){delete V.registros[P.id];}else{r.estado=e; anotarCorrecao(r);} marcarAlterada(); return salvarV(); }
 function setObs(v){ reg(P.id).obs=v; clearTimeout(salvarTimer); salvarTimer=setTimeout(gravarRascunho,400); }
 /* justificativa */
 let justK=null,justAntes=null;
