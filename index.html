@@ -106,7 +106,7 @@ p{margin:0}
 .modulo.off b{color:var(--sutil)}
 .continuar{background:var(--and-bg);border:1.5px solid #B7DDF3;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;color:var(--chip-txt);font-weight:700;cursor:pointer;min-height:56px;font-size:16px}
 .continuar span{flex:1}
-.selo{display:inline-block;font:700 12px/1.35 var(--mono);letter-spacing:.04em;text-transform:uppercase;background:#FFE9D6;color:#7A3B00;border-radius:6px;padding:4px 8px;white-space:nowrap;vertical-align:middle}
+.selo{display:inline-block;font:700 13px/1.35 var(--mono);letter-spacing:.04em;text-transform:uppercase;background:#FFE9D6;color:#7A3B00;border-radius:6px;padding:4px 8px;white-space:nowrap;vertical-align:middle}
 .selo.azul{background:var(--chip);color:var(--chip-txt)}.selo.verde{background:var(--ok-bg);color:var(--ok)}.selo.cinza{background:#EEF1F3;color:var(--sutil)}.selo.aten{background:var(--aten-bg);color:var(--aten-txt)}
 /* listas */
 .lista{display:flex;flex-direction:column;gap:10px}
@@ -122,7 +122,7 @@ p{margin:0}
 .lin .dir{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
 .menu-lin{border:0;background:transparent;font-size:24px;color:var(--sutil);width:48px;height:48px;border-radius:10px;cursor:pointer}
 .lin .acoes-lin{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
-.mini{border:1.5px solid var(--botao);background:var(--card);color:var(--botao);font:700 14px var(--texto);min-height:38px;padding:0 13px;border-radius:10px;cursor:pointer}
+.mini{border:1.5px solid var(--botao);background:var(--card);color:var(--botao);font:700 14.5px var(--texto);min-height:44px;padding:0 14px;border-radius:11px;cursor:pointer}
 .mini.cheio{background:var(--botao);color:#fff}
 .mini.neutro{border-color:var(--fio);color:var(--sutil)}
 .lin .atrib{font-size:14.5px;color:var(--ink);margin-top:4px}
@@ -280,7 +280,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div class="conta" id="conta"></div>
     <div class="instalar oculta" id="instalarBox"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.23 · 08/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.24 · 08/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -290,13 +290,13 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <input type="file" id="arqKmz" class="oculta">
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.23 · 08/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.24 · 08/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
-  <div class="rodape">versão 0.23 · 08/10/2026</div>
+  <div class="rodape">versão 0.24 · 08/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -317,6 +317,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div class="busca"><span>🔍</span><input type="search" id="busca" placeholder="Buscar PV pelo número" inputmode="search" autocomplete="off" oninput="setBusca(this.value)"><button id="limpaBusca" class="oculta" onclick="setBusca('');document.getElementById('busca').value=''" aria-label="Limpar busca">✕</button></div>
     <div class="lista" id="listaPvs"></div>
     <button class="btn texto" id="btnNovoPv" onclick="novoPv()">+ Registrar PV fora do cadastro</button>
+    <button class="btn oculta" id="btnIrResumo" onclick="ir('resumo',{vid:V.id})">Todos os PVs registrados. Ir para o resumo e encerrar</button>
   </div>
   <div id="painelMapa" class="oculta" style="display:contents">
     <div class="aviso oculta" id="mapaAviso"></div>
@@ -353,7 +354,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 
 <!-- T4 RESUMO -->
 <section class="tela" id="t-resumo">
-  <div class="nums"><div class="num ok"><b id="nOk">0</b><span>registrados</span></div><div class="num aten"><b id="nRes">0</b><span>com observação</span></div><div class="num"><b id="nConsta">0</b><span>sem registro</span></div></div>
+  <div class="nums"><div class="num"><b id="nReg">0</b><span>registrados</span></div><div class="num ok"><b id="nOk">0</b><span>conferem</span></div><div class="num aten"><b id="nRes">0</b><span>com observação</span></div><div class="num"><b id="nConsta">0</b><span>sem registro</span></div></div>
   <div id="rascunhosAviso" class="aviso oculta"></div>
   <div id="alteradaAviso" class="aviso oculta"></div>
   <h3>Observações para o relatório</h3>
@@ -413,7 +414,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.23';
+const VERSAO='0.24';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -442,11 +443,15 @@ function guardarSessao(j){
   sessao={access_token:j.access_token,refresh_token:j.refresh_token,expires_at:Date.now()+((j.expires_in||3600)-60)*1000,user:{id:j.user&&j.user.id,email:j.user&&j.user.email},perfil:(sessao&&sessao.perfil)||null};
   return pref('sessao',sessao);
 }
+let refreshEmCurso=null;
 async function sessaoValida(){
   if(!sessao)return null;
   if(Date.now()<sessao.expires_at)return sessao;
-  try{ const j=await sbAuth('token?grant_type=refresh_token',{refresh_token:sessao.refresh_token}); await guardarSessao(j); return sessao; }
-  catch(e){ if(e.codigo===400||/refresh/i.test(String(e.message)))await sair(true); return null; }
+  if(!refreshEmCurso){ // um refresh por vez: duas chamadas paralelas não brigam pelo mesmo token
+    refreshEmCurso=(async()=>{ try{ const j=await sbAuth('token?grant_type=refresh_token',{refresh_token:sessao.refresh_token}); await guardarSessao(j); return sessao; }
+      catch(e){ if(e.codigo===400||/refresh/i.test(String(e.message)))await sair(true); return null; } finally{ refreshEmCurso=null; } })();
+  }
+  return refreshEmCurso;
 }
 async function sb(caminho,opts={}){ // chamada autenticada ao banco/storage
   const s=await sessaoValida(); if(!s)throw new Error('sem-sessao');
@@ -474,7 +479,7 @@ function renderConta(){
   const el=$('conta'); if(!el)return;
   if(sessao&&sessao.user){
     const p=sessao.perfil;
-    el.innerHTML='<div class="quem"><span><b>'+esc(p&&p.nome?p.nome:sessao.user.email)+'</b><small>'+(p?(p.matricula?'matr. '+esc(p.matricula)+' · ':'sem matrícula · '):'')+(p?'equipe':'login sem cadastro na equipe')+' · '+esc(sessao.user.email)+'</small></span><button onclick="pedirMatricula(false)">Matrícula</button><button onclick="trocarSenha()">Senha</button><button onclick="sair()">Sair</button></div>'
+    el.innerHTML='<div class="quem"><span><b>'+esc(p&&p.nome?p.nome:sessao.user.email)+'</b><small>'+(p?(p.matricula?'matr. '+esc(p.matricula)+' · ':'sem matrícula · '):'')+(p?'equipe':'login sem cadastro na equipe')+' · '+esc(sessao.user.email)+'</small></span><button onclick="pedirMatricula(false)">Matrícula</button><button onclick="trocarSenha()">Senha</button><button onclick="confirmarSair()">Sair</button></div>'
       +(p?'<button class="btn claro" style="margin-top:10px" onclick="ir(\'carteira\')">Carteira da equipe</button><p class="ajuda" style="text-align:center;font-size:14px;margin:6px 0 0">Todas as vistorias da equipe, com relatórios e planilhas. Melhor no computador.</p>':'');
   }else{
     el.innerHTML='<button class="btn claro" onclick="abrirEntrar()">Entrar na equipe</button><p class="ajuda" style="text-align:center;font-size:14px;margin:0">Opcional. Conectado, suas vistorias e fotos sobem para a equipe sozinhas quando há sinal, e você vê as dos colegas.</p>';
@@ -492,7 +497,7 @@ async function confirmarEntrar(){
     const perfil=await carregarPerfil();
     fecharEntrar(); renderConta();
     toast(perfil&&perfil.nome?'Bem-vindo, '+perfil.nome.split(' ')[0]:'Conectado');
-    if(!perfil)await modal({titulo:'Login sem cadastro na equipe',texto:'Você entrou, mas este login ainda não está na lista da equipe (ou está desativado). Peça ao coordenador para rodar o passo "Nomes e matrículas". Enquanto isso o app segue funcionando local.',ok:'Entendi',soOk:true});
+    if(!perfil)await modal({titulo:'Login ainda fora da equipe',texto:'Você entrou, mas este login ainda não está liberado na equipe. Peça ao coordenador para incluir você. Enquanto isso o app segue funcionando neste aparelho.',ok:'Entendi',soOk:true});
     else { registrarEvento('login',{app:'Vistorias em Campo '+VERSAO}); carregarNomesEquipe().then(()=>sincronizar()).catch(()=>{}); if(!perfil.matricula)pedirMatricula(true); }
   }catch(e){
     const m=String(e.message||'');
@@ -500,6 +505,7 @@ async function confirmarEntrar(){
   }
   b.disabled=false; b.textContent=rot;
 }
+async function confirmarSair(){ if(await modal({titulo:'Sair da equipe neste aparelho?',texto:'As vistorias e fotos continuam guardadas aqui. Para voltar, basta entrar de novo.',ok:'Sair',cancel:'Ficar'}))sair(); }
 async function sair(silencioso){
   const s=sessao; sessao=null; await pref('sessao',null);
   if(s&&!silencioso){ try{ await fetch(SB_URL+'/auth/v1/logout',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+s.access_token}}); }catch(e){} toast('Você saiu da equipe'); }
@@ -538,7 +544,7 @@ async function verificarVersao(){
     if(cmpVersao(m[1],VERSAO)<=0)return;
     versaoNova=m[1];
     try{ const c=await caches.open('vc-app-v1'); await c.put('./index.html',new Response(txt,{headers:{'Content-Type':'text/html; charset=utf-8'}})); }catch(e){}
-    toastAcao('Nova versão '+versaoNova+' disponível.','Atualizar',()=>{ location.reload(); });
+    toastAcao('Há uma atualização do app.','Atualizar',()=>{ location.reload(); });
   }catch(e){}
 }
 function cmpVersao(a,b){ const x=a.split('.').map(Number),y=b.split('.').map(Number); for(let i=0;i<Math.max(x.length,y.length);i++){ const d=(x[i]||0)-(y[i]||0); if(d)return d; } return 0; }
@@ -571,21 +577,33 @@ async function guardarMapaOffline(){
   if(urls.length>900){ zs=[15,16,17]; urls=tilesDaRede(V,zs); } // rede muito extensa: sem o zoom máximo
   if(!urls.length){ toast('Esta rede não tem coordenadas para o mapa.'); return; }
   b.disabled=true; const rot=b.textContent; let ok=0,falha=0,i=0;
-  const worker=async()=>{ while(i<urls.length){ const u=urls[i++]; try{ const r=await fetch(u,{mode:'no-cors',cache:'force-cache'}); if(r)ok++; else falha++; }catch(e){ falha++; } if((ok+falha)%10===0)b.textContent='Guardando o mapa… '+Math.round((ok+falha)/urls.length*100)+'%'; } };
+  const worker=async()=>{ while(i<urls.length){ const u=urls[i++]; try{ const r=await fetch(u,{mode:'cors',cache:'force-cache'}); if(r&&r.ok)ok++; else falha++; }catch(e){ falha++; } if((ok+falha)%10===0)b.textContent='Guardando o mapa… '+Math.round((ok+falha)/urls.length*100)+'%'; } };
   await Promise.all([worker(),worker(),worker(),worker()]);
   b.disabled=false;
   V.ui.mapaOffline={quando:agoraIso(),tiles:ok,zooms:zs.join('-')}; salvarV();
   b.textContent=rot; atualizaBtnMapaOffline();
-  toast(falha?'Mapa guardado em parte: '+ok+' quadros ok, '+falha+' não vieram. Tente de novo com sinal melhor.':'Mapa guardado: '+ok+' quadros. A aba Mapa desta rede funciona sem sinal.');
+  toast(falha?'Mapa guardado em parte. Tente de novo com sinal melhor.':'Mapa guardado. A aba Mapa desta rede funciona sem sinal.');
   registrarEvento('mapa_offline',{tiles:ok,falha,zooms:zs.join('-')},V.id);
 }
-function atualizaBtnMapaOffline(){ const b=$('btnMapaOffline'); if(!b||!V)return; const m=V.ui&&V.ui.mapaOffline; b.textContent=m?'Mapa guardado em '+fmtData(m.quando)+' ('+m.tiles+' quadros). Guardar de novo':'Guardar o mapa desta rede para usar sem sinal'; }
+function atualizaBtnMapaOffline(){ const b=$('btnMapaOffline'); if(!b||!V)return; const m=V.ui&&V.ui.mapaOffline; b.textContent=m?'Mapa guardado em '+fmtData(m.quando)+'. Guardar de novo':'Guardar o mapa desta rede para usar sem sinal'; }
 
 /* ===================== sincronização com a equipe (S2) ===================== */
 let syncTimer=null, sincronizando=false, equipeNomes={}, syncUltimaMsg='', atualizouSilencio=false;
 function agendarSync(){ clearTimeout(syncTimer); syncTimer=setTimeout(()=>sincronizar().catch(()=>{}),5000); }
 function dadosServidor(v){ const d=JSON.parse(JSON.stringify(v)); delete d.sync; delete d.ui; return d; }
+function assinatura(v){ const d=dadosServidor(v); delete d.atualizadaEm; return hashStr(JSON.stringify(d)); }
+function erroHumano(e){
+  const m=String((e&&e.message)||e||''); console.warn('erro', m);
+  if(m==='sem-sessao')return 'Você não está conectado à equipe. Entre de novo na abertura.';
+  if(/Failed to fetch|NetworkError|network|504|sem sinal/i.test(m))return 'Sem sinal agora. Tente de novo quando a internet voltar.';
+  if(/HTTP 401|HTTP 403|42501|permission|policy/i.test(m))return 'Sem permissão para isso. Fale com o coordenador da equipe.';
+  if(/versao_conflito|HTTP 409|23505/.test(m))return 'Outra pessoa gravou esta vistoria antes. O app vai mostrar as duas versões para você escolher.';
+  if(/23503/.test(m))return 'Esta vistoria ainda não chegou à equipe. Aguarde o envio e tente de novo.';
+  if(/HTTP 413|too large|Quota/i.test(m))return 'O arquivo ficou grande demais para enviar agora.';
+  return 'Não deu certo agora. Tente de novo em instantes.';
+}
 function nomeEquipe(id){ return (id&&equipeNomes[id])||(sessao&&sessao.user&&id===sessao.user.id?(sessao.perfil&&sessao.perfil.nome)||'você':'alguém da equipe'); }
+async function perfilAtivo(){ try{ const r=await sb('/rest/v1/equipe?id=eq.'+encodeURIComponent(sessao.user.id)+'&select=ativo'); return !!(r&&r[0]&&r[0].ativo===true); }catch(e){ return false; } }
 async function carregarNomesEquipe(){ try{ const rows=await sb('/rest/v1/equipe?select=id,nome,email'); equipeNomes={}; for(const r of rows)equipeNomes[r.id]=r.nome||r.email; }catch(e){} }
 async function sincronizar(){
   if(sincronizando||!sessao||!sessao.perfil||!navigator.onLine)return;
@@ -598,7 +616,7 @@ async function sincronizar(){
       const v=(V&&V.id===v0.id)?V:v0; // a vistoria aberta é o objeto em memória
       try{ await enviarVistoria(v); }catch(e){ v.sync.erro=String(e.message||e); await dbPut('vistorias',v); console.warn('sync',v.id,e); }
     }
-    syncUltimaMsg='Última sincronização às '+fmtHora(agoraIso());
+    syncUltimaMsg='Enviado às '+fmtHora(agoraIso());
   }finally{ sincronizando=false; renderSyncBar(); if(telaAtual==='vistorias')renderVistorias().catch(()=>{}); }
 }
 async function enviarVistoria(v){
@@ -606,16 +624,19 @@ async function enviarVistoria(v){
   const rows=await sb('/rest/v1/vistorias?id=eq.'+encodeURIComponent(v.id)+'&select=versao,atualizado_por,atualizado_em');
   const row=rows&&rows[0];
   if(!row&&(v.sync.versaoServidor||0)>0){ // já esteve no servidor e sumiu de lá: alguém excluiu da equipe. Não recria.
+    if(!(await perfilAtivo()))throw new Error('sem acesso à equipe no momento'); // lista vazia por falta de acesso não é exclusão
     v.sync.excluidaNaEquipe=true; v.sync.pendente=false; await dbPut('vistorias',v); return;
   }
-  if(row&&row.versao!==(v.sync.versaoServidor||0)){ // alguém gravou depois da última sincronização deste aparelho
-    v.sync.conflito={versao:row.versao,por:row.atualizado_por,quando:row.atualizado_em}; await dbPut('vistorias',v); return;
+  if(row&&row.versao!==(v.sync.versaoServidor||0)){
+    if(row.atualizado_por===uid&&row.versao===(v.sync.versaoServidor||0)+1){ v.sync.versaoServidor=row.versao; } // foi este aparelho que gravou (envio interrompido antes das fotos): não é conflito
+    else { v.sync.conflito={versao:row.versao,por:row.atualizado_por,quando:row.atualizado_em}; await dbPut('vistorias',v); return; } // alguém gravou depois da última sincronização deste aparelho
   }
-  const versao=(row?row.versao:0)+1;
+  const versao=(row?row.versao:0)+1; const assEnviada=assinatura(v);
   const corpo={id:v.id,ct_nome:String(nomeV(v)||'Rede'),dados:dadosServidor(v),versao,atualizado_por:uid,encerrada_em:v.encerradaEm||null,exportada_em:v.exportadaEm||null};
   if(temResumo)corpo.resumo=resumoServidor(v);
   if(!row)corpo.criado_por=uid;
   await sb('/rest/v1/vistorias',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},json:corpo});
+  v.sync.versaoServidor=versao; v.sync.conflito=null; await dbPut('vistorias',v); // a linha já subiu: se cair agora, a próxima rodada não vê conflito consigo mesma
   // fotos: só as referenciadas por registros e ainda não enviadas
   const usadas=new Set(); for(const k in v.registros)for(const f of (v.registros[k].fotos||[]))usadas.add(f);
   const fs=(await fotosDa(v.id)).filter(f=>usadas.has(f.id)&&!f.enviada);
@@ -626,8 +647,13 @@ async function enviarVistoria(v){
     await sb('/rest/v1/fotos',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},json:{id:f.id,vistoria_id:v.id,ponto_id:f.pontoId,caminho,quando:f.quando||null,lat:f.lat!=null?f.lat:null,lon:f.lon!=null?f.lon:null,criado_por:uid}});
     f.enviada=true; await dbPut('fotos',f); n++;
   }
-  v.sync={pendente:false,enviadoEm:agoraIso(),versaoServidor:versao,conflito:null,erro:null};
-  await dbPut('vistorias',v);
+  // fotos que saíram da ficha neste aparelho saem também do servidor (não trava o envio se a permissão faltar)
+  try{ const srvF=await sb('/rest/v1/fotos?vistoria_id=eq.'+encodeURIComponent(v.id)+'&select=id,caminho'); const sobra=(srvF||[]).filter(f=>!usadas.has(f.id));
+    if(sobra.length){ await sb('/storage/v1/object/fotos',{method:'DELETE',json:{prefixes:sobra.map(f=>f.caminho)}}).catch(()=>{}); await sb('/rest/v1/fotos?vistoria_id=eq.'+encodeURIComponent(v.id)+'&id=in.('+sobra.map(f=>'"'+f.id.replace(/"/g,'')+'"').join(',')+')',{method:'DELETE',headers:{'Prefer':'return=minimal'}}); }
+  }catch(e){ console.warn('fotos órfãs no servidor',e); }
+  const mudouDurante=assinatura(v)!==assEnviada; // a pessoa editou enquanto as fotos subiam: continua pendente
+  v.sync=Object.assign(v.sync,{pendente:mudouDurante,enviadoEm:agoraIso(),versaoServidor:versao,conflito:null,erro:null,assinaturaEnviada:assEnviada});
+  await dbPut('vistorias',v); if(mudouDurante)agendarSync();
   registrarEvento('vistoria_salva',{versao,fotos:n,ct:corpo.ct_nome},v.id);
 }
 async function listarRemotas(locais){
@@ -639,10 +665,14 @@ async function listarRemotas(locais){
     catch(e){ if(!/42703|resumo/.test(String(e.message)))throw e; temResumo=false; rows=await sb('/rest/v1/vistorias?select=id,ct_nome,versao,atualizado_por,atualizado_em,encerrada_em&order=atualizado_em.desc'); }
     const porId=new Map(locais.map(v=>[v.id,v]));
     const noServidor=new Set(rows.map(r=>r.id)); const removidas=[];
-    for(const loc of locais){
-      if(!loc.sync||loc.sync.excluidaNaEquipe||!(loc.sync.versaoServidor>0)||noServidor.has(loc.id)||(V&&V.id===loc.id))continue;
-      if(!loc.sync.pendente){ await excluirLocal(loc.id); removidas.push(nomeV(loc)); atualizouSilencio=true; } // cópia limpa: some junto
-      else if(!loc.sync.excluidaNaEquipe){ loc.sync.excluidaNaEquipe=true; loc.sync.pendente=false; await dbPut('vistorias',loc); atualizouSilencio=true; } // tem alteração local: a pessoa decide
+    const candidatas=locais.filter(loc=>loc.sync&&!loc.sync.excluidaNaEquipe&&loc.sync.versaoServidor>0&&!noServidor.has(loc.id)&&!(V&&V.id===loc.id));
+    if(candidatas.length&&rows.length>0&&await perfilAtivo()){ // lista vazia ou sem acesso: não apaga nada
+      const conf=await sb('/rest/v1/vistorias?id=in.('+candidatas.map(c=>'"'+c.id.replace(/"/g,'')+'"').join(',')+')&select=id'); const ainda=new Set((conf||[]).map(r=>r.id));
+      for(const loc of candidatas){
+        if(ainda.has(loc.id))continue; // confere uma a uma antes de apagar
+        if(!loc.sync.pendente){ await excluirLocal(loc.id); removidas.push(nomeV(loc)); atualizouSilencio=true; } // cópia limpa: some junto
+        else { loc.sync.excluidaNaEquipe=true; loc.sync.pendente=false; await dbPut('vistorias',loc); atualizouSilencio=true; } // tem alteração local: a pessoa decide
+      }
     }
     if(removidas.length)toast(removidas.join(', ')+(removidas.length>1?' foram excluídas':' foi excluída')+' da equipe e saiu deste aparelho');
     const remotas=[];
@@ -662,10 +692,11 @@ async function baixarVistoria(id,substituir,silencioso){
     const v=row.dados; v.id=row.id; v.ui=v.ui||{aba:'lista',filtro:'todos',busca:''};
     v.encerradaEm=row.encerrada_em||v.encerradaEm||null; v.exportadaEm=row.exportada_em||v.exportadaEm||null;
     v.sync={pendente:false,enviadoEm:row.atualizado_em,versaoServidor:row.versao,conflito:null,erro:null};
+    await dbPut('vistorias',v); // a vistoria primeiro: fotos sem vistoria seriam tratadas como órfãs
     const fotosRows=await sb('/rest/v1/fotos?vistoria_id=eq.'+encodeURIComponent(id)+'&select=id,ponto_id,caminho,quando,lat,lon');
     const existentes=new Set((await fotosDa(id)).map(f=>f.id));
     for(const fr of fotosRows){
-      if(existentes.has(fr.id)&&!substituir)continue;
+      if(existentes.has(fr.id))continue; // a foto é a mesma pelo id: não baixa de novo
       const blob=await sbBlob('/storage/v1/object/fotos/'+fr.caminho);
       await dbPut('fotos',{id:fr.id,vistoriaId:id,pontoId:fr.ponto_id,blob,quando:fr.quando,lat:fr.lat,lon:fr.lon,enviada:true});
     }
@@ -674,7 +705,7 @@ async function baixarVistoria(id,substituir,silencioso){
     registrarEvento('baixada',{versao:row.versao},id);
     if(!silencioso){ toast(nomeV(v)+' baixada'); if(telaAtual==='vistorias')renderVistorias(); }
     return v;
-  }catch(e){ if(!silencioso)await modal({titulo:'Não deu para baixar',texto:String(e.message||e),ok:'Entendi',soOk:true}); return null; }
+  }catch(e){ if(!silencioso)await modal({titulo:'Não deu para baixar',texto:erroHumano(e),ok:'Entendi',soOk:true}); return null; }
 }
 async function sbBlob(caminho){
   const s=await sessaoValida(); if(!s)throw new Error('sem-sessao');
@@ -707,15 +738,15 @@ function souCoordenador(){ return !!(sessao&&sessao.perfil&&sessao.perfil.papel=
 async function assumir(vid,usuario){
   if(!sessao||!sessao.perfil)return; usuario=usuario||sessao.user.id;
   try{
-    await sb('/rest/v1/atribuicoes',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},json:{vistoria_id:vid,usuario,atribuido_por:sessao.user.id}});
+    await sb('/rest/v1/atribuicoes',{method:'POST',headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'},json:{vistoria_id:vid,usuario,atribuido_por:sessao.user.id}});
     registrarEvento('atribuida',{usuario},vid); toast(usuario===sessao.user.id?'Vistoria assumida por você':'Vistoria atribuída a '+nomeEquipe(usuario));
-  }catch(e){ await modal({titulo:'Não deu para assumir',texto:/23503/.test(String(e.message))?'Esta vistoria ainda não chegou ao servidor. Aguarde a sincronização e tente de novo.':String(e.message||e),ok:'Entendi',soOk:true}); }
+  }catch(e){ await modal({titulo:'Não deu para assumir',texto:erroHumano(e),ok:'Entendi',soOk:true}); }
   await renderVistorias();
 }
 async function deixar(vid,usuario){
   if(!sessao||!sessao.perfil)return; usuario=usuario||sessao.user.id;
   try{ await sb('/rest/v1/atribuicoes?vistoria_id=eq.'+encodeURIComponent(vid)+'&usuario=eq.'+usuario,{method:'DELETE',headers:{'Prefer':'return=minimal'}}); registrarEvento('liberada',{usuario},vid); toast(usuario===sessao.user.id?'Você deixou esta vistoria':'Atribuição de '+nomeEquipe(usuario)+' removida'); }
-  catch(e){ toast('Não deu: '+(e.message||e)); }
+  catch(e){ toast(erroHumano(e)); }
   await renderVistorias();
 }
 async function atribuir(vid){
@@ -753,30 +784,30 @@ function filtrarCarteira(itens){
   const f=carteiraF, b=normNome(f.busca);
   return itens.filter(i=>(!f.mes||mesDe(i.inicio||i.atualizadoEm)===f.mes)&&(!f.estado||i.estado.k===f.estado)&&(!f.pessoa||i.comIds.includes(f.pessoa)||i.porId===f.pessoa)&&(!b||normNome(i.nome+' '+i.municipio+' '+i.tipo).includes(b)));
 }
-function totaisCarteira(sel){ const t={vist:sel.length,reg:0,res:0,ok:0,fotos:0,enc:0}; for(const i of sel){t.reg+=i.reg;t.res+=i.res;t.ok+=i.ok;t.fotos+=i.fotos;if(i.estado.k==='encerrada')t.enc++;} return t; }
+function totaisCarteira(sel){ const t={vist:sel.length,reg:0,res:0,ok:0,fotos:0,enc:0,avist:0,campo:0}; for(const i of sel){t.reg+=i.reg;t.res+=i.res;t.ok+=i.ok;t.fotos+=i.fotos;if(i.estado.k==='encerrada')t.enc++;else if(i.estado.k==='andamento')t.campo++;else t.avist++;} return t; }
 function setCarteira(k,v){ carteiraF[k]=v; desenharCarteira(k==='busca'); }
 async function renderCarteira(){
   const box=$('carteiraBox');
   if(!(sessao&&sessao.perfil)){ box.innerHTML='<div class="vazio"><div class="ico">🗂️</div>A carteira mostra as vistorias de toda a equipe.<br>Entre na equipe, na abertura, para abrir.</div>'; return; }
   box.innerHTML='<div class="vazio">Buscando as vistorias da equipe…</div>';
-  try{ carteiraItens=await carregarCarteira(); }catch(e){ box.innerHTML='<div class="vazio">Não deu para buscar as vistorias: '+esc(e.message||e)+'</div>'; return; }
+  try{ carteiraItens=await carregarCarteira(); }catch(e){ box.innerHTML='<div class="vazio">Não deu para buscar as vistorias da equipe. '+esc(erroHumano(e))+'</div>'; return; }
   desenharCarteira();
 }
 function desenharCarteira(soTabela){
   const box=$('carteiraBox'); const todos=carteiraItens, f=carteiraF;
   const sel=filtrarCarteira(todos); const tot=totaisCarteira(sel);
-  const nums='<div class="cart-nums"><div><b>'+tot.vist+'</b><small>vistorias</small></div><div><b>'+tot.enc+'</b><small>encerradas</small></div><div><b>'+tot.reg+'</b><small>PVs registrados</small></div><div class="ok"><b>'+tot.ok+'</b><small>conferem</small></div><div class="obs"><b>'+tot.res+'</b><small>com observação</small></div><div><b>'+tot.fotos+'</b><small>fotos</small></div></div>';
-  const linhas=sel.map(i=>'<tr class="clic" onclick="'+(i.reg||i.estado.k==='encerrada'?'abrirRelatorio(\''+i.id+'\')':(i.local?'ir(\'pvs\',{vid:\''+i.id+'\'})':'baixarVistoria(\''+i.id+'\')'))+'">'
+  const nums='<div class="cart-nums"><div><b>'+tot.vist+'</b><small>vistorias</small></div><div><b>'+tot.avist+'</b><small>a vistoriar ou assumidas</small></div><div><b>'+tot.campo+'</b><small>em campo</small></div><div><b>'+tot.enc+'</b><small>encerradas</small></div><div><b>'+tot.reg+'</b><small>PVs registrados</small></div><div class="ok"><b>'+tot.ok+'</b><small>conferem</small></div><div class="obs"><b>'+tot.res+'</b><small>com observação</small></div><div><b>'+tot.fotos+'</b><small>fotos</small></div></div>';
+  const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="'+(i.reg||i.estado.k==='encerrada'?'abrirRelatorio(\''+i.id+'\')':(i.local?'ir(\'pvs\',{vid:\''+i.id+'\'})':'baixarVistoria(\''+i.id+'\')'))+'">'
     +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+(i.un?' · UN '+esc(i.un):'')+'</small></td>'
     +'<td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.servidor?'':'<small class="sub">só neste aparelho</small>')+'</td>'
-    +'<td>'+(i.com.length?esc(i.com.join(', ')):'<span class="sutil">—</span>')+(i.responsaveis.length&&i.responsaveis.join(', ')!==i.com.join(', ')?'<small class="sub">resp.: '+esc(i.responsaveis.join(', '))+'</small>':'')+'</td>'
-    +'<td class="n">'+(i.inicio?fmtData(i.inicio):'<span class="sutil">—</span>')+'</td>'
+    +'<td>'+(i.com.length?esc(i.com.join(', ')):'<span class="sutil">ninguém</span>')+(i.responsaveis.length&&i.responsaveis.join(', ')!==i.com.join(', ')?'<small class="sub">resp.: '+esc(i.responsaveis.join(', '))+'</small>':'')+'</td>'
+    +'<td class="n">'+(i.inicio?fmtData(i.inicio):'<span class="sutil">não iniciada</span>')+'</td>'
     +'<td class="n"><b>'+i.reg+'</b><span class="sutil"> / '+i.total+'</span></td>'
     +'<td class="n">'+(i.res?'<b class="obs">'+i.res+'</b>':'<span class="sutil">0</span>')+'</td>'
     +'<td class="n">'+i.fotos+'</td>'
     +'<td class="quando">'+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+'<small>'+esc(i.por)+'</small></td>'
-    +'<td class="acoes">'+(i.reg||i.estado.k==='encerrada'?'<button class="mini cheio" onclick="event.stopPropagation();abrirRelatorio(\''+i.id+'\')">Relatório</button>':'')+(i.local?'<button class="mini" onclick="event.stopPropagation();ir(\'pvs\',{vid:\''+i.id+'\'})">Abrir</button>':'<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+i.id+'\')">Baixar</button>')+'</td></tr>').join('');
-  const tabela='<div class="cart-tabela"><table><thead><tr><th>Vistoria</th><th>Situação</th><th>Com</th><th>Em campo</th><th>PVs</th><th>Obs.</th><th>Fotos</th><th>Última gravação</th><th></th></tr></thead><tbody>'+(linhas||'<tr><td colspan="9" class="vazio">Nenhuma vistoria com esses filtros.</td></tr>')+'</tbody></table></div>';
+    +'<td class="acoes">'+(i.reg||i.estado.k==='encerrada'?'<button class="mini cheio" onclick="event.stopPropagation();abrirRelatorio(\''+i.id+'\')">Relatório</button>':'')+(i.local?'<button class="mini" onclick="event.stopPropagation();ir(\'pvs\',{vid:\''+i.id+'\'})">Abrir</button>':'<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+i.id+'\')">Baixar</button>')+'</td></tr>'; }).join('');
+  const tabela='<div class="cart-tabela"><table><thead><tr><th>Vistoria</th><th>Situação</th><th>Atribuída a</th><th>Em campo</th><th>PVs</th><th>Com obs.</th><th>Fotos</th><th>Última gravação</th><th></th></tr></thead><tbody>'+(linhas||'<tr><td colspan="9" class="vazio">Nenhuma vistoria com esses filtros.</td></tr>')+'</tbody></table></div>';
   if(soTabela){ $('cartNums').innerHTML=nums; $('cartTabela').innerHTML=tabela; return; }
   const meses=[...new Set(todos.map(i=>mesDe(i.inicio||i.atualizadoEm)).filter(Boolean))].sort().reverse();
   const pessoas={}; for(const i of todos){ for(const id of i.comIds)pessoas[id]=nomeEquipe(id); if(i.porId)pessoas[i.porId]=i.por; }
@@ -784,10 +815,10 @@ function desenharCarteira(soTabela){
   const filtros='<div class="cart-filtros">'
     +'<label>Mês<select onchange="setCarteira(\'mes\',this.value)">'+op('','Todos os meses',!f.mes)+meses.map(m=>op(m,mesRotulo(m),f.mes===m)).join('')+'</select></label>'
     +'<label>Situação<select onchange="setCarteira(\'estado\',this.value)">'+op('','Todas',!f.estado)+Object.keys(ESTADOS_TXT).map(k=>op(k,ESTADOS_TXT[k],f.estado===k)).join('')+'</select></label>'
-    +'<label>Pessoa<select onchange="setCarteira(\'pessoa\',this.value)">'+op('','Toda a equipe',!f.pessoa)+Object.keys(pessoas).sort((a,b)=>pessoas[a].localeCompare(pessoas[b])).map(id=>op(id,pessoas[id],f.pessoa===id)).join('')+'</select></label>'
+    +'<label>Pessoa (atribuída ou que gravou)<select onchange="setCarteira(\'pessoa\',this.value)">'+op('','Toda a equipe',!f.pessoa)+Object.keys(pessoas).sort((a,b)=>pessoas[a].localeCompare(pessoas[b])).map(id=>op(id,pessoas[id],f.pessoa===id)).join('')+'</select></label>'
     +'<label>Buscar<input type="search" value="'+esc(f.busca)+'" placeholder="CT, município ou tipo" oninput="setCarteira(\'busca\',this.value)"></label></div>';
   const acoes='<div class="cart-acoes"><button class="btn claro" onclick="imprimirCarteira()">Imprimir carteira (PDF)</button><button class="btn claro" onclick="planilhaCarteira()">Planilha das vistorias</button><button class="btn claro" onclick="planilhaPvs()">Planilha dos PVs registrados</button></div>';
-  box.innerHTML=filtros+'<div id="cartNums">'+nums+'</div><div id="cartTabela">'+tabela+'</div>'+acoes+'<p class="ajuda" style="font-size:14px">A carteira lê o servidor da equipe na hora. "Em campo" é o dia do primeiro registro; "Última gravação" é a última vez que a vistoria subiu. As planilhas abrem direto no Excel.</p>';
+  box.innerHTML=filtros+'<div id="cartNums">'+nums+'</div><div id="cartTabela">'+tabela+'</div>'+acoes+'<p class="ajuda" style="font-size:14px">A carteira lê os dados da equipe na hora. "Em campo" é quando a vistoria foi iniciada no local; "Última gravação" é a última vez que ela subiu. As planilhas abrem direto no Excel.</p>';
 }
 function baixarTexto(nome,txt){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['\ufeff'+txt],{type:'text/csv;charset=utf-8'})); a.download=nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),8000); }
 const csvCel=v=>{ v=v==null?'':String(v); return /[;"\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
@@ -822,7 +853,7 @@ function imprimirCarteira(){
   const sel=filtrarCarteira(carteiraItens), f=carteiraF, tot=totaisCarteira(sel), h=esc, agora=agoraIso();
   const logo=(document.getElementById('hdrLogo')||{}).src||'';
   const filtroTxt=[f.mes?mesRotulo(f.mes):'todos os meses',f.estado?ESTADOS_TXT[f.estado].toLowerCase():'todas as situações',f.pessoa?nomeEquipe(f.pessoa):'toda a equipe',f.busca?'busca "'+f.busca+'"':''].filter(Boolean).join(' · ');
-  const linhas=sel.map(i=>'<tr><td><b>'+h(i.nome)+'</b><br><small>'+h(i.tipo)+(i.municipio?' · '+h(i.municipio):'')+(i.un?' · UN '+h(i.un):'')+'</small></td><td>'+h(i.estado.t)+(i.encerradaEm?'<br><small>'+fmtData(i.encerradaEm)+'</small>':'')+'</td><td>'+h(i.com.join(', ')||'—')+'</td><td>'+h(i.responsaveis.join(', ')||'—')+'</td><td class="n">'+(i.inicio?fmtData(i.inicio):'—')+'</td><td class="n">'+i.reg+' / '+i.total+'</td><td class="n ok">'+i.ok+'</td><td class="n'+(i.res?' obs':'')+'">'+i.res+'</td><td class="n">'+i.fotos+'</td><td class="n">'+fmtData(i.atualizadoEm)+'<br><small>'+h(i.por)+'</small></td></tr>').join('');
+  const linhas=sel.map(i=>'<tr><td><b>'+h(i.nome)+'</b><br><small>'+h(i.tipo)+(i.municipio?' · '+h(i.municipio):'')+(i.un?' · UN '+h(i.un):'')+'</small></td><td>'+h(i.estado.t)+(i.encerradaEm?'<br><small>'+fmtData(i.encerradaEm)+'</small>':'')+'</td><td>'+h(i.com.join(', ')||'ninguém')+'</td><td>'+h(i.responsaveis.join(', ')||'não informados')+'</td><td class="n">'+(i.inicio?fmtData(i.inicio):'não iniciada')+'</td><td class="n">'+i.reg+' / '+i.total+'</td><td class="n ok">'+i.ok+'</td><td class="n'+(i.res?' obs':'')+'">'+i.res+'</td><td class="n">'+i.fotos+'</td><td class="n">'+fmtData(i.atualizadoEm)+'<br><small>'+h(i.por)+'</small></td></tr>').join('');
   w.document.open();
   w.document.write('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Carteira de vistorias</title><style>@page{size:A4 landscape;margin:12mm}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font:10.5pt/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111;margin:0;background:#E9EEF1}.folha{max-width:297mm;margin:0 auto;background:#fff;padding:12mm}@media print{body{background:#fff}.folha{max-width:none;padding:0}.nao-imprime{display:none !important}}'
     +'header{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:4px solid #0093DD;padding-bottom:8px;margin-bottom:10px}header img{height:30px}header .org{font-size:9.5pt;color:#3D4954;text-align:right;line-height:1.3}header .org b{display:block;color:#111;font-size:10.5pt}h1{font-size:16pt;margin:2px 0 2px;color:#0072AD}.sub{color:#3D4954;font-size:10pt;margin:0 0 10px}'
@@ -849,9 +880,11 @@ async function abrirRelatorio(vid){
   try{
     let v=(V&&V.id===vid)?V:await dbGet('vistorias',vid);
     if(!v){ v=await baixarVistoria(vid,false,true); if(!v)throw new Error('não foi possível obter a vistoria'); }
-    const fs=await fotosDa(vid); const fotos={};
-    for(const f of fs)fotos[f.id]={src:await blobDataUrl(f.blob),quando:f.quando,lat:f.lat,lon:f.lon};
+    const usadas=new Set(); for(const k in (v.registros||{}))for(const f of (v.registros[k].fotos||[]))usadas.add(f);
+    const fs=(await fotosDa(vid)).filter(f=>usadas.has(f.id)); const fotos={}; const urls=[];
+    for(const f of fs){ const u=URL.createObjectURL(f.blob); urls.push(u); fotos[f.id]={src:u,quando:f.quando,lat:f.lat,lon:f.lon}; } // blob: em vez de base64: cabe na memória com centenas de fotos
     w.document.open(); w.document.write(htmlRelatorio(v,fotos)); w.document.close();
+    w.addEventListener('pagehide',()=>{ for(const u of urls)URL.revokeObjectURL(u); });
     registrarEvento('relatorio',{},vid);
   }catch(err){ w.document.body.innerHTML='<p style="font:16px system-ui;padding:20px">Não deu para montar o relatório: '+esc(err&&err.message||err)+'</p>'; }
 }
@@ -866,7 +899,7 @@ function plantaMapa(v,W,H){
   const X=lon=>merc(0,lon,z)[0]-ox, Y=lat=>merc(lat,0,z)[1]-oy;
   const nT=Math.pow(2,z); let tiles='';
   for(let tx=Math.floor(ox/256);tx*256<ox+W;tx++)for(let ty=Math.floor(oy/256);ty*256<oy+H;ty++){ if(ty<0||ty>=nT)continue; const txw=((tx%nT)+nT)%nT;
-    tiles+='<img src="https://tile.openstreetmap.org/'+z+'/'+txw+'/'+ty+'.png" alt="" style="left:'+((tx*256-ox)/W*100).toFixed(3)+'%;top:'+((ty*256-oy)/H*100).toFixed(3)+'%;width:'+(256/W*100).toFixed(3)+'%;height:'+(256/H*100).toFixed(3)+'%" onerror="this.remove()">'; }
+    tiles+='<img crossorigin="anonymous" src="https://tile.openstreetmap.org/'+z+'/'+txw+'/'+ty+'.png" alt="" style="left:'+((tx*256-ox)/W*100).toFixed(3)+'%;top:'+((ty*256-oy)/H*100).toFixed(3)+'%;width:'+(256/W*100).toFixed(3)+'%;height:'+(256/H*100).toFixed(3)+'%" onerror="this.remove()">'; }
   const linhas=(v.trechos||[]).map(tr=>'<polyline fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" opacity=".85" points="'+tr.latlngs.map(q=>X(q[1]).toFixed(1)+','+Y(q[0]).toFixed(1)).join(' ')+'"/><polyline fill="none" stroke="'+esc(tr.cor||'#8A96A0')+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="'+tr.latlngs.map(q=>X(q[1]).toFixed(1)+','+Y(q[0]).toFixed(1)).join(' ')+'"/>').join('');
   const cor=e=>({ok:'#1E7B34',ressalva:'#B7791F'}[e]||'#9AA6AE');
   const nos=pts.map(p=>{const r=v.registros[p.id];const e=r?(recalcEstado(r)||'consta'):'consta';const x=X(p.lon),y=Y(p.lat);const reg=e==='ok'||e==='ressalva';
@@ -913,9 +946,10 @@ function htmlRelatorio(v,fotos){
   }).join('');
   const barra=(n,tot,cor)=>'<div class="bar"><i style="width:'+(tot?Math.round(n/tot*100):0)+'%;background:'+cor+'"></i></div>';
   const totResp=regs.length*3||1;
-  const meta=[['Município',ct.municipio?h(ct.municipio)+(ct.uf?' / '+h(ct.uf):''):'—'],['Bairro',ct.bairro?h(ct.bairro):'—'],['Unidade de Negócio',ct.un?h(ct.un.nome)+(ct.un.sigla?' ('+h(ct.un.sigla)+')':''):'—'],['Centro de custo',ct.cc?h(ct.cc):'—'],
+  const ni='<i>não informado</i>';
+  const meta=[['Município',ct.municipio?h(ct.municipio)+(ct.uf?' / '+h(ct.uf):''):ni],['Bairro',ct.bairro?h(ct.bairro):ni],['Unidade de Negócio',ct.un?h(ct.un.nome)+(ct.un.sigla?' ('+h(ct.un.sigla)+')':''):ni],['Centro de custo',ct.cc?h(ct.cc):ni],
     ['Situação',h(est.t)+(v.encerradaEm?' em '+fmtData(v.encerradaEm)+' às '+fmtHora(v.encerradaEm):'')],['Início em campo',v.iniciadaEm?(fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' · '+h(v.iniciadaPor):'')+(v.iniciadaGps?' · GPS '+v.iniciadaGps.lat.toFixed(5)+', '+v.iniciadaGps.lon.toFixed(5):'')):'não iniciada'],['Registros em campo',ini?([...dias].join(', ')+' · das '+fmtHora(ini)+' às '+fmtHora(fim||ini)):'ainda sem registros'],
-    ['Vistoriadores',resp||(atrib?h(atrib):'<i>não informados</i>')],['Atribuída a',atrib?h(atrib):'—'],['Rede no cadastro',c.total+' PVs'+(c.trans?' · '+c.trans+' transições':'')+(v.resumo&&v.resumo.extensao?' · '+n2(v.resumo.extensao)+' m':'')],['Origem',(v.origem&&v.origem.arquivo?h(v.origem.arquivo):'KMZ do Conversor')+(v.origem&&v.origem.conversor?' · Conversor '+h(v.origem.conversor):'')]];
+    ['Vistoriadores',resp||(atrib?h(atrib):'<i>não informados</i>')],['Atribuída a',atrib?h(atrib):'<i>ninguém</i>'],['Rede no cadastro',c.total+' PVs'+(c.trans?' · '+c.trans+' transições':'')+(v.resumo&&v.resumo.extensao?' · '+n2(v.resumo.extensao)+' m':'')],['Origem',(v.origem&&v.origem.arquivo?h(v.origem.arquivo):'KMZ do Conversor')+(v.origem&&v.origem.conversor?' · Conversor '+h(v.origem.conversor):'')]];
   const agora=agoraIso(); const planta=plantaMapa(v,760,500);
   return '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relatório de vistoria · '+h(nomeV(v))+'</title><style>'
     +'@page{size:A4;margin:14mm 13mm 16mm}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font:11.5pt/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111;margin:0;background:#E9EEF1}'
@@ -956,7 +990,7 @@ function htmlRelatorio(v,fotos){
     +(v.iniciadaEm?'<div><b>Iniciada em campo</b> em '+fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' por '+h(v.iniciadaPor):'')+'</div>':'')
     +(ini?'<div><b>Registros em campo</b> de '+fmtData(ini)+' '+fmtHora(ini)+' a '+fmtData(fim||ini)+' '+fmtHora(fim||ini)+'</div>':'')
     +(v.encerradaEm?'<div><b>Encerrada</b> em '+fmtData(v.encerradaEm)+' às '+fmtHora(v.encerradaEm)+'</div>':'<div><b>Vistoria ainda aberta</b>: este relatório retrata o estado atual e pode mudar.</div>')
-    +(v.sync&&v.sync.enviadoEm?'<div><b>Servidor da equipe</b>: versão '+(v.sync.versaoServidor||'')+', última gravação em '+fmtData(v.sync.enviadoEm)+' às '+fmtHora(v.sync.enviadoEm)+'</div>':'<div><b>Servidor da equipe</b>: ainda não sincronizada</div>')
+    +(v.sync&&v.sync.enviadoEm?'<div><b>Equipe</b>: gravação nº '+(v.sync.versaoServidor||'')+', enviada em '+fmtData(v.sync.enviadoEm)+' às '+fmtHora(v.sync.enviadoEm)+'</div>':'<div><b>Equipe</b>: ainda não enviada</div>')
     +(v.exportadaEm?'<div><b>Exportada em arquivo</b> em '+fmtData(v.exportadaEm)+' às '+fmtHora(v.exportadaEm)+'</div>':'')
     +'<div><b>Emitido</b> em '+fmtData(agora)+' às '+fmtHora(agora)+(emissor?' por '+h(emissor):'')+'</div></div>'
     +'<footer><span>Sabesp · Encerramento de Ativos Regulatórios · '+h(nomeV(v))+'</span><span>Vistorias em Campo v'+VERSAO+' · fotos carimbadas com data, hora e GPS no momento do registro</span></footer>'
@@ -967,7 +1001,7 @@ function renderSyncBar(estado){
   const el=$('syncBar'); if(!el)return;
   if(!sessao||!sessao.perfil){ el.hidden=false; el.innerHTML='<span class="ajuda" style="font-size:14px">Para compartilhar com a equipe, entre na abertura.</span>'; return; }
   el.hidden=false;
-  el.innerHTML='<span><b>'+esc(sessao.perfil.nome||sessao.user.email)+'</b> · '+(estado==='enviando'?'enviando…':(navigator.onLine?(syncUltimaMsg||'conectado'):'sem sinal: envia quando voltar'))+'</span><button class="acao-hdr" onclick="sincronizar()" '+(estado==='enviando'?'disabled':'')+'>Sincronizar agora</button>';
+  el.innerHTML='<span><b>'+esc(sessao.perfil.nome||sessao.user.email)+'</b> · '+(estado==='enviando'?'enviando…':(navigator.onLine?(syncUltimaMsg||'conectado à equipe'):'sem sinal: envia quando voltar'))+'</span><button class="acao-hdr" onclick="sincronizar()" '+(estado==='enviando'?'disabled':'')+'>Enviar agora</button>';
 }
 async function pedirMatricula(primeiraVez){
   const atual=(sessao&&sessao.perfil&&sessao.perfil.matricula)||'';
@@ -977,14 +1011,14 @@ async function pedirMatricula(primeiraVez){
   try{
     await sb('/rest/v1/equipe?id=eq.'+sessao.user.id,{method:'PATCH',headers:{'Prefer':'return=minimal'},json:{matricula:m}});
     await carregarPerfil(); renderConta(); toast('Matrícula guardada'); registrarEvento('matricula',{matricula:m});
-  }catch(e){ await modal({titulo:'Não deu para guardar',texto:String(e.message||e),ok:'Entendi',soOk:true}); }
+  }catch(e){ await modal({titulo:'Não deu para guardar',texto:erroHumano(e),ok:'Entendi',soOk:true}); }
 }
 async function trocarSenha(){
   const nova=await modal({titulo:'Trocar a senha de entrada',texto:'Mínimo de 6 caracteres. A senha fica visível enquanto você digita.',ok:'Trocar',cancel:'Cancelar',input:'Nova senha'});
   if(!nova||typeof nova!=='string')return;
   if(nova.length<6){toast('A senha precisa ter pelo menos 6 caracteres');return;}
   try{ await sb('/auth/v1/user',{method:'PUT',json:{password:nova}}); toast('Senha trocada'); registrarEvento('senha_trocada'); }
-  catch(e){ await modal({titulo:'Não deu para trocar',texto:String(e.message||e),ok:'Entendi',soOk:true}); }
+  catch(e){ await modal({titulo:'Não deu para trocar',texto:erroHumano(e),ok:'Entendi',soOk:true}); }
 }
 window.addEventListener('online',()=>{renderSyncBar();agendarSync();});
 window.addEventListener('offline',()=>renderSyncBar());
@@ -1023,8 +1057,8 @@ let V=null,P=null,fotosCache={},salvarTimer=null,ultimoState={tela:'abertura'},z
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const agoraIso=()=>new Date().toISOString();
-const fmtData=iso=>new Date(iso).toLocaleDateString('pt-BR');
-const fmtHora=iso=>new Date(iso).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+const fmtData=iso=>iso?new Date(iso).toLocaleDateString('pt-BR'):'';
+const fmtHora=iso=>iso?new Date(iso).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
 const n2=v=>v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const lista=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' e '+a[a.length-1];
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
@@ -1044,10 +1078,11 @@ function novaVistoria(pk,arquivo,sufixo){
 }
 function salvarV(){
   if(!V)return Promise.resolve(true);
-  for(const k in V.registros){ if(recalcEstado(V.registros[k])===null)delete V.registros[k]; } // ficha aberta e fechada sem nada não vira registro
-  V.atualizadaEm=agoraIso();
-  V.sync=Object.assign({pendente:false,enviadoEm:null,versaoServidor:0,conflito:null,erro:null},V.sync||{},{pendente:true});
-  return dbPut('vistorias',V).then(()=>{agendarSync();return true;}).catch(e=>{toast('Não consegui gravar no aparelho. '+(/Quota/i.test(String(e&&e.name))?'O espaço acabou: exporte e exclua vistorias antigas.':(e&&e.message||'')));return false;});
+  for(const k in V.registros){ const e=recalcEstado(V.registros[k]); if(e===null)delete V.registros[k]; else V.registros[k].estado=e; } // ficha aberta e fechada sem nada não vira registro
+  V.sync=Object.assign({pendente:false,enviadoEm:null,versaoServidor:0,conflito:null,erro:null},V.sync||{});
+  const ass=assinatura(V);
+  if(ass!==V.sync.assinaturaEnviada){ V.atualizadaEm=agoraIso(); V.sync.pendente=true; } // só sobe o que mudou de verdade (trocar de aba/filtro não conta)
+  return dbPut('vistorias',V).then(()=>{if(V.sync.pendente)agendarSync();return true;}).catch(e=>{toast('Não consegui gravar no aparelho. '+(/Quota/i.test(String(e&&e.name))?'O espaço acabou: exporte e exclua vistorias antigas.':(e&&e.message||'')));return false;});
 }
 function marcarAlterada(){ if(V&&V.exportadaEm)V.alteradaEm=agoraIso(); zipPronto=null; }
 function novaResp(){return {v:null,chips:[],txt:'',cat:'',rascunho:null,guardado:null};}
@@ -1066,7 +1101,8 @@ function pendencias(r){
   return f;
 }
 function recalcEstado(r){
-  const vazio=!r.fotos.length&&!(r.obs||'').trim()&&['operando','diametro','material'].every(k=>!r.respostas[k].v&&!r.respostas[k].rascunho);
+  const temRasc=a=>!!(a.rascunho&&((a.rascunho.chips||[]).length||(a.rascunho.txt||'').trim()));
+  const vazio=!(r.fotos||[]).length&&!(r.obs||'').trim()&&['operando','diametro','material'].every(k=>!r.respostas[k].v&&!temRasc(r.respostas[k]));
   if(vazio)return null;
   if(pendencias(r).length)return 'rascunho';
   return ['operando','diametro','material'].some(k=>r.respostas[k].v==='nao')?'ressalva':'ok';
@@ -1087,13 +1123,15 @@ function ir(tela,params={},replace=false){
   render(st);
 }
 async function voltarAoInicio(){
-  if(V&&!V.exportadaEm&&contagens().reg>0){
-    if(!(await modal({titulo:'Voltar ao início?',texto:'Esta vistoria ainda não foi exportada. Os registros continuam guardados no aparelho.',ok:'Voltar ao início',cancel:'Ficar aqui'})))return;
+  const naEquipe=!!(sessao&&sessao.perfil&&V&&V.sync&&V.sync.enviadoEm&&!V.sync.pendente);
+  if(V&&!V.exportadaEm&&!naEquipe&&contagens().reg>0){
+    if(!(await modal({titulo:'Voltar ao início?',texto:'Esta vistoria ainda não foi exportada nem enviada à equipe. Os registros continuam guardados no aparelho.',ok:'Voltar ao início',cancel:'Ficar aqui'})))return;
   }
   ir('abertura',{prof0:true});
 }
 function voltar(){ history.back(); }
 function sobreposicaoAberta(){
+  if($('folhaEntrar').classList.contains('on'))return 'entrar';
   if($('visor').classList.contains('on'))return 'visor';
   if($('modalFundo').classList.contains('on'))return 'modal';
   if($('folha').classList.contains('on'))return 'folha';
@@ -1102,7 +1140,7 @@ function sobreposicaoAberta(){
 window.addEventListener('popstate',e=>{
   const s=sobreposicaoAberta();
   if(s){ // o botão voltar do sistema fecha o que está por cima e a tela fica onde estava
-    if(s==='visor')fecharVisor(); else if(s==='modal')fecharModal(false); else cancelarJust(true);
+    if(s==='visor')fecharVisor(); else if(s==='modal')fecharModal(false); else if(s==='entrar')fecharEntrar(); else cancelarJust(true);
     history.pushState(ultimoState,''); return;
   }
   render(e.state||{tela:'abertura'});
@@ -1116,7 +1154,7 @@ async function render(st){
   if(V&&!mesma)await salvarV(); // grava o que estava esperando o debounce antes de trocar de tela
   if(meu!==renderSeq)return;
   telaAtual=st.tela; ultimoState=st;
-  if(st.tela!=='ficha')pararGps();
+  if(st.tela!=='ficha'){ pararGps(); for(const k in fotosCache)URL.revokeObjectURL(fotosCache[k]); fotosCache={}; } // libera a memória das miniaturas
   if(st.tela!=='pvs')pararSeguir();
   document.querySelectorAll('.tela').forEach(t=>t.classList.toggle('on',t.id==='t-'+st.tela));
   $('app').classList.toggle('largo',st.tela==='carteira');
@@ -1159,6 +1197,7 @@ async function renderVistorias(){
   const todas=(await dbAll('vistorias')).sort((a,b)=>(b.atualizadaEm||'').localeCompare(a.atualizadaEm||''));
   const box=$('listaVistorias');
   renderSyncBar();
+  if(todas.length&&sessao&&sessao.perfil&&!box.children.length)box.innerHTML=todas.map(v=>cardVistoria(v,false)).join('')+'<p class="ajuda" style="text-align:center;font-size:14px">Conferindo com a equipe…</p>'; // mostra o que já há no aparelho enquanto consulta a equipe
   const remotas=(sessao&&sessao.perfil)?await listarRemotas(todas):[];
   if(!todas.length&&!remotas.length)box.innerHTML='<div class="vazio"><div class="ico">🗂️</div>'+((sessao&&sessao.perfil)?'Nenhuma vistoria na equipe ainda.<br>Abra um KMZ gerado pelo Conversor: ele sobe para a equipe e aparece para todos.':'Nenhuma vistoria neste aparelho.<br>Abra um KMZ gerado pelo Conversor para começar.')+'</div>';
   else box.innerHTML=todas.map(v=>cardVistoria(v,false)).join('')+(remotas.length?'<h3 style="margin:14px 0 8px;font-size:16px">Na equipe, ainda não neste aparelho</h3>'+remotas.map(r=>cardVistoria(r,true)).join(''):'');
@@ -1167,16 +1206,16 @@ async function renderVistorias(){
   mostrarEspaco().catch(()=>{});
 }
 function cardVistoria(v,remoto){
-  const logado=!!(sessao&&sessao.perfil); const id=v.id;
+  const logado=!!(sessao&&sessao.perfil); const id=esc(String(v.id).replace(/['"\\]/g,''));
   const nome=remoto?String(v.ct_nome||'').replace(/_/g,' '):nomeV(v);
   const rs=remoto?(v.resumo||{}):contagens(v);
   const reg=rs.reg||0,total=rs.total||(v.pontos?v.pontos.length:0),res=rs.res||0;
   const est=estadoVistoria(v);
   const chips=['<span class="selo '+est.cls+'">'+est.t+'</span>'];
   if(!remoto){
-    if(logado&&v.sync)chips.push(v.sync.excluidaNaEquipe?'<span class="selo aten">excluída da equipe: toque em ⋯</span>':(v.sync.conflito?'<span class="selo aten">conflito: toque em ⋯</span>':(v.sync.pendente?'<span class="selo cinza">pendente de envio</span>':(v.sync.enviadoEm?'<span class="selo verde">sincronizada '+fmtHora(v.sync.enviadoEm)+'</span>':''))));
+    if(logado&&v.sync)chips.push(v.sync.excluidaNaEquipe?'<span class="selo aten">excluída da equipe: toque em ⋯</span>':(v.sync.conflito?'<span class="selo aten">duas versões: toque em ⋯</span>':(v.sync.pendente?(v.sync.erro?'<span class="selo aten">ainda não subiu: toque em ⋯</span>':'<span class="selo cinza">aguardando envio</span>'):(v.sync.enviadoEm?'<span class="selo verde">na equipe · '+fmtHora(v.sync.enviadoEm)+'</span>':''))));
     if(v.alteradaEm&&v.exportadaEm&&v.alteradaEm>v.exportadaEm)chips.push('<span class="selo aten">alterada após exportar</span>'); else if(v.exportadaEm)chips.push('<span class="selo cinza">exportada '+fmtData(v.exportadaEm)+'</span>');
-  }else chips.push('<span class="selo cinza">no servidor</span>');
+  }else chips.push('<span class="selo cinza">na equipe</span>');
   const quando=remoto?'Gravada por '+esc(nomeEquipe(v.atualizado_por))+' em '+fmtData(v.atualizado_em)+' '+fmtHora(v.atualizado_em):'Carregada '+fmtData(v.criadaEm)+' '+fmtHora(v.criadaEm);
   const iniEm=remoto?rs.iniciadaEm:v.iniciadaEm, iniPor=remoto?rs.iniciadaPor:v.iniciadaPor;
   const det=quando+(total?' · <b>'+reg+' de '+total+'</b> registrados':'')+(res?' · '+res+' com observação':'')+(iniEm?'<br>Em campo desde '+fmtData(iniEm)+' '+fmtHora(iniEm)+(iniPor?' · '+esc(iniPor):''):'');
@@ -1225,37 +1264,38 @@ async function menuVistoria(vid){
   const v=await dbGet('vistorias',vid);
   if(!v){ // está só no servidor
     if(!(sessao&&sessao.perfil))return;
-    const ops=[{id:'baixar',txt:'Baixar para este aparelho'},{id:'rel',txt:'Ver o relatório'}]; if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe (servidor)'});
-    const op=await modal({titulo:'Vistoria da equipe',texto:'Ela está no servidor e ainda não neste aparelho.',opcoes:ops,cancel:'Voltar'});
+    const ops=[{id:'baixar',txt:'Baixar para este aparelho'},{id:'rel',txt:'Ver o relatório'}]; if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
+    const op=await modal({titulo:'Vistoria da equipe',texto:'Está na equipe e ainda não neste aparelho.',opcoes:ops,cancel:'Voltar'});
     if(op==='baixar')baixarVistoria(vid);
     else if(op==='rel')abrirRelatorio(vid);
     else if(op==='equipe'){
       const ok=await modal({titulo:'Excluir da equipe?',texto:'Apaga para todos: respostas, fotos e atribuições saem do servidor. Quem tiver uma cópia no aparelho continua com ela. Não dá para desfazer.',ok:'Excluir da equipe',cancel:'Manter',perigo:true});
       if(!ok)return;
-      try{ await excluirDaEquipe(vid,''); toast('Excluída da equipe'); }catch(e){ await modal({titulo:'Não deu para excluir',texto:String(e.message||e)+'. Confira se o 04_exclusao.sql foi rodado no Supabase.',ok:'Entendi',soOk:true}); }
+      try{ await excluirDaEquipe(vid,''); toast('Excluída da equipe'); }catch(e){ await modal({titulo:'Não deu para excluir',texto:erroHumano(e),ok:'Entendi',soOk:true}); }
       renderVistorias();
     }
     return;
   }
   if(v.sync&&v.sync.conflito){
     const cf=v.sync.conflito;
-    const usarServidor=await modal({titulo:'Duas versões de '+nomeV(v),texto:'Outra pessoa ('+nomeEquipe(cf.por)+') gravou esta vistoria no servidor em '+fmtData(cf.quando)+' às '+fmtHora(cf.quando)+', depois da última sincronização deste aparelho. Qual versão fica?',ok:'Usar a do servidor',cancel:'Gravar a minha por cima'});
-    if(usarServidor){ await baixarVistoria(vid,true); return; }
+    const op=await modal({titulo:'Duas versões de '+nomeV(v),texto:nomeEquipe(cf.por)+' gravou esta vistoria na equipe em '+fmtData(cf.quando)+' às '+fmtHora(cf.quando)+', depois do último envio deste aparelho. Qual versão fica? Se não tiver certeza, decida depois.',opcoes:[{id:'equipe',txt:'Ficar com a da equipe'},{id:'minha',txt:'Gravar a minha por cima'}],cancel:'Decidir depois'});
+    if(op==='equipe'){ await baixarVistoria(vid,true); return; }
+    if(op!=='minha')return;
     v.sync.versaoServidor=cf.versao; v.sync.conflito=null; v.sync.pendente=true; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync=v.sync; toast('A sua versão será gravada por cima'); sincronizar(); return;
   }
   if(v.sync&&v.sync.excluidaNaEquipe){
     const op=await modal({titulo:nomeV(v),texto:'Esta vistoria foi excluída da equipe por alguém, mas este aparelho tem alterações que não chegaram a subir. O que fazer com a cópia daqui?',opcoes:[{id:'local',txt:'Excluir deste aparelho'},{id:'reenviar',txt:'Enviar de novo para a equipe'}],cancel:'Decidir depois'});
     if(op==='local'){ await excluirLocal(vid); toast('Excluída deste aparelho'); renderVistorias(); }
-    else if(op==='reenviar'){ v.sync={pendente:true,enviadoEm:null,versaoServidor:0,conflito:null,erro:null}; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync=v.sync; toast('Será enviada de novo'); sincronizar(); }
+    else if(op==='reenviar'){ for(const f of await fotosDa(vid)){ f.enviada=false; await dbPut('fotos',f); } v.sync={pendente:true,enviadoEm:null,versaoServidor:0,conflito:null,erro:null}; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync=v.sync; toast('Será enviada de novo, com as fotos'); sincronizar(); }
     return;
   }
   const logado=!!(sessao&&sessao.perfil); const noServidor=!!(v.sync&&v.sync.enviadoEm&&!v.sync.excluidaNaEquipe);
-  const txt=logado&&v.sync?(v.sync.pendente?'Ainda não enviada para a equipe. ':(noServidor?'Sincronizada com a equipe às '+fmtHora(v.sync.enviadoEm)+'. ':'')):'';
+  const txt=logado&&v.sync?(v.sync.pendente?(v.sync.erro?'O último envio não deu certo: '+erroHumano(v.sync.erro)+' ':'Ainda não enviada para a equipe. '):(noServidor?'Na equipe desde as '+fmtHora(v.sync.enviadoEm)+'. ':'')):'';
   let op='local';
-  if(logado&&noServidor){
-    const ops=[{id:'rel',txt:'Ver o relatório'},{id:'local',txt:'Excluir só deste aparelho'}]; if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe (servidor) e deste aparelho'});
+  if(logado&&(noServidor||v.sync.pendente)){
+    const ops=[]; if(v.sync.pendente)ops.push({id:'enviar',txt:'Enviar agora'}); ops.push({id:'rel',txt:'Ver o relatório'},{id:'local',txt:'Excluir só deste aparelho'}); if(souCoordenador()&&noServidor)ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
     op=await modal({titulo:nomeV(v),texto:txt+'O que você quer fazer?',opcoes:ops,cancel:'Voltar'});
-    if(!op)return; if(op==='rel'){abrirRelatorio(vid);return;}
+    if(!op)return; if(op==='rel'){abrirRelatorio(vid);return;} if(op==='enviar'){ v.sync.erro=null; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync.erro=null; toast('Enviando…'); await sincronizar(); return; }
   }else{
     const r=await modal({titulo:nomeV(v),texto:txt+'O que você quer fazer com esta vistoria?',ok:'Excluir do aparelho',cancel:'Voltar',perigo:true});
     if(!r)return;
@@ -1263,7 +1303,7 @@ async function menuVistoria(vid){
   if(op==='equipe'){
     const ok=await modal({titulo:'Excluir '+nomeV(v)+' da equipe?',texto:'Apaga para todos: respostas, fotos e atribuições saem do servidor e deste aparelho. Quem tiver uma cópia em outro aparelho continua com ela. Não dá para desfazer.',ok:'Excluir da equipe',cancel:'Manter',perigo:true});
     if(!ok)return;
-    try{ await excluirDaEquipe(vid,nomeV(v)); }catch(e){ await modal({titulo:'Não deu para excluir no servidor',texto:String(e.message||e)+'. Confira se o 04_exclusao.sql foi rodado no Supabase. Nada foi apagado deste aparelho.',ok:'Entendi',soOk:true}); return; }
+    try{ await excluirDaEquipe(vid,nomeV(v)); }catch(e){ await modal({titulo:'Não deu para excluir da equipe',texto:erroHumano(e)+' Nada foi apagado deste aparelho.',ok:'Entendi',soOk:true}); return; }
     await excluirLocal(vid); toast('Excluída da equipe e deste aparelho'); renderVistorias(); return;
   }
   const r2=await modal({titulo:'Excluir '+nomeV(v)+' deste aparelho?',texto:'Todas as respostas e fotos serão apagadas do aparelho. Não dá para desfazer.'+(v.exportadaEm?'':' Ela ainda não foi exportada.')+((noServidor&&!v.sync.pendente)?' A cópia da equipe no servidor continua lá e pode ser baixada de novo.':''),ok:'Excluir de vez',cancel:'Manter',perigo:true});
@@ -1307,8 +1347,9 @@ async function abrirPacote(pk,arquivo){
     const ex=iguais.sort((a,b)=>(b.atualizadaEm||'').localeCompare(a.atualizadaEm||''))[0];
     const c=contagens(ex); const mesmo=!!(ex.origem&&pk.geradoEm&&ex.origem.geradoEm===pk.geradoEm);
     const dt=x=>x?fmtData(x):'data desconhecida';
-    const r=await modal({titulo:'Este CT já está no aparelho',texto:nomeV(ex)+' com '+c.reg+' PV'+(c.reg===1?'':'s')+' registrado'+(c.reg===1?'':'s')+(mesmo?' (mesmo KMZ).':'. KMZ existente de '+dt(ex.origem&&ex.origem.geradoEm)+', novo de '+dt(pk.geradoEm)+'.'),ok:'Abrir a que existe',cancel:'Começar outra'});
-    if(r){ir('pvs',{vid:ex.id});return;}
+    const r=await modal({titulo:'Esta rede já está no aparelho',texto:nomeV(ex)+' com '+c.reg+' PV'+(c.reg===1?'':'s')+' registrado'+(c.reg===1?'':'s')+(mesmo?' (mesmo KMZ).':'. KMZ existente de '+dt(ex.origem&&ex.origem.geradoEm)+', novo de '+dt(pk.geradoEm)+'.'),opcoes:[{id:'abrir',txt:'Abrir a que existe'},{id:'outra',txt:'Começar outra vistoria desta rede'}],cancel:'Voltar'});
+    if(r==='abrir'){ir('pvs',{vid:ex.id});return;}
+    if(r!=='outra')return;
     const usados=new Set(iguais.map(v=>nomeV(v))); let k=2; while(usados.has(nome+' ('+k+')'))k++; sufixo=' ('+k+')';
   }
   if(sessao&&sessao.perfil&&navigator.onLine){ // a mesma rede já está na equipe? então não nasce outra vistoria
@@ -1319,8 +1360,9 @@ async function abrirPacote(pk,arquivo){
       if(naEquipe.length){
         const r0=naEquipe[0]; const rs=r0.resumo||{};
         if(!Object.keys(equipeNomes).length)await carregarNomesEquipe();
-        const r=await modal({titulo:'Esta rede já está na equipe',texto:String(r0.ct_nome||'').replace(/_/g,' ')+(rs.total?' · '+(rs.reg||0)+' de '+rs.total+' PVs registrados':'')+(r0.encerrada_em?' · encerrada':'')+'. Gravada por '+nomeEquipe(r0.atualizado_por)+' em '+fmtData(r0.atualizado_em)+' às '+fmtHora(r0.atualizado_em)+'. Baixar essa evita duas vistorias da mesma rede.',ok:'Baixar a da equipe',cancel:'Começar outra'});
-        if(r){ const v=await baixarVistoria(r0.id); if(v)ir('pvs',{vid:v.id}); return; }
+        const r=await modal({titulo:'Esta rede já está na equipe',texto:String(r0.ct_nome||'').replace(/_/g,' ')+(rs.total?' · '+(rs.reg||0)+' de '+rs.total+' PVs registrados':'')+(r0.encerrada_em?' · encerrada':'')+'. Gravada por '+nomeEquipe(r0.atualizado_por)+' em '+fmtData(r0.atualizado_em)+' às '+fmtHora(r0.atualizado_em)+'. Baixar essa evita duas vistorias da mesma rede.',opcoes:[{id:'baixar',txt:'Baixar a da equipe'},{id:'outra',txt:'Começar outra vistoria desta rede'}],cancel:'Voltar'});
+        if(r==='baixar'){ const v=await baixarVistoria(r0.id); if(v)ir('pvs',{vid:v.id}); return; }
+        if(r!=='outra')return;
         const usados=new Set([...iguais.map(v=>nomeV(v)),...naEquipe.map(x=>String(x.ct_nome||'').replace(/_/g,' '))]); let k=2; while(usados.has(nome+' ('+k+')'))k++; sufixo=' ('+k+')';
       }
     }catch(e){ console.warn('conferência na equipe',e); }
@@ -1349,6 +1391,7 @@ function renderPvs(){
   document.querySelectorAll('.filtro').forEach(b=>{b.classList.toggle('on',b.dataset.f===V.ui.filtro);b.textContent=rot[b.dataset.f]+' '+cont[b.dataset.f];});
   $('busca').value=V.ui.busca||''; $('limpaBusca').classList.toggle('oculta',!V.ui.busca);
   $('btnNovoPv').classList.toggle('oculta',bloqueada());
+  const fim=$('btnIrResumo'); if(fim)fim.classList.toggle('oculta',!(c.reg>0&&c.consta+c.rasc===0&&!V.encerradaEm));
   const av=$('pvsAviso');
   if(V.encerradaEm){av.textContent='Vistoria encerrada em '+fmtData(V.encerradaEm)+'. As fichas estão só para leitura. Para editar, reabra no resumo.';av.classList.remove('oculta');}
   else if(!V.iniciadaEm){av.innerHTML='<b>Vistoria ainda não iniciada.</b> Quando chegar ao local, toque em Iniciar: ficam registrados data, hora, quem iniciou e a posição. Até lá dá para ver os PVs e o mapa, sem registrar.<button class="btn" style="margin-top:10px" onclick="iniciarVistoria()">Iniciar vistoria em campo</button>';av.classList.remove('oculta');}
@@ -1399,7 +1442,7 @@ function montarMapa(){
   atualizaBtnMapaOffline();
   if(!mapa){
     mapa=L.map('mapa',{zoomControl:true});
-    const tiles=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'© Esri'}).addTo(mapa);
+    const tiles=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'© Esri',crossOrigin:true}).addTo(mapa);
     let erros=0; tiles.on('tileerror',()=>{if(++erros>=3){$('mapaAviso').textContent='Sem internet. O mapa mostra só a rede e os PVs.';$('mapaAviso').classList.remove('oculta');}});
     tiles.on('load',()=>{$('mapaAviso').classList.add('oculta');});
     camadaRede=L.layerGroup().addTo(mapa); camadaPontos=L.layerGroup().addTo(mapa);
@@ -1428,7 +1471,7 @@ function aplicarNomes(){
   for(const m of marcasPv){
     const perm=todos||m._pv.transicao;
     if(m._perm===perm)continue; m._perm=perm;
-    m.unbindTooltip(); m.bindTooltip(m._rotulo,{permanent:perm,direction:'top',offset:[0,m._pv.transicao?-10:-7],className:'tt'+(perm&&!m._pv.transicao?' mini':'')});
+    m.unbindTooltip(); m.bindTooltip(esc(m._rotulo),{permanent:perm,direction:'top',offset:[0,m._pv.transicao?-10:-7],className:'tt'+(perm&&!m._pv.transicao?' mini':'')});
   }
 }
 function alternarNomes(){ if(!V)return; V.ui.nomesMapa=nomesSempre()?'auto':'sempre'; salvarV(); aplicarNomes(); atualizaBtnNomes(); }
@@ -1743,7 +1786,7 @@ async function iniciarVistoria(){
   const g=gpsRecente()||await pedirGps(4000);
   V.iniciadaEm=agoraIso(); V.iniciadaPor=quem; V.iniciadaGps=g?{lat:g.lat,lon:g.lon}:null;
   await salvarV(); await pref('ultimaVistoria',V.id);
-  if(sessao&&sessao.perfil&&!euAtribuido(V.id)&&V.sync&&V.sync.enviadoEm){ try{ await sb('/rest/v1/atribuicoes',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},json:{vistoria_id:V.id,usuario:sessao.user.id,atribuido_por:sessao.user.id}}); (atribuicoes[V.id]=atribuicoes[V.id]||[]).push({vistoria_id:V.id,usuario:sessao.user.id,quando:agoraIso()}); }catch(e){} }
+  if(sessao&&sessao.perfil&&!euAtribuido(V.id)&&V.sync&&V.sync.enviadoEm){ try{ await sb('/rest/v1/atribuicoes',{method:'POST',headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'},json:{vistoria_id:V.id,usuario:sessao.user.id,atribuido_por:sessao.user.id}}); (atribuicoes[V.id]=atribuicoes[V.id]||[]).push({vistoria_id:V.id,usuario:sessao.user.id,quando:agoraIso()}); }catch(e){} }
   registrarEvento('iniciada',{por:quem,gps:V.iniciadaGps},V.id);
   if(telaAtual==='pvs')renderPvs();
   toast('Vistoria iniciada às '+fmtHora(V.iniciadaEm)+(g?' com GPS':''));
@@ -1756,7 +1799,7 @@ async function reabrir(){
 
 /* ===================== T4 resumo ===================== */
 async function renderResumo(){
-  const c=contagens(); $('nOk').textContent=c.ok;$('nRes').textContent=c.res;$('nConsta').textContent=c.consta+c.rasc;
+  const c=contagens(); $('nReg').textContent=c.reg;$('nOk').textContent=c.ok;$('nRes').textContent=c.res;$('nConsta').textContent=c.consta+c.rasc;
   $('rascunhosAviso').classList.toggle('oculta',!c.rasc);
   if(c.rasc)$('rascunhosAviso').textContent=c.rasc+' PV'+(c.rasc===1?' está':'s estão')+' em andamento, com ficha incompleta. Não entram como registrados.';
   const alt=V.exportadaEm&&V.alteradaEm&&V.alteradaEm>V.exportadaEm;
@@ -1839,7 +1882,7 @@ async function alternarEncerrada(){
   const c=contagens();
   const r=await modal({titulo:'Encerrar '+nomeV(V)+'?',texto:c.reg+' PV'+(c.reg===1?'':'s')+' registrado'+(c.reg===1?'':'s')+(c.rasc?', '+c.rasc+' com ficha incompleta (ficam como sem registro)':'')+'. Depois de encerrar, as fichas ficam só para leitura. Dá para reabrir se precisar.',ok:'Encerrar',cancel:'Cancelar'});
   if(!r)return;
-  V.encerradaEm=agoraIso(); zipPronto=null; await salvarV(); await pref('ultimaVistoria',null); renderResumo(); toast(V.exportadaEm?'Vistoria encerrada':'Vistoria encerrada. Lembre de exportar antes de sair do app.');
+  V.encerradaEm=agoraIso(); zipPronto=null; await salvarV(); await pref('ultimaVistoria',null); renderResumo(); toast((V.exportadaEm||(sessao&&sessao.perfil))?'Vistoria encerrada':'Vistoria encerrada. Lembre de exportar antes de sair do app.');
 }
 
 /* ===================== modal e toast ===================== */
@@ -1863,7 +1906,7 @@ function fecharModal(ok){
 }
 $('modalFundo').addEventListener('click',e=>{if(e.target===$('modalFundo'))fecharModal(false);});
 let toastTimer=null;
-function toast(txt){ const t=$('toast'); $('toastTxt').textContent=txt; t.classList.add('on'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('on'),3000); }
+function toast(txt){ const t=$('toast'); $('toastTxt').textContent=txt; t.classList.add('on'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('on'),Math.min(7000,3000+Math.max(0,txt.length-40)*35)); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if($('folhaEntrar').classList.contains('on')){fecharEntrar();return;} const s=sobreposicaoAberta(); if(s==='folha')cancelarJust(); else if(s==='modal')fecharModal(false); else if(s==='visor')fecharVisor(); } });
 
 /* ===================== início ===================== */
