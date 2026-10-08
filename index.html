@@ -47,7 +47,23 @@ body.mesa header{grid-column:2;border-bottom-width:3px}
 body.mesa #hdrLogo{display:none}
 body.mesa main{grid-column:2;display:grid;grid-template-columns:minmax(300px,350px) minmax(0,1fr);gap:18px;align-items:start;padding:20px 24px 28px}
 body.mesa .tela.on{display:flex;flex-direction:column;gap:14px;min-width:0}
-body.mesa #t-abertura.on,body.mesa #t-carteira.on,body.mesa #t-equipe.on,body.mesa #t-relatorios.on{grid-column:1/3}
+body.mesa #t-abertura.on,body.mesa #t-carteira.on,body.mesa #t-equipe.on,body.mesa #t-relatorios.on,body.mesa #t-parecer.on{grid-column:1/3}
+.par-grade{display:grid;grid-template-columns:minmax(360px,440px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1279px){.par-grade{grid-template-columns:1fr}.par-prev{position:static !important}}
+.par-form{display:flex;flex-direction:column;gap:12px}
+.par-form label.campo{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px;margin:0}
+.par-form label.campo small{font-weight:400;color:var(--sutil);font-size:13.5px}
+.par-form textarea{font:15px/1.45 var(--texto);border:1.5px solid var(--fio);border-radius:12px;padding:10px 12px;resize:vertical;width:100%;box-sizing:border-box;background:#fff;color:var(--ink)}
+.par-pv{border:1px solid #EEF1F3;border-radius:10px;padding:8px 10px;margin-bottom:6px;background:#fff}
+.par-pv summary{cursor:pointer;font:700 14px var(--mono);display:flex;gap:8px;align-items:center;list-style:none}
+.par-pv summary::-webkit-details-marker{display:none}
+.par-pv textarea{margin-top:8px}
+.par-pv .tem{color:var(--botao);font:600 12.5px var(--texto)}
+.par-prev{position:sticky;top:86px}
+.par-prev iframe{width:100%;height:calc(100vh - 120px);min-height:520px;border:0;border-radius:12px;background:#E9EEF1}
+.par-versao{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid #EEF1F3;border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:14px}
+.par-versao b{font-size:14.5px}
+.par-versao .acoes{margin-left:auto;display:flex;gap:6px}
 .eq-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,340px);gap:16px;align-items:start}
 @media (max-width:1599px){.eq-tabela th:nth-child(5),.eq-tabela td:nth-child(5),.eq-tabela th:nth-child(6),.eq-tabela td:nth-child(6){padding-left:10px;padding-right:10px}.eq-tabela td:nth-child(1) small{display:none}}
 @media (max-width:1279px){.eq-grade{grid-template-columns:1fr}}
@@ -438,7 +454,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.37 · 08/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.39 · 08/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -449,27 +465,33 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste um KMZ do Conversor para esta janela.<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.37 · 08/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.39 · 08/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.37 · 08/10/2026</div>
+  <div class="rodape">versão 0.39 · 08/10/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.37 · 08/10/2026</div>
+  <div class="rodape">versão 0.39 · 08/10/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.37 · 08/10/2026</div>
+  <div class="rodape">versão 0.39 · 08/10/2026</div>
+</section>
+
+<!-- T1e PARECER DO ESPECIALISTA -->
+<section class="tela" id="t-parecer">
+  <div id="parecerBox"></div>
+  <div class="rodape">versão 0.39 · 08/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -563,6 +585,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   </div>
   <p class="ajuda oculta" id="exportadaTxt" style="text-align:center"></p>
   </div>
+  <button class="btn claro oculta" id="btnParecer" onclick="ir('parecer',{vid:V.id})">Parecer do especialista</button>
   <button class="btn claro" onclick="relatorioRapido()">Ver relatório completo (PDF)</button>
   <button class="btn claro" id="btnEncerrar" onclick="alternarEncerrada()">Encerrar vistoria</button>
   <p class="ajuda" id="encCaption" style="text-align:center;font-size:14px">Encerrar bloqueia a edição das fichas. Dá para reabrir depois.</p>
@@ -602,7 +625,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.37';
+const VERSAO='0.39';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -783,6 +806,10 @@ function atualizaBtnMapaOffline(){ const b=$('btnMapaOffline'); if(!b||!V)return
 
 /* ===================== sincronização com a equipe (S2) ===================== */
 let syncTimer=null, sincronizando=false, equipeNomes={}, syncUltimaMsg='', atualizouSilencio=false, pendentesCount=0;
+function atualizarTelasAposEnvio(){
+  if(telaAtual==='vistorias'||(ehMesa()&&$('t-vistorias').classList.contains('on')))renderVistorias().catch(()=>{});
+  if(telaAtual==='resumo'&&V)dbGet('vistorias',V.id).then(d=>{ if(d&&V&&d.id===V.id&&d.sync)V.sync=d.sync; if(telaAtual==='resumo')renderResumo(); }).catch(()=>{});
+}
 function agendarSync(){ clearTimeout(syncTimer); syncTimer=setTimeout(()=>sincronizar().catch(()=>{}),5000); }
 function dadosServidor(v){ const d=JSON.parse(JSON.stringify(v)); delete d.sync; delete d.ui; delete d.dispositivo; return d; }
 let DISPOSITIVO=null; async function idDispositivo(){ if(DISPOSITIVO)return DISPOSITIVO; DISPOSITIVO=await pref('dispositivo'); if(!DISPOSITIVO){ DISPOSITIVO='d_'+uid(); await pref('dispositivo',DISPOSITIVO); } return DISPOSITIVO; }
@@ -813,7 +840,7 @@ async function sincronizar(){
       try{ await enviarVistoria(v); }catch(e){ v.sync.erro=String(e.message||e); await dbPut('vistorias',v); console.warn('sync',v.id,e); }
     }
     syncUltimaMsg='Enviado às '+fmtHora(agoraIso());
-  }finally{ sincronizando=false; renderSyncBar(); if(telaAtual==='vistorias')renderVistorias().catch(()=>{}); }
+  }finally{ sincronizando=false; renderSyncBar(); atualizarTelasAposEnvio(); }
 }
 async function enviarVistoria(v){
   const uid=sessao.user.id;
@@ -985,6 +1012,7 @@ async function carregarCarteira(){
   catch(e){ if(!/42703|resumo/.test(String(e.message)))throw e; temResumo=false; rows=await sb('/rest/v1/vistorias?select='+sel+'&order=atualizado_em.desc'); }
   const itens=rows.map(r=>{ const loc=porId.get(r.id); const rs=(r.resumo&&r.resumo.total!==undefined)?r.resumo:(loc?resumoServidor(loc):{}); const nome=String(r.ct_nome||'').replace(/_/g,' '); const atr=atribuicoes[r.id]||[];
     return {id:r.id,nome,tipo:rs.tipo||tipoAtivo(nome),municipio:rs.municipio||(loc&&loc.ct.municipio)||'',uf:rs.uf||(loc&&loc.ct.uf)||'',un:rs.un||'',estado:estadoVistoria(r),com:atr.map(a=>nomeEquipe(a.usuario)),comIds:atr.map(a=>a.usuario),inicio:rs.iniciadaEm||rs.inicio||null,iniciadaEm:rs.iniciadaEm||null,primeiroReg:rs.inicio||null,fim:rs.fim||null,reg:rs.reg||0,total:rs.total||0,res:rs.res||0,ok:rs.ok||0,fotos:rs.fotos||0,responsaveis:rs.responsaveis||[],iniciadaPor:rs.iniciadaPor||'',atualizadoEm:r.atualizado_em,por:nomeEquipe(r.atualizado_por),porId:r.atualizado_por,criadoEm:r.criado_em,encerradaEm:r.encerrada_em,local:!!loc,servidor:true}; });
+  try{ const ps=await sb('/rest/v1/pareceres?select=vistoria_id,numero&order=numero.desc'); const ult={}; for(const x of ps)if(!ult[x.vistoria_id])ult[x.vistoria_id]=x.numero; for(const it of itens)it.parecer=ult[it.id]||0; }catch(e){}
   const noSrv=new Set(rows.map(r=>r.id));
   for(const v of locais){ if(noSrv.has(v.id))continue; const rs=resumoServidor(v);
     itens.push({id:v.id,nome:nomeV(v),tipo:rs.tipo,municipio:rs.municipio,uf:rs.uf,un:rs.un,estado:estadoVistoria(v),com:[],comIds:[],inicio:rs.iniciadaEm||rs.inicio,iniciadaEm:rs.iniciadaEm||null,primeiroReg:rs.inicio||null,fim:rs.fim,reg:rs.reg,total:rs.total,res:rs.res,ok:rs.ok,fotos:rs.fotos,responsaveis:rs.responsaveis,atualizadoEm:v.atualizadaEm,por:'este aparelho',porId:null,criadoEm:v.criadaEm,encerradaEm:v.encerradaEm,local:true,servidor:false}); }
@@ -1009,7 +1037,7 @@ function desenharCarteira(soTabela){
   const nums='<div class="cart-nums"><div><b>'+tot.vist+'</b><small>vistorias</small></div><div><b>'+tot.avist+'</b><small>a vistoriar ou assumidas</small></div><div><b>'+tot.campo+'</b><small>em campo</small></div><div><b>'+tot.enc+'</b><small>encerradas</small></div><div><b>'+tot.reg+'</b><small>PVs registrados</small></div><div class="ok"><b>'+tot.ok+'</b><small>conferem</small></div><div class="obs"><b>'+tot.res+'</b><small>com observação</small></div><div><b>'+tot.fotos+'</b><small>fotos</small></div></div>';
   const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="'+(i.reg||i.estado.k==='encerrada'?'verRelatorio(\''+i.id+'\')':(i.local?'ir(\'pvs\',{vid:\''+i.id+'\'})':'baixarVistoria(\''+i.id+'\')'))+'">'
     +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+(i.un?' · UN '+esc(i.un):'')+'</small></td>'
-    +'<td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.servidor?'':'<small class="sub">só neste aparelho</small>')+'</td>'
+    +'<td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.parecer?'<small class="sub">parecer nº '+i.parecer+' emitido</small>':'')+(i.servidor?'':'<small class="sub">só neste aparelho</small>')+'</td>'
     +'<td>'+(i.com.length?esc(i.com.join(', ')):'<span class="sutil">ninguém</span>')+(i.responsaveis.length&&i.responsaveis.join(', ')!==i.com.join(', ')?'<small class="sub">resp.: '+esc(i.responsaveis.join(', '))+'</small>':'')+'</td>'
     +'<td class="n">'+(i.inicio?fmtData(i.inicio):'<span class="sutil">não iniciada</span>')+'</td>'
     +'<td class="n"><b>'+i.reg+'</b><span class="sutil"> / '+i.total+'</span></td>'
@@ -1083,7 +1111,7 @@ function imprimirCarteira(){
 
 /* ---------- página Equipe (só coordenador) ---------- */
 let equipeDados=null, relSel=new Set();
-const TIPO_TXT={login:'entrou no app',vistoria_salva:'gravou',iniciada:'iniciou em campo',atribuida:'atribuiu',liberada:'liberou a atribuição de',excluida:'excluiu da equipe',relatorio:'abriu o relatório de',corrigida:'corrigiu de mesa',matricula:'informou a matrícula',instalado:'instalou o app',mapa_offline:'guardou o mapa de',planilha:'baixou a planilha',planilha_pvs:'baixou a planilha de PVs',carteira_impressa:'imprimiu a carteira',baixada:'baixou',senha_trocada:'trocou a senha',equipe_alterada:'alterou a equipe',relatorio_lote:'imprimiu relatórios em lote'};
+const TIPO_TXT={login:'entrou no app',vistoria_salva:'gravou',iniciada:'iniciou em campo',atribuida:'atribuiu',liberada:'liberou a atribuição de',excluida:'excluiu da equipe',relatorio:'abriu o relatório de',corrigida:'corrigiu de mesa',matricula:'informou a matrícula',instalado:'instalou o app',mapa_offline:'guardou o mapa de',planilha:'baixou a planilha',planilha_pvs:'baixou a planilha de PVs',carteira_impressa:'imprimiu a carteira',baixada:'baixou',senha_trocada:'trocou a senha',equipe_alterada:'alterou a equipe',relatorio_lote:'imprimiu relatórios em lote',parecer_emitido:'emitiu o parecer de'};
 async function carregarEquipe(){
   const [pessoas,vist,logins,trilha]=await Promise.all([
     sb('/rest/v1/equipe?select=id,email,nome,matricula,papel,ativo&order=nome'),
@@ -1140,6 +1168,87 @@ async function editarNomeEquipe(id){ const p=equipeDados.pessoas.find(x=>x.id===
 async function editarMatriculaEquipe(id){ const p=equipeDados.pessoas.find(x=>x.id===id); const v=await modal({titulo:'Matrícula de '+(p.nome||p.email),texto:'Só números, como no crachá.',ok:'Guardar',cancel:'Cancelar',input:p.matricula||'Ex.: 114453'}); if(!v||typeof v!=='string')return; await patchEquipe(id,{matricula:v.trim().replace(/\s+/g,'')},'Matrícula atualizada'); }
 function comoCriarLogin(){ return modal({titulo:'Como criar um login',texto:'1. No painel do Supabase: Authentication → Users → Add user → Create new user. 2. E-mail Sabesp da pessoa, uma senha inicial, marque Auto Confirm User, Create. 3. Volte aqui, recarregue a página: a pessoa aparece desligada. Marque Ativo, confira o nome e pronto. 4. Avise a pessoa: endereço do app, e-mail, senha inicial e que troque a senha no primeiro acesso.',ok:'Entendi',soOk:true}); }
 
+/* ---------- parecer do especialista ---------- */
+let parUrls=[], parFotos={}, parTimer=null, parVersoes=[];
+async function mapaFotos(v){
+  await baixarFotosFaltantes(v);
+  const usadas=new Set(); for(const k in (v.registros||{}))for(const f of (v.registros[k].fotos||[]))usadas.add(f);
+  const fs=(await fotosDa(v.id)).filter(f=>usadas.has(f.id)); const fotos={}, urls=[];
+  for(const f of fs){ const u=URL.createObjectURL(f.blob); urls.push(u); fotos[f.id]={src:u,quando:f.quando,lat:f.lat,lon:f.lon}; }
+  return {fotos,urls,fs};
+}
+async function carregarVersoes(vid){ try{ parVersoes=await sb('/rest/v1/pareceres?vistoria_id=eq.'+encodeURIComponent(vid)+'&select=numero,emitido_em,emitido_por,caminho&order=numero.desc'); return true; }catch(e){ parVersoes=[]; return /42P01|404|pareceres/.test(String(e.message))?'sem-tabela':false; } }
+function htmlVersoes(estado){
+  if(estado==='sem-tabela')return '<p class="ajuda" style="font-size:14px;margin:0">Para emitir versões finais, rode o <b>08_pareceres.sql</b> no Supabase (passo a passo no LEIA-ME).</p>';
+  if(!parVersoes.length)return '<p class="ajuda" style="font-size:14px;margin:0">Nenhuma versão final emitida ainda.</p>';
+  return parVersoes.map((x,k)=>'<div class="par-versao"><span><b>Parecer nº '+x.numero+'</b> '+(k===0?'<span class="selo verde">vigente</span>':'<span class="selo cinza">substituído pelo nº '+parVersoes[k-1].numero+'</span>')+'<br><small style="color:var(--sutil)">'+fmtData(x.emitido_em)+' às '+fmtHora(x.emitido_em)+' · '+esc(nomeEquipe(x.emitido_por))+'</small></span><span class="acoes"><button class="mini cheio" onclick="abrirParecerEmitido('+x.numero+')">Abrir</button><button class="mini" onclick="baixarParecerEmitido('+x.numero+')">Baixar</button></span></div>').join('');
+}
+async function renderParecer(){
+  const box=$('parecerBox'); const pode=ehMesa()&&souCoordenador();
+  const st=(sessao&&sessao.perfil)?await carregarVersoes(V.id):false;
+  if(!pode){ box.innerHTML='<div class="eq-caixa"><h3>Parecer de vistoria</h3><div class="sub">O parecer é preparado e emitido pelo coordenador, no computador. Versões emitidas desta vistoria:</div>'+htmlVersoes(st)+'</div>'; return; }
+  const par=V.parecer||{}; const notas=par.notas||{};
+  const regs=V.pontos.filter(p=>{ const e=estadoDe(p.id); return e==='ok'||e==='ressalva'; }).sort((a,b)=>(estadoDe(a.id)==='ressalva'?0:1)-(estadoDe(b.id)==='ressalva'?0:1));
+  const pvs=regs.map(p=>{ const e=estadoDe(p.id); const nt=notas[p.id]||''; return '<details class="par-pv"'+(nt||e==='ressalva'?' open':'')+'><summary>'+esc(p.nome)+' <span class="selo '+(e==='ok'?'verde':'aten')+'">'+(e==='ok'?'confere':'com observação')+'</span>'+(nt?' <span class="tem">com nota</span>':'')+'</summary><textarea class="par-nota" data-pid="'+esc(p.id)+'" rows="2" placeholder="Nota do especialista sobre o '+esc(p.nome)+' (opcional)" oninput="parMudou()">'+esc(nt)+'</textarea></details>'; }).join('');
+  box.innerHTML='<div class="par-grade"><div class="par-form">'
+    +'<div class="eq-caixa"><h3>Parecer de vistoria · '+esc(nomeV(V))+'</h3><div class="sub" style="margin:0">Escreva o que a obra precisa saber. O rascunho grava sozinho e outro coordenador pode continuar. Os dados de campo não mudam aqui: para corrigir uma ficha, use a vistoria.</div></div>'
+    +'<label class="campo">Destaques da vistoria<small>Aparece no topo, logo depois dos números.</small><textarea id="parDest" rows="5" placeholder="Ex.: Rede conferida em 4 dos 14 PVs. Dois pontos de diâmetro a esclarecer com a gerenciadora." oninput="parMudou()">'+esc(par.destaques||'')+'</textarea></label>'
+    +'<div class="eq-caixa"><h3>Nota do especialista por PV</h3><div class="sub">Opcional. Os PVs com observação vêm primeiro e abertos.</div>'+(pvs||'<div class="sub">Nenhum PV registrado nesta vistoria.</div>')+'</div>'
+    +'<label class="campo">Conclusão e encaminhamentos para a obra<small>Aparece no fim, antes da trilha, com a sua assinatura na versão final.</small><textarea id="parConc" rows="6" placeholder="Ex.: Solicitamos à gerenciadora confirmar o diâmetro do PV-01 e o material do PI-03 até a próxima medição." oninput="parMudou()">'+esc(par.conclusao||'')+'</textarea></label>'
+    +'<p class="ajuda" id="parGravado" style="font-size:13.5px;margin:0">'+(par.atualizadoEm?'Rascunho gravado em '+fmtData(par.atualizadoEm)+' às '+fmtHora(par.atualizadoEm)+(par.atualizadoPor?' por '+esc(par.atualizadoPor):''):'Rascunho vazio.')+'</p>'
+    +'<div class="cart-acoes"><button class="btn" onclick="emitirParecer()" '+(st==='sem-tabela'?'disabled':'')+'>Gerar versão final</button><button class="btn claro" onclick="ir(&quot;pvs&quot;,{vid:V.id})">Voltar à vistoria</button></div>'
+    +'<div class="eq-caixa"><h3>Versões emitidas</h3>'+htmlVersoes(st)+'</div>'
+    +'</div><div class="par-prev"><iframe id="parFrame" title="Prévia do parecer"></iframe></div></div>';
+  for(const u of parUrls)URL.revokeObjectURL(u); parUrls=[];
+  try{ const m=await mapaFotos(V); parFotos=m.fotos; parUrls=m.urls; }catch(e){ parFotos={}; }
+  atualizarPrevia();
+}
+function atualizarPrevia(){ const f=$('parFrame'); if(!f||!V)return; const y=f.contentWindow?f.contentWindow.scrollY:0; f.srcdoc=htmlRelatorio(V,parFotos,{preview:true}); f.onload=()=>{ try{ f.contentWindow.scrollTo(0,y); }catch(e){} }; }
+function parMudou(){
+  if(!V)return;
+  const notas={}; document.querySelectorAll('.par-nota').forEach(ta=>{ const s=ta.value.trim(); if(s)notas[ta.dataset.pid]=ta.value; });
+  V.parecer={destaques:$('parDest').value,conclusao:$('parConc').value,notas,atualizadoPor:(sessao&&sessao.perfil&&sessao.perfil.nome)||'',atualizadoEm:agoraIso()};
+  clearTimeout(parTimer); parTimer=setTimeout(async()=>{ await salvarV(); const g=$('parGravado'); if(g)g.textContent='Rascunho gravado em '+fmtData(V.parecer.atualizadoEm)+' às '+fmtHora(V.parecer.atualizadoEm)+' por '+(V.parecer.atualizadoPor||'você'); atualizarPrevia(); },700);
+}
+async function emitirParecer(){
+  if(!V||!souCoordenador())return;
+  if(!navigator.onLine){ toast('Sem sinal agora. A versão final precisa de internet para ser gravada na equipe.'); return; }
+  clearTimeout(parTimer); if(V.parecer){ await salvarV(); }
+  const par=V.parecer||{};
+  if(!(par.destaques||'').trim()&&!(par.conclusao||'').trim()){ if(!(await modal({titulo:'Parecer sem texto',texto:'Destaques e conclusão estão vazios. Gerar a versão final mesmo assim?',ok:'Gerar mesmo assim',cancel:'Voltar e escrever'})))return; }
+  await carregarVersoes(V.id); const numero=(parVersoes[0]?parVersoes[0].numero:0)+1;
+  const ok=await modal({titulo:'Gerar o parecer nº '+numero+'?',texto:'A versão final fica gravada na equipe, com fotos, e não muda mais.'+(numero>1?' O nº '+(numero-1)+' passa a constar como substituído pelo nº '+numero+'.':'')+' Se precisar corrigir depois, gera-se o nº '+(numero+1)+'.',ok:'Gerar versão final',cancel:'Cancelar'});
+  if(!ok)return;
+  const w=window.open('','_blank'); if(w)w.document.write('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Parecer</title></head><body><p style="font:16px system-ui;padding:20px">Gerando o parecer nº '+numero+'…</p></body></html>');
+  try{
+    toast('Gerando o parecer nº '+numero+'…');
+    await baixarFotosFaltantes(V);
+    const usadas=new Set(); for(const k in (V.registros||{}))for(const f of (V.registros[k].fotos||[]))usadas.add(f);
+    const fs=(await fotosDa(V.id)).filter(f=>usadas.has(f.id)); const fotos={};
+    for(const f of fs)fotos[f.id]={src:await fotoReduzidaDataUrl(f.blob,1000,0.75),quando:f.quando,lat:f.lat,lon:f.lon};
+    const fin={numero,por:sessao.perfil.nome||sessao.user.email,matricula:sessao.perfil.matricula||'',quando:agoraIso()};
+    const html=htmlRelatorio(V,fotos,{final:fin});
+    const caminho='pareceres/'+V.id+'/parecer_'+numero+'.html';
+    await sb('/storage/v1/object/fotos/'+caminho,{method:'POST',headers:{'Content-Type':'text/html; charset=utf-8'},body:new Blob([html],{type:'text/html'})});
+    await sb('/rest/v1/pareceres',{method:'POST',headers:{'Prefer':'return=minimal'},json:{vistoria_id:V.id,numero,destaques:par.destaques||'',conclusao:par.conclusao||'',notas:par.notas||{},caminho}});
+    registrarEvento('parecer_emitido',{numero},V.id);
+    if(w){ w.document.open(); w.document.write(html); w.document.close(); }
+    toast('Parecer nº '+numero+' emitido e gravado na equipe');
+    await renderParecer();
+  }catch(e){ if(w)w.close(); await modal({titulo:'Não deu para gerar a versão final',texto:/23505|duplicate/.test(String(e.message))?'Outro coordenador emitiu um parecer desta vistoria agora mesmo. Abra de novo a tela e confira as versões.':erroHumano(e),ok:'Entendi',soOk:true}); }
+}
+async function htmlParecerEmitido(numero){ const x=parVersoes.find(y=>y.numero===numero); if(!x)throw new Error('versão não encontrada'); const b=await sbBlob('/storage/v1/object/fotos/'+x.caminho); return await b.text(); }
+async function abrirParecerEmitido(numero){
+  const w=window.open('','_blank'); if(!w){toast('O navegador bloqueou a nova aba. Libere pop-ups para este endereço.');return;}
+  w.document.write('<p style="font:16px system-ui;padding:20px">Abrindo o parecer nº '+numero+'…</p>');
+  try{ const html=await htmlParecerEmitido(numero); w.document.open(); w.document.write(html); w.document.close(); }
+  catch(e){ w.document.body.innerHTML='<p style="font:16px system-ui;padding:20px">Não deu para abrir: '+esc(erroHumano(e))+'</p>'; }
+}
+async function baixarParecerEmitido(numero){
+  try{ const html=await htmlParecerEmitido(numero); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([html],{type:'text/html'})); a.download=(nomeV(V)||'vistoria').replace(/[\\/:*?"<>|]+/g,' ')+' - parecer nº '+numero+'.html'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),8000); toast('Arquivo do parecer baixado'); }
+  catch(e){ toast(erroHumano(e)); }
+}
+
 /* ---------- página Relatórios ---------- */
 async function renderRelatorios(){
   const box=$('relBox');
@@ -1154,7 +1263,7 @@ function desenharRelatorios(){
   const f=carteiraF; const sel=itens.filter(i=>(!f.mes||mesDe(i.inicio||i.atualizadoEm)===f.mes)&&(!f.estado||i.estado.k===f.estado));
   const op=(v,tx,on)=>'<option value="'+esc(v)+'"'+(on?' selected':'')+'>'+esc(tx)+'</option>';
   const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="verRelatorio(\''+i.id+'\')"><td onclick="event.stopPropagation()"><input type="checkbox" aria-label="Selecionar '+esc(i.nome)+'" '+(relSel.has(i0.id)?'checked':'')+' onchange="relMarcar(\''+i.id+'\',this.checked)"></td>'
-    +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+'</small></td><td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span></td><td class="n"><b>'+i.reg+'</b><span class="sutil"> / '+i.total+'</span></td><td class="n">'+(i.res?'<b class="obs">'+i.res+'</b>':'<span class="sutil">0</span>')+'</td><td class="n">'+i.fotos+'</td><td class="quando">'+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+'<small>'+esc(i.por)+'</small></td>'
+    +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+'</small></td><td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.parecer?'<small class="sub">parecer nº '+i.parecer+' emitido</small>':'')+'</td><td class="n"><b>'+i.reg+'</b><span class="sutil"> / '+i.total+'</span></td><td class="n">'+(i.res?'<b class="obs">'+i.res+'</b>':'<span class="sutil">0</span>')+'</td><td class="n">'+i.fotos+'</td><td class="quando">'+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+'<small>'+esc(i.por)+'</small></td>'
     +'<td class="acoes"><button class="mini cheio" onclick="event.stopPropagation();verRelatorio(\''+i.id+'\')">Ver</button><button class="mini" onclick="event.stopPropagation();abrirRelatorio(\''+i.id+'\')">Nova aba</button></td></tr>'; }).join('');
   box.innerHTML='<div class="cart-filtros"><label>Mês<select onchange="carteiraF.mes=this.value;desenharRelatorios()">'+op('','Todos os meses',!f.mes)+meses.map(m=>op(m,mesRotulo(m),f.mes===m)).join('')+'</select></label><label>Situação<select onchange="carteiraF.estado=this.value;desenharRelatorios()">'+op('','Todas',!f.estado)+op('andamento','Em campo',f.estado==='andamento')+op('encerrada','Encerrada',f.estado==='encerrada')+'</select></label></div>'
     +'<div class="cart-acoes"><button class="btn" onclick="imprimirLote()" '+(relSel.size?'':'disabled')+'>Imprimir selecionados em um PDF ('+relSel.size+')</button><button class="btn claro" onclick="relTodos(true)">Selecionar todos da lista</button><button class="btn claro" onclick="relTodos(false)">Limpar seleção</button></div>'
@@ -1208,7 +1317,7 @@ async function abrirRelatorioLado(vid){
   try{
     for(const u of ladoUrls)URL.revokeObjectURL(u); ladoUrls=[];
     const r=await montarRelatorio(vid); ladoUrls=r.urls;
-    lado.innerHTML='<div class="cab"><b>Relatório · '+esc(nomeV(r.v))+'</b><button class="mini cheio" onclick="imprimirLado()">PDF</button><button class="mini" onclick="abrirRelatorio(\''+esc(String(vid).replace(/[\'"\\]/g,''))+'\')">Nova aba</button><button class="mini neutro" onclick="fecharLado()">Fechar</button></div><iframe id="ladoFrame" title="Relatório da vistoria"></iframe>';
+    lado.innerHTML='<div class="cab"><b>Relatório · '+esc(nomeV(r.v))+'</b>'+(souCoordenador()?'<button class="mini" onclick="ir(&quot;parecer&quot;,{vid:&quot;'+esc(String(vid).replace(/[\'"\\\\]/g,''))+'&quot;})">Parecer</button>':'')+'<button class="mini cheio" onclick="imprimirLado()">PDF</button><button class="mini" onclick="abrirRelatorio(\''+esc(String(vid).replace(/[\'"\\]/g,''))+'\')">Nova aba</button><button class="mini neutro" onclick="fecharLado()">Fechar</button></div><iframe id="ladoFrame" title="Relatório da vistoria"></iframe>';
     $('ladoFrame').srcdoc=r.html;
     registrarEvento('relatorio',{lado:true},vid);
   }catch(err){ lado.innerHTML='<div class="vazio">Não deu para montar o relatório. '+esc(erroHumano(err))+'</div>'; }
@@ -1241,8 +1350,12 @@ function tipoAtivo(nome){ // pela sigla no início do nome (como vem do shape): 
   const s=String(nome||'').trim().toUpperCase().split(/[\s_\-]+/)[0];
   return {CT:'coletor tronco',CTE:'coletor tronco',CTS:'coletor tronco secundário',CTP:'coletor tronco principal',RCE:'rede coletora de esgoto',RC:'rede coletora de esgoto',REDE:'rede coletora de esgoto',INT:'interligação',INTERL:'interligação',INTERLIG:'interligação',INTERLIGACAO:'interligação',INTERLIGAÇÃO:'interligação',IC:'interceptor',INTERC:'interceptor',INTERCEPTOR:'interceptor',LR:'linha de recalque',LRE:'linha de recalque',EM:'emissário',EMI:'emissário',EMISSARIO:'emissário',EMISSÁRIO:'emissário'}[s]||'obra linear de esgoto';
 }
-function htmlRelatorio(v,fotos){
-  fotos=fotos||{};
+function htmlRelatorio(v,fotos,opts){
+  fotos=fotos||{}; opts=opts||{};
+  const fin=opts.final||null, prev=!!opts.preview, comParecer=!!(fin||prev);
+  const par=v.parecer||{}; const notas=par.notas||{};
+  const txtBr=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])).replace(/\n/g,'<br>');
+  const vazio=s=>'<span style="color:#9AA6AE;font-style:italic">'+s+'</span>';
   const h=esc, c=contagens(v);
   const estadoPv=p=>{const r=v.registros[p.id];return r?(recalcEstado(r)||'consta'):'consta';};
   const regs=v.pontos.filter(p=>{const e=estadoPv(p);return e==='ok'||e==='ressalva';});
@@ -1269,6 +1382,7 @@ function htmlRelatorio(v,fotos){
     return '<section class="ficha"><div class="fh"><h3>'+h(p.nome)+'</h3><span class="tag '+(e==='ok'?'ok':'obs')+'">'+(e==='ok'?'confere':'com observação')+'</span>'+(p.transicao?'<span class="tag">transição'+(p.tipoTransicao?' de '+h(p.tipoTransicao):'')+'</span>':'')+(p.extra?'<span class="tag">fora do cadastro</span>':'')+'<span class="n">'+(i+1)+' de '+regs.length+'</span></div>'
       +'<p class="cad">Cadastro: '+cadDe(p)+'</p><table class="q">'+linhas+'</table>'+(r.obs?'<p class="obs"><b>Observação do vistoriador:</b> '+h(r.obs)+'</p>':'')
       +(fts?'<div class="fotos">'+fts+'</div>':'<p class="meta">Sem fotos.</p>')
+      +((comParecer&&notas[p.id])?'<p class="nota"><b>Nota do especialista:</b> '+txtBr(notas[p.id])+'</p>':'')
       +'<p class="meta">Registrado em '+(r.inicio?fmtData(r.inicio)+((r.fim&&fmtHora(r.fim)!==fmtHora(r.inicio))?' das '+fmtHora(r.inicio)+' às '+fmtHora(r.fim):' às '+fmtHora(r.inicio)):'data não informada')+'</p>'
       +((r.correcoes&&r.correcoes.length)?'<p class="meta">Corrigido de mesa: '+r.correcoes.map(c=>fmtData(c.quando)+' '+fmtHora(c.quando)+' por '+h(c.por)+(c.motivo?' ('+h(c.motivo)+')':'')).join('; ')+'</p>':'')+'</section>';
   }).join('');
@@ -1279,7 +1393,7 @@ function htmlRelatorio(v,fotos){
     ['Situação',h(est.t)+(v.encerradaEm?' em '+fmtData(v.encerradaEm)+' às '+fmtHora(v.encerradaEm):'')],['Início em campo',v.iniciadaEm?(fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' · '+h(v.iniciadaPor):'')+(v.iniciadaGps?' · GPS '+v.iniciadaGps.lat.toFixed(5)+', '+v.iniciadaGps.lon.toFixed(5):'')):'não iniciada'],['Registros em campo',ini?((dias.size>2?'de '+[...dias][0]+' a '+[...dias][dias.size-1]+' ('+dias.size+' dias)':[...dias].join(' e '))+' · das '+fmtHora(ini)+' às '+fmtHora(fim||ini)):'ainda sem registros'],
     ['Vistoriadores',resp||'<i>não informados</i>'],['Atribuída a',atrib?h(atrib):'<i>ninguém</i>'],['Rede no cadastro',c.total+' PVs'+(c.trans?' · '+c.trans+' transições':'')+(v.resumo&&v.resumo.extensao?' · '+n2(v.resumo.extensao)+' m':'')],['Origem',(v.origem&&v.origem.arquivo?h(v.origem.arquivo):'KMZ do Conversor')+(v.origem&&v.origem.conversor?' · Conversor '+h(v.origem.conversor):'')]];
   const agora=agoraIso(); const planta=plantaMapa(v,760,500);
-  return '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relatório de vistoria · '+h(nomeV(v))+'</title><style>'
+  return '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+(fin?'Parecer de vistoria nº '+fin.numero:'Relatório de vistoria')+' · '+h(nomeV(v))+'</title><style>'
     +'@page{size:A4;margin:14mm 13mm 16mm}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font:11.5pt/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111;margin:0;background:#E9EEF1}'
     +'.folha{max-width:210mm;margin:0 auto;background:#fff;padding:14mm 13mm 16mm}@media print{body{background:#fff}.folha{max-width:none;padding:0}.nao-imprime{display:none !important}}'
     +'header{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:4px solid #0093DD;padding-bottom:10px;margin-bottom:12px}header img{height:34px}header .org{font-size:10pt;color:#3D4954;text-align:right;line-height:1.3}header .org b{display:block;color:#111;font-size:11pt}'
@@ -1293,6 +1407,7 @@ function htmlRelatorio(v,fotos){
     +'table{border-collapse:collapse;width:100%;font-size:10pt}table.s th{background:#F2F5F6;text-align:left;padding:6px 7px;border-bottom:2px solid #D9E0E4;font-size:9.5pt;color:#3D4954}table.s th.c{text-align:center}table.s th.r{text-align:right}table.s td{border-bottom:1px solid #EEF1F3;padding:6px 7px;vertical-align:top}td.pv{font:700 10.5pt ui-monospace,Consolas,monospace;white-space:nowrap}td.pv small{display:block;font:600 8pt system-ui;color:#7A3B00;text-transform:uppercase;letter-spacing:.03em}td.cad small,.cad small{color:#3D4954}td.ok{color:#1E7B34;font-weight:700;white-space:nowrap}td.nao{color:#C0392B;font-weight:700;white-space:nowrap}td.nao small{display:block;font-weight:600;font-size:8.5pt;color:#7A3B00}td.vazio{color:#9AA6AE;text-align:center}td.num{text-align:center}td.quando{white-space:nowrap;color:#3D4954;font-size:9.5pt}'
     +'section.ficha{border:1px solid #D9E0E4;border-radius:12px;padding:12px 14px;margin:10px 0;break-inside:avoid}.fh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.fh h3{font:700 14pt ui-monospace,Consolas,monospace;margin:0}.fh .n{margin-left:auto;color:#9AA6AE;font-size:9.5pt}.tag{font:700 8.5pt system-ui;letter-spacing:.04em;text-transform:uppercase;background:#EEF1F3;color:#3D4954;border-radius:6px;padding:3px 7px}.tag.ok{background:#E3F4E6;color:#1E7B34}.tag.obs{background:#FFF4D6;color:#7A3B00}'
     +'p.cad{margin:6px 0 8px;font-size:10.5pt}table.q th{text-align:left;font-weight:600;padding:5px 6px 5px 0;width:34%;border-top:1px solid #EEF1F3;vertical-align:top}table.q td{border-top:1px solid #EEF1F3;padding:5px 6px;vertical-align:top}table.q td.just{width:46%}table.q .conf{color:#3D4954}'
+    +'.faixa{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;background:#0072AD;color:#fff;border-radius:8px;padding:8px 12px;font-size:10.5pt;margin:0 0 12px}.faixa.rasc{background:#FFF4D6;color:#7A3B00}.parecer{font-size:11pt;line-height:1.55;background:#F2F9FD;border:1px solid #B7DDF3;border-radius:10px;padding:10px 14px}.nota{margin:8px 0 0;font-size:10.5pt;background:#F2F9FD;border:1px solid #B7DDF3;border-radius:8px;padding:7px 10px}.assin{margin:10px 0 0;font-size:10.5pt;color:#3D4954}'
     +'p.obs{margin:8px 0 0;font-size:10.5pt;background:#F7FAFB;border-radius:8px;padding:7px 10px}.fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}figure{margin:0}figure img{width:100%;height:58mm;object-fit:contain;border-radius:8px;display:block;background:#EEF1F3}figcaption{font-size:8.5pt;color:#3D4954;margin-top:3px;line-height:1.3}figure.semfoto{height:58mm;border:1px dashed #D9E0E4;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;color:#9AA6AE;font-size:9.5pt}'
     +'p.meta{font-size:9.5pt;color:#3D4954;margin:8px 0 0}.semreg{font-size:10.5pt;line-height:1.7}.semreg code{font:700 10pt ui-monospace,Consolas,monospace;background:#F2F5F6;border-radius:5px;padding:1px 6px;margin-right:4px;white-space:nowrap;display:inline-block;margin-bottom:3px}'
     +'.trilha{font-size:10pt;color:#3D4954;line-height:1.6}.trilha b{color:#111;font-weight:600}footer{margin-top:18px;border-top:1px solid #D9E0E4;padding-top:8px;font-size:9pt;color:#3D4954;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}'
@@ -1302,12 +1417,14 @@ function htmlRelatorio(v,fotos){
     +'</style></head><body>'
     +'<div id="amp" ondblclick="ampZoom()"><div class="q" id="ampQ"><img id="ampImg" alt="foto ampliada"></div><div class="b"><button onclick="ampFechar()">Fechar</button><button id="ampBtn" onclick="ampZoom()">100%</button><span id="ampTxt"></span></div></div>'
     +'<script>function ampliar(img){var a=document.getElementById("amp");document.getElementById("ampImg").src=img.src;var c=img.parentNode.querySelector("figcaption");document.getElementById("ampTxt").textContent=(c?c.textContent:"")+" · toque duas vezes para ampliar";a.classList.remove("cem");document.getElementById("ampBtn").textContent="100%";a.classList.add("on");}function ampFechar(){document.getElementById("amp").classList.remove("on","cem");}function ampZoom(){var a=document.getElementById("amp"),cem=!a.classList.contains("cem");a.classList.toggle("cem",cem);document.getElementById("ampBtn").textContent=cem?"Ajustar":"100%";if(cem){var q=document.getElementById("ampQ");setTimeout(function(){q.scrollLeft=(q.scrollWidth-q.clientWidth)/2;q.scrollTop=(q.scrollHeight-q.clientHeight)/2;},30);}}document.addEventListener("keydown",function(e){if(e.key==="Escape")ampFechar();});<\/script>'
-    +'<div class="nao-imprime"><span>Relatório pronto. Para salvar em PDF, imprima e escolha "Salvar como PDF".</span><button onclick="window.print()">Imprimir ou salvar PDF</button></div>'
+    +'<div class="nao-imprime"><span>'+(fin?'Parecer nº '+fin.numero+' pronto':(prev?'Prévia do parecer':'Relatório pronto'))+'. Para salvar em PDF, imprima e escolha "Salvar como PDF".</span><button onclick="window.print()">Imprimir ou salvar PDF</button></div>'
     +'<div class="folha">'
-    +'<header>'+(logo?'<img src="'+h(logo)+'" alt="Sabesp">':'<b style="font-size:16pt;color:#0093DD">Sabesp</b>')+'<div class="org"><b>Encerramento de Ativos Regulatórios</b>Relatório de vistoria em campo · emitido em '+fmtData(agora)+' às '+fmtHora(agora)+'</div></header>'
+    +'<header>'+(logo?'<img src="'+h(logo)+'" alt="Sabesp">':'<b style="font-size:16pt;color:#0093DD">Sabesp</b>')+'<div class="org"><b>Encerramento de Ativos Regulatórios</b>'+(fin?'Parecer de vistoria nº '+fin.numero+' · emitido em '+fmtData(fin.quando)+' às '+fmtHora(fin.quando):'Relatório de vistoria em campo · emitido em '+fmtData(agora)+' às '+fmtHora(agora))+'</div></header>'
+    +(fin?'<div class="faixa"><b>PARECER DE VISTORIA · Nº '+fin.numero+'</b><span>Emitido por '+h(fin.por)+(fin.matricula?' (matr. '+h(fin.matricula)+')':'')+' em '+fmtData(fin.quando)+' às '+fmtHora(fin.quando)+'</span></div>':(prev?'<div class="faixa rasc"><b>RASCUNHO DO PARECER</b><span>Ainda não emitido. A versão final é gerada pelo botão "Gerar versão final".</span></div>':''))
     +'<h1>Vistoria de '+h(tipoAtivo((v.ct&&v.ct.nome)||nomeV(v)))+'</h1><div class="ct">'+h(nomeV(v))+'</div>'
     +'<div class="meta">'+meta.map(m=>'<div><span>'+m[0]+'</span><div>'+m[1]+'</div></div>').join('')+'</div>'
     +'<div class="nums"><div><b>'+c.total+'</b><small>PVs no cadastro</small></div><div><b>'+c.reg+'</b><small>PVs registrados em campo</small></div><div class="ok"><b>'+c.ok+'</b><small>conferem com o cadastro</small></div><div class="obs"><b>'+c.res+'</b><small>com observação</small></div><div><b>'+nFotos+'</b><small>fotos carimbadas</small></div></div>'
+    +(comParecer?'<h2>Destaques do especialista</h2><div class="parecer">'+(par.destaques?txtBr(par.destaques):vazio('Sem destaques.'))+'</div>':'')
     +'<h2>Observações por natureza</h2>'
     +(nNao?'<div class="cats"><div>Divergência do cadastro<br><b>'+cats['divergencia']+'</b> <small>resposta'+(cats['divergencia']===1?'':'s')+'</small>'+barra(cats['divergencia'],totResp,'#B7791F')+'</div><div>Não verificado em campo<br><b>'+cats['nao-verificado']+'</b> <small>resposta'+(cats['nao-verificado']===1?'':'s')+'</small>'+barra(cats['nao-verificado'],totResp,'#8A96A0')+'</div><div>Não está operando<br><b>'+cats['nao-operando']+'</b> <small>resposta'+(cats['nao-operando']===1?'':'s')+'</small>'+barra(cats['nao-operando'],totResp,'#C0392B')+'</div></div><p class="meta">Respostas "Não" por natureza, em '+regs.length+' PV'+(regs.length===1?'':'s')+' registrado'+(regs.length===1?'':'s')+' (cada PV tem três perguntas). As observações não impedem o andamento: são pontos a esclarecer com a gerenciadora, para que o cadastro e o campo contem a mesma história.</p>'
       :'<p class="semreg">'+(regs.length?'Tudo o que foi registrado confere com o cadastro.':'Ainda não há PVs registrados nesta vistoria.')+'</p>')
@@ -1317,6 +1434,8 @@ function htmlRelatorio(v,fotos){
     +'<h2>Fichas de campo</h2>'+(fichas||'<p class="semreg">Nenhuma ficha.</p>')
     +'<h2>PVs do cadastro sem registro nesta vistoria</h2><p class="semreg">'+(semReg.length?semReg.map(p=>'<code>'+h(p.nome)+'</code>').join(' ')+'<br><small style="color:#3D4954">Constam no cadastro e não foram abertos em campo. Não é observação: só não entraram nesta vistoria.</small>':'Todos os PVs do cadastro foram registrados.')+'</p>'
     +(emAnd.length?'<p class="semreg">'+emAnd.map(p=>'<code>'+h(p.nome)+'</code>').join(' ')+'<br><small style="color:#3D4954">'+emAnd.length+' com ficha em andamento (aberta em campo, ainda incompleta). Não entram como registrados.</small></p>':'')
+    +(comParecer?'<h2>Conclusão e encaminhamentos</h2><div class="parecer">'+(par.conclusao?txtBr(par.conclusao):vazio('Sem conclusão escrita.'))+'</div>'
+      +'<p class="assin">'+(fin?'Emitido por <b>'+h(fin.por)+'</b>'+(fin.matricula?' (matr. '+h(fin.matricula)+')':'')+' · Encerramento de Ativos Regulatórios · '+fmtData(fin.quando)+' às '+fmtHora(fin.quando)+'. Documento emitido: retrata a vistoria no momento da emissão.':'Rascunho em preparação'+(par.atualizadoPor?' por '+h(par.atualizadoPor):'')+(par.atualizadoEm?' · última alteração '+fmtData(par.atualizadoEm)+' às '+fmtHora(par.atualizadoEm):'')+'.')+'</p>':'')
     +'<h2>Trilha</h2><div class="trilha">'
     +'<div><b>Carregada no app</b> em '+fmtData(v.criadaEm)+' às '+fmtHora(v.criadaEm)+(v.origem&&v.origem.geradoEm?' · KMZ gerado pelo Conversor em '+fmtData(v.origem.geradoEm)+' às '+fmtHora(v.origem.geradoEm):'')+'</div>'
     +(v.iniciadaEm?'<div><b>Iniciada em campo</b> em '+fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' por '+h(v.iniciadaPor):'')+'</div>':'')
@@ -1324,6 +1443,7 @@ function htmlRelatorio(v,fotos){
     +(v.encerradaEm?'<div><b>Encerrada</b> em '+fmtData(v.encerradaEm)+' às '+fmtHora(v.encerradaEm)+'</div>':'<div><b>Vistoria ainda aberta</b>: este relatório retrata o estado atual e pode mudar.</div>')
     +(v.sync&&v.sync.enviadoEm?'<div><b>Equipe</b>: gravação nº '+(v.sync.versaoServidor||'')+', enviada em '+fmtData(v.sync.enviadoEm)+' às '+fmtHora(v.sync.enviadoEm)+'</div>':'<div><b>Equipe</b>: ainda não enviada</div>')
     +(v.exportadaEm?'<div><b>Exportada em arquivo</b> em '+fmtData(v.exportadaEm)+' às '+fmtHora(v.exportadaEm)+'</div>':'')
+    +(fin?'<div><b>Parecer nº '+fin.numero+'</b> emitido em '+fmtData(fin.quando)+' às '+fmtHora(fin.quando)+' por '+h(fin.por)+'</div>':'')
     +'<div><b>Emitido</b> em '+fmtData(agora)+' às '+fmtHora(agora)+(emissor?' por '+h(emissor):'')+'</div></div>'
     +'<footer><span>Sabesp · Encerramento de Ativos Regulatórios · '+h(nomeV(v))+'</span><span>Vistorias em Campo v'+VERSAO+' · fotos carimbadas com data, hora e GPS no momento do registro</span></footer>'
     +'</div></body></html>';
@@ -1488,7 +1608,7 @@ function renderNavMesa(){
     el.innerHTML='<div>Você não está na equipe neste computador.</div><div class="acoes"><button onclick="abrirEntrar()">Entrar na equipe</button></div>';
   }
 }
-function marcarNavMesa(tela){ const m={vistorias:'mesaLinkVistorias',pvs:'mesaLinkVistorias',ficha:'mesaLinkVistorias',resumo:'mesaLinkVistorias',carteira:'mesaLinkCarteira',equipe:'mesaLinkEquipe',relatorios:'mesaLinkRelatorios',abertura:'mesaLinkInicio'}; const le=$('mesaLinkEquipe'); if(le)le.classList.toggle('oculta',!souCoordenador()); document.querySelectorAll('.mesa-link').forEach(b=>b.classList.toggle('on',b.id===m[tela])); }
+function marcarNavMesa(tela){ const m={vistorias:'mesaLinkVistorias',pvs:'mesaLinkVistorias',ficha:'mesaLinkVistorias',resumo:'mesaLinkVistorias',carteira:'mesaLinkCarteira',equipe:'mesaLinkEquipe',relatorios:'mesaLinkRelatorios',parecer:'mesaLinkRelatorios',abertura:'mesaLinkInicio'}; const le=$('mesaLinkEquipe'); if(le)le.classList.toggle('oculta',!souCoordenador()); document.querySelectorAll('.mesa-link').forEach(b=>b.classList.toggle('on',b.id===m[tela])); }
 function marcarSelecionada(){ document.querySelectorAll('#listaVistorias .lin').forEach(l=>l.classList.toggle('destaque',!!(V&&l.getAttribute('onclick')&&l.getAttribute('onclick').includes("'"+V.id+"'")))); }
 // arrastar um KMZ para a janela
 let arrastos=0;
@@ -1513,7 +1633,7 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ===================== navegação (history API + sobreposições) ===================== */
-const TELAS={abertura:{tit:'Vistorias em Campo',sub:'Obras Lineares e Localizadas',logo:true},vistorias:{tit:'Vistorias',sub:'Obras Lineares · neste aparelho'},carteira:{tit:'Carteira da equipe',sub:'Todas as vistorias, de todos os aparelhos'},equipe:{tit:'Equipe',sub:'Pessoas, papéis e atribuições'},relatorios:{tit:'Relatórios',sub:'Ver, imprimir e juntar relatórios'},pvs:{},ficha:{},resumo:{tit:'Resumo da vistoria'}};
+const TELAS={abertura:{tit:'Vistorias em Campo',sub:'Obras Lineares e Localizadas',logo:true},vistorias:{tit:'Vistorias',sub:'Obras Lineares · neste aparelho'},carteira:{tit:'Carteira da equipe',sub:'Todas as vistorias, de todos os aparelhos'},equipe:{tit:'Equipe',sub:'Pessoas, papéis e atribuições'},parecer:{tit:'Parecer de vistoria'},relatorios:{tit:'Relatórios',sub:'Ver, imprimir e juntar relatórios'},pvs:{},ficha:{},resumo:{tit:'Resumo da vistoria'}};
 let telaAtual='abertura';
 function ir(tela,params={},replace=false){
   const st={tela,...params};
@@ -1558,6 +1678,7 @@ async function render(st){
   document.querySelectorAll('.tela').forEach(t=>t.classList.toggle('on',t.id==='t-'+st.tela));
   $('app').classList.toggle('largo',st.tela==='carteira');
   if(st.tela!=='relatorios'&&$('t-relatorios').classList.contains('comLado'))fecharLado('rel');
+  if(st.tela!=='parecer'&&parUrls.length){ for(const u of parUrls)URL.revokeObjectURL(u); parUrls=[]; }
   if(st.tela!=='carteira'&&$('t-carteira').classList.contains('comLado'))fecharLado('cart');
   const mesa=ehMesa(); marcarNavMesa(st.tela);
   $('mesaVazio').classList.toggle('on',mesa&&st.tela==='vistorias');
@@ -1570,6 +1691,7 @@ async function render(st){
   else if(st.tela==='vistorias'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=(sessao&&sessao.perfil)?'Obras Lineares · equipe e este aparelho':cfg.sub; V=null;P=null; await renderVistorias(); }
   else if(st.tela==='carteira'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderCarteira(); }
   else if(st.tela==='equipe'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderEquipe(); }
+  else if(st.tela==='parecer'){ if(!(await garantirV(st.vid)))return; P=null; $('hdrTit').textContent='Parecer de vistoria'; $('hdrSub').textContent=nomeV(V); await renderParecer(); }
   else if(st.tela==='relatorios'){ $('hdrTit').textContent=cfg.tit;$('hdrSub').textContent=cfg.sub; V=null;P=null; await renderRelatorios(); }
   else if(st.tela==='pvs'){ if(!(await garantirV(st.vid)))return; P=null; renderPvs(); }
   else if(st.tela==='ficha'){ if(!(await garantirV(st.vid)))return; P=V.pontos.find(p=>p.id===st.pid); if(!P){ir('pvs',{vid:V.id},true);return;} renderFicha(); }
@@ -1685,6 +1807,7 @@ async function mostrarEspaco(){
 }
 async function excluirDaEquipe(vid,nome){
   // fotos do Storage (lista e apaga), depois a linha (fotos e atribuições caem em cascata)
+  try{ const lp=await sb('/storage/v1/object/list/fotos',{method:'POST',json:{prefix:'pareceres/'+vid,limit:1000,offset:0}}); const np=(lp||[]).map(o=>'pareceres/'+vid+'/'+o.name).filter(x=>!x.endsWith('/')); if(np.length)await sb('/storage/v1/object/fotos',{method:'DELETE',json:{prefixes:np}}); }catch(e){}
   try{ const lista=await sb('/storage/v1/object/list/fotos',{method:'POST',json:{prefix:'vistorias/'+vid,limit:1000,offset:0}});
     const nomes=(lista||[]).map(o=>'vistorias/'+vid+'/'+o.name).filter(x=>!x.endsWith('/'));
     if(nomes.length)await sb('/storage/v1/object/fotos',{method:'DELETE',json:{prefixes:nomes}});
@@ -2242,17 +2365,18 @@ async function iniciarVistoria(){
 }
 async function reabrir(){
   if(!(await modal({titulo:'Reabrir '+nomeV(V)+'?',texto:'Ela volta a aceitar edições. Você pode encerrar de novo depois.',ok:'Reabrir',cancel:'Cancelar'})))return;
-  V.encerradaEm=null; zipPronto=null; await salvarV(); await pref('ultimaVistoria',V.id); renderFicha(); toast('Vistoria reaberta');
+  V.encerradaEm=null; zipPronto=null; await salvarV(); await pref('ultimaVistoria',V.id); renderFicha(); if(ehMesa())renderVistorias().catch(()=>{}); toast('Vistoria reaberta');
 }
 
 /* ===================== T4 resumo ===================== */
 let exportAberto=false;
 async function renderResumo(){
   const c=contagens();
+  $('btnParecer').classList.toggle('oculta',!(ehMesa()&&souCoordenador()&&!V.treino));
   const naEquipe=!!(sessao&&sessao.perfil)&&!V.treino, soLeitura=ehMesa()&&!souCoordenador();
   $('blocoExport').classList.toggle('oculta',(naEquipe&&!exportAberto)||soLeitura); $('btnMostrarExport').classList.toggle('oculta',!naEquipe||exportAberto||soLeitura);
   $('btnEncerrar').classList.toggle('claro',!naEquipe); $('btnEncerrar').classList.toggle('oculta',soLeitura); $('encCaption').classList.toggle('oculta',soLeitura); $('blocoResp').classList.toggle('oculta',soLeitura);
-  const rs=$('resumoSync'); if(naEquipe&&V.sync){ rs.classList.remove('oculta'); rs.textContent=V.sync.pendente?(navigator.onLine?'Enviando para a equipe…':'Sem sinal: envia para a equipe quando a internet voltar.'):(V.sync.enviadoEm?'Na equipe desde '+fmtData(V.sync.enviadoEm)+' às '+fmtHora(V.sync.enviadoEm)+'.':'Ainda não enviada para a equipe.'); } else rs.classList.add('oculta'); $('nReg').textContent=c.reg;$('nOk').textContent=c.ok;$('nRes').textContent=c.res;$('nConsta').textContent=c.consta+c.rasc;
+  const rs=$('resumoSync'); if(naEquipe&&V.sync){ rs.classList.remove('oculta'); rs.textContent=V.sync.excluidaNaEquipe?'Esta vistoria foi excluída da equipe. Veja as opções no ⋯ da lista.':V.sync.conflito?'Há duas versões desta vistoria. Escolha qual fica pelo ⋯ na lista de vistorias.':V.sync.pendente?(V.sync.erro?'O último envio não deu certo: '+erroHumano(V.sync.erro)+' O app tenta de novo sozinho.':(navigator.onLine?'Enviando para a equipe… (alguns segundos)':'Sem sinal: envia para a equipe quando a internet voltar.')):(V.sync.enviadoEm?'Na equipe desde '+fmtData(V.sync.enviadoEm)+' às '+fmtHora(V.sync.enviadoEm)+'.':'Ainda não enviada para a equipe.'); } else rs.classList.add('oculta'); $('nReg').textContent=c.reg;$('nOk').textContent=c.ok;$('nRes').textContent=c.res;$('nConsta').textContent=c.consta+c.rasc;
   $('rascunhosAviso').classList.toggle('oculta',!c.rasc);
   if(c.rasc)$('rascunhosAviso').textContent=c.rasc+' PV'+(c.rasc===1?' está':'s estão')+' em andamento, com ficha incompleta. Não entram como registrados.';
   const alt=V.exportadaEm&&V.alteradaEm&&V.alteradaEm>V.exportadaEm;
@@ -2335,11 +2459,11 @@ async function baixarExport(){
 }
 function relatorioRapido(){ return abrirRelatorio(V.id); }
 async function alternarEncerrada(){
-  if(V.encerradaEm){ if(await modal({titulo:'Reabrir '+nomeV(V)+'?',texto:'Ela volta a aceitar edições.',ok:'Reabrir',cancel:'Cancelar'})){V.encerradaEm=null;zipPronto=null;await salvarV();await pref('ultimaVistoria',V.id);renderResumo();toast('Vistoria reaberta');} return; }
+  if(V.encerradaEm){ if(await modal({titulo:'Reabrir '+nomeV(V)+'?',texto:'Ela volta a aceitar edições.',ok:'Reabrir',cancel:'Cancelar'})){V.encerradaEm=null;zipPronto=null;await salvarV();await pref('ultimaVistoria',V.id);renderResumo();if(ehMesa())renderVistorias().catch(()=>{});toast('Vistoria reaberta');} return; }
   const c=contagens();
   const r=await modal({titulo:'Encerrar '+nomeV(V)+'?',texto:c.reg+' PV'+(c.reg===1?'':'s')+' registrado'+(c.reg===1?'':'s')+(c.rasc?', '+c.rasc+' com ficha incompleta (ficam como sem registro)':'')+'. Depois de encerrar, as fichas ficam só para leitura. Dá para reabrir se precisar.',ok:'Encerrar',cancel:'Cancelar'});
   if(!r)return;
-  V.encerradaEm=agoraIso(); zipPronto=null; await salvarV(); await pref('ultimaVistoria',null); renderResumo(); toast((V.exportadaEm||(sessao&&sessao.perfil))?'Vistoria encerrada':'Vistoria encerrada. Lembre de exportar antes de sair do app.');
+  V.encerradaEm=agoraIso(); zipPronto=null; await salvarV(); await pref('ultimaVistoria',null); renderResumo(); if(ehMesa())renderVistorias().catch(()=>{}); toast((V.exportadaEm||(sessao&&sessao.perfil))?'Vistoria encerrada':'Vistoria encerrada. Lembre de exportar antes de sair do app.');
 }
 
 /* ===================== modal e toast ===================== */
