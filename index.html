@@ -45,7 +45,7 @@ body.mesa #app{max-width:none;display:grid;grid-template-columns:232px minmax(0,
 body.mesa #mesaNav{display:flex;grid-row:1/3;grid-column:1;flex-direction:column;background:var(--card);border-right:1px solid var(--fio);padding:20px 14px;gap:6px;position:sticky;top:0;height:100vh;box-sizing:border-box}
 body.mesa header{grid-column:2;border-bottom-width:3px}
 body.mesa #hdrLogo{display:none}
-body.mesa main{grid-column:2;display:grid;grid-template-columns:minmax(300px,350px) minmax(0,1fr);gap:18px;align-items:start;padding:20px 24px 28px}
+body.mesa main{grid-column:2;display:grid;grid-template-columns:minmax(290px,330px) minmax(0,1fr);gap:18px;align-items:start;padding:20px 24px 28px}
 body.mesa .tela.on{display:flex;flex-direction:column;gap:14px;min-width:0}
 body.mesa #t-abertura.on,body.mesa #t-carteira.on,body.mesa #t-equipe.on,body.mesa #t-relatorios.on,body.mesa #t-parecer.on{grid-column:1/3}
 .par-grade{display:grid;grid-template-columns:minmax(360px,440px) minmax(0,1fr);gap:16px;align-items:start}
@@ -134,12 +134,12 @@ body.mesa #listaVistorias .mini{min-height:36px;padding:0 11px;font-size:13.5px;
 body.mesa #listaVistorias .menu-lin{width:36px;height:36px;font-size:20px}
 body.mesa #btnExemplo{font-size:14px;min-height:40px}
 body.mesa #t-pvs .abas{display:none}
-body.mesa #pvsCorpo{display:grid !important;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+body.mesa #pvsCorpo{display:grid !important;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:1279px){body.mesa #pvsCorpo{grid-template-columns:1fr}body.mesa #painelMapa{position:static}body.mesa #mapa{height:52vh}}
 body.mesa #painelMapa,body.mesa #painelLista{display:flex !important;flex-direction:column;gap:10px;min-width:0}
 body.mesa #painelMapa{order:1;position:sticky;top:86px}
 body.mesa #painelLista{order:2}
-body.mesa #mapa{height:calc(100vh - 360px);min-height:440px}
+body.mesa #mapa{height:calc(100vh - 330px);min-height:480px}
 body.mesa .mapa-acoes .btn{min-height:42px;font-size:14.5px}
 body.mesa .mapa-acoes .btn:not(#btnNomes),body.mesa #btnMapaOffline,body.mesa #gpsMapaTxt,body.mesa #gpsTxt,body.mesa #fotoDica,body.mesa #btnLimpar,body.mesa #btnExcluirPv,body.mesa #btnNovoPv{display:none !important}
 body.mesa .mapa-acoes{grid-template-columns:1fr}
@@ -165,12 +165,26 @@ body.arrastando::after{content:"Solte o KMZ para abrir";position:fixed;inset:0;b
 #mesaNavConta .estado i{width:8px;height:8px;border-radius:50%;display:inline-block;background:#9AA6AE}
 #mesaNavConta .estado.ok i{background:var(--ok)}
 body.mesa #listaPvs .lin.focado{outline:2px solid var(--sabesp);outline-offset:-2px}
+body.mesa #listaPvs .lin{padding:9px 12px;min-height:0;gap:10px;border-radius:12px}
+body.mesa #listaPvs .lin .nome{font-size:15px}
+body.mesa #listaPvs .lin .det{font-size:13.5px;margin-top:2px}
+body.mesa #listaPvs .selo{font-size:11px;padding:3px 6px}
+body.mesa .filtros{flex-wrap:wrap;overflow:visible;gap:6px}
+body.mesa .filtros .chip{min-height:38px;padding:7px 12px;font-size:14px}
+body.mesa .busca input{padding:10px 0;font-size:15px}
+body.mesa .syncbar{padding:6px 6px 6px 12px;font-size:13.5px;margin-bottom:10px}
+.lista-filtro{display:none}
+body.mesa .lista-filtro{display:flex;gap:4px;margin-bottom:10px;background:var(--card);border:1.5px solid var(--fio);border-radius:12px;padding:4px}
+body.mesa .lista-filtro button{flex:1;border:0;background:transparent;border-radius:9px;font:600 13.5px var(--texto);color:var(--sutil);min-height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+body.mesa .lista-filtro button.on{background:#E6F4FC;color:var(--botao);font-weight:700}
+body.mesa .lista-filtro button span{font-size:11.5px;background:#EEF1F3;border-radius:999px;padding:1px 7px;color:var(--sutil);font-weight:700}
+body.mesa .lista-filtro button.on span{background:#fff;color:var(--botao)}
 .cart-filtros{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;background:var(--card);border:1.5px solid var(--fio);border-radius:14px;padding:12px 14px}
 .cart-filtros label{font-size:13.5px;color:var(--sutil);font-weight:600;margin:0;display:flex;flex-direction:column;gap:4px}
 .cart-filtros select,.cart-filtros input{font:16px var(--texto);padding:9px 10px;border:1.5px solid var(--fio);border-radius:10px;background:#fff;color:var(--ink);min-height:42px;width:100%}
-.cart-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-.cart-nums div{background:var(--card);border:1.5px solid var(--fio);border-radius:14px;padding:10px 12px;text-align:center}
-.cart-nums b{display:block;font-size:26px;line-height:1.1;color:var(--botao)}.cart-nums .obs b{color:var(--aten-txt)}.cart-nums .ok b{color:var(--ok)}.cart-nums small{font-size:13px;color:var(--sutil)}
+.cart-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--fio);border:1.5px solid var(--fio);border-radius:14px;overflow:hidden}
+.cart-nums div{background:var(--card);border:0;border-radius:0;padding:12px 14px;text-align:left}
+.cart-nums b{display:block;font-size:24px;line-height:1.1;color:var(--botao);font-variant-numeric:tabular-nums}.cart-nums .obs b{color:var(--aten-txt)}.cart-nums .ok b{color:var(--ok)}.cart-nums small{display:block;font-size:12.5px;color:var(--sutil);margin-top:3px;line-height:1.25}
 .cart-tabela{overflow-x:auto;background:var(--card);border:1.5px solid var(--fio);border-radius:14px}
 .cart-tabela table{border-collapse:collapse;width:100%;min-width:940px;font-size:14.5px}
 .cart-tabela th{text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sutil);padding:10px 12px;border-bottom:2px solid var(--fio);white-space:nowrap}
@@ -179,10 +193,18 @@ body.mesa #listaPvs .lin.focado{outline:2px solid var(--sabesp);outline-offset:-
 .cart-tabela tr:last-child td{border-bottom:0}
 .cart-tabela td.ct small,.cart-tabela td.quando small,.cart-tabela small.sub{display:block;font-size:12.5px;color:var(--sutil);margin-top:2px}
 .cart-tabela td.n{text-align:right;white-space:nowrap}.cart-tabela td.n b{display:inline;font:700 16px var(--texto)}.cart-tabela td .sutil{display:inline}.cart-tabela .sutil{color:var(--sutil)}.cart-tabela .obs{color:var(--aten-txt)}
-.cart-tabela td.acoes{white-space:nowrap;text-align:right}.cart-tabela td.acoes .mini{margin-left:6px}
+.cart-tabela td.acoes{white-space:nowrap;text-align:right;width:1%}.cart-tabela td.acoes .acoes-grp{display:inline-flex;gap:6px;justify-content:flex-end;vertical-align:middle}.cart-tabela td.acoes .mini{margin:0;min-height:34px;min-width:88px;padding:0 10px;font-size:13.5px;border-radius:9px;line-height:1}
+.cart-tabela td.acoes .acoes-grp span{display:inline-block;min-width:88px}
+.cart-tabela td.ct{min-width:230px}.cart-tabela td.ct b{display:block;line-height:1.25}
 .cart-tabela td.vazio{text-align:center;color:var(--sutil);padding:24px}
 .cart-tabela tr.clic{cursor:pointer}.cart-tabela tr.clic:hover td{background:#F7FAFB}
 .cart-acoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.cart-barra{display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-wrap:wrap}
+.cart-barra .cart-barra-txt{margin-right:auto;font-size:13.5px;color:var(--sutil);font-weight:600}
+.cart-barra .mini{min-height:38px;font-size:14px;padding:0 14px;border-radius:10px}
+.mini[disabled]{opacity:.45;cursor:not-allowed}
+.eq-papeis{margin:0;font-size:13.5px;color:var(--sutil)}.eq-papeis b{color:var(--ink);font-weight:700}
+.eq-trilha{columns:2;column-gap:28px}.eq-trilha>div{break-inside:avoid}
 header{background:var(--card);border-bottom:4px solid var(--sabesp);padding:10px 14px 8px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5;min-height:66px}
 header .marca{height:44px;flex:0 0 auto}
 header h1{font:800 21px/1.15 var(--texto);margin:0;letter-spacing:-.01em}
@@ -455,7 +477,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.41 · 08/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.42 · 09/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -466,33 +488,33 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste um KMZ do Conversor para esta janela.<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.41 · 08/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.42 · 09/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.41 · 08/10/2026</div>
+  <div class="rodape">versão 0.42 · 09/10/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.41 · 08/10/2026</div>
+  <div class="rodape">versão 0.42 · 09/10/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.41 · 08/10/2026</div>
+  <div class="rodape">versão 0.42 · 09/10/2026</div>
 </section>
 
 <!-- T1e PARECER DO ESPECIALISTA -->
 <section class="tela" id="t-parecer">
   <div id="parecerBox"></div>
-  <div class="rodape">versão 0.41 · 08/10/2026</div>
+  <div class="rodape">versão 0.42 · 09/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -626,7 +648,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.41';
+const VERSAO='0.42';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -807,6 +829,7 @@ function atualizaBtnMapaOffline(){ const b=$('btnMapaOffline'); if(!b||!V)return
 
 /* ===================== sincronização com a equipe (S2) ===================== */
 const ICO={gps:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg>',pin:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.4 7-11.8a7 7 0 0 0-14 0c0 5.4 7 11.8 7 11.8z"/><circle cx="12" cy="9.7" r="2.6"/></svg>',parar:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/></svg>',nomes:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.4 0z"/><circle cx="8" cy="8" r="1.6"/></svg>',cam:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.6"/></svg>',espera:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>',pasta:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a1 1 0 0 1 1-1h5.2l2 2H20a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>'};
+let listaMesaFiltro='abertas';
 let syncTimer=null, sincronizando=false, equipeNomes={}, syncUltimaMsg='', atualizouSilencio=false, pendentesCount=0;
 /* ---------- juntar versões PV a PV (S3) ---------- */
 function hashReg(r){ return r?hashStr(JSON.stringify([r.respostas,r.fotos,r.obs])):null; }
@@ -847,6 +870,7 @@ async function gravarSync(id,campos){ const atual=(V&&V.id===id)?V:await dbGet('
 function assinatura(v){ const d=dadosServidor(v); delete d.atualizadaEm; return hashStr(JSON.stringify(d)); }
 function erroHumano(e){
   const m=String((e&&e.message)||e||''); console.warn('erro', m);
+  if(m==='parecer_alterado')return 'O arquivo deste parecer não confere com o registro da emissão e por isso não foi aberto. Avise o coordenador.';
   if(m==='sem-sessao')return navigator.onLine?'Você não está conectado à equipe. Entre de novo na tela inicial.':'Sem sinal agora. Quando a internet voltar, o app reconecta à equipe sozinho.';
   if(/Failed to fetch|NetworkError|network|504|sem sinal/i.test(m))return 'Sem sinal agora. Tente de novo quando a internet voltar.';
   if(/HTTP 401|HTTP 403|42501|permission|policy/i.test(m))return 'Sem permissão para isso. Fale com o coordenador da equipe.';
@@ -1013,6 +1037,8 @@ function estadoVistoria(x){ // x: vistoria local ou linha do servidor
 function textoAtrib(vid){ return (atribuicoes[vid]||[]).map(x=>nomeEquipe(x.usuario)).join(', '); }
 function euAtribuido(vid){ return !!(sessao&&sessao.user&&(atribuicoes[vid]||[]).some(x=>x.usuario===sessao.user.id)); }
 function souCoordenador(){ return !!(sessao&&sessao.perfil&&sessao.perfil.papel==='coordenador'); }
+function souEspecialista(){ return !!(sessao&&sessao.perfil&&(sessao.perfil.papel==='coordenador'||sessao.perfil.papel==='especialista')); } // especialista ou coordenador: atribui, corrige de mesa, emite parecer
+async function sha256Hex(txt){ try{ if(!(crypto&&crypto.subtle))return null; const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(txt)); return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join(''); }catch(e){ return null; } }
 async function assumir(vid,usuario){
   if(!sessao||!sessao.perfil)return; usuario=usuario||sessao.user.id;
   if(equipeAtivo[usuario]===false){ await modal({titulo:'Pessoa desligada da equipe',texto:nomeEquipe(usuario)+' está com o acesso desligado na página Equipe. Para atribuir, ligue o acesso de novo.',ok:'Entendi',soOk:true}); return; }
@@ -1080,13 +1106,13 @@ function desenharCarteira(soTabela){
   const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="'+(i.reg||i.estado.k==='encerrada'?'verRelatorio(\''+i.id+'\')':(i.local?'ir(\'pvs\',{vid:\''+i.id+'\'})':'baixarVistoria(\''+i.id+'\')'))+'">'
     +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+(i.un?' · UN '+esc(i.un):'')+'</small></td>'
     +'<td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.parecer?'<small class="sub">parecer nº '+i.parecer+' emitido</small>':'')+(i.servidor?'':'<small class="sub">'+noAp('só neste aparelho')+'</small>')+'</td>'
-    +'<td>'+(i.com.length?esc(i.com.join(', ')):'<span class="sutil">ninguém</span>')+(i.responsaveis.length&&i.responsaveis.join(', ')!==i.com.join(', ')?'<small class="sub">resp.: '+esc(i.responsaveis.join(', '))+'</small>':'')+'</td>'
+    +'<td>'+(i.com.length?esc(i.com.join(', ')):'<span class="sutil">ninguém</span>')+(i.servidor&&i.com.length===1&&(i.estado.k==='avistoriar'||i.estado.k==='assumida')?'<small class="sub">falta a dupla</small>':'')+(i.responsaveis.length&&i.responsaveis.join(', ')!==i.com.join(', ')?'<small class="sub">resp.: '+esc(i.responsaveis.join(', '))+'</small>':'')+'</td>'
     +'<td class="n">'+(i.inicio?fmtData(i.inicio):'<span class="sutil">não iniciada</span>')+'</td>'
     +'<td class="n"><b>'+i.reg+'</b><span class="sutil"> / '+i.total+'</span></td>'
     +'<td class="n">'+(i.res?'<b class="obs">'+i.res+'</b>':'<span class="sutil">0</span>')+'</td>'
     +'<td class="n">'+i.fotos+'</td>'
     +'<td class="quando">'+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+'<small>'+esc(i.por)+'</small>'+((()=>{ const d=i.atualizadoEm?Math.floor((Date.now()-new Date(i.atualizadoEm).getTime())/864e5):0; return (i.estado.k==='andamento'&&d>=3)?'<small style="color:var(--aten-txt);font-weight:700">sem gravação há '+d+' dias</small>':''; })())+'</td>'
-    +'<td class="acoes">'+(i.reg||i.estado.k==='encerrada'?'<button class="mini cheio" onclick="event.stopPropagation();verRelatorio(\''+i.id+'\')">Relatório</button>':'')+(i.local?'<button class="mini" onclick="event.stopPropagation();ir(\'pvs\',{vid:\''+i.id+'\'})">Abrir</button>':'<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+i.id+'\')">Baixar</button>')+'</td></tr>'; }).join('');
+    +'<td class="acoes"><div class="acoes-grp">'+(souEspecialista()&&!atribIndisp?(i.servidor&&i.estado.k!=='encerrada'?'<button class="mini neutro" onclick="event.stopPropagation();atribuirCarteira(\''+i.id+'\')">Atribuir</button>':'<span></span>'):'')+(i.reg||i.estado.k==='encerrada'?'<button class="mini cheio" onclick="event.stopPropagation();verRelatorio(\''+i.id+'\')">Relatório</button>':'<span></span>')+(i.local?'<button class="mini" onclick="event.stopPropagation();ir(\'pvs\',{vid:\''+i.id+'\'})">Abrir</button>':'<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+i.id+'\')">Baixar</button>')+'</div></td></tr>'; }).join('');
   const tabela='<div class="cart-tabela"><table><thead><tr><th>Vistoria</th><th>Situação</th><th>Atribuída a</th><th class="n">Em campo</th><th class="n">PVs</th><th class="n">Com obs.</th><th class="n">Fotos</th><th>Última gravação</th><th></th></tr></thead><tbody>'+(linhas||'<tr><td colspan="9" class="vazio">Nenhuma vistoria com esses filtros.</td></tr>')+'</tbody></table></div>';
   if(soTabela){ $('cartNums').innerHTML=nums; $('cartTabela').innerHTML=tabela; return; }
   const meses=[...new Set(todos.map(i=>mesDe(i.inicio||i.atualizadoEm)).filter(Boolean))].sort().reverse();
@@ -1097,8 +1123,8 @@ function desenharCarteira(soTabela){
     +'<label>Situação<select onchange="setCarteira(\'estado\',this.value)">'+op('','Todas',!f.estado)+Object.keys(ESTADOS_TXT).map(k=>op(k,ESTADOS_TXT[k],f.estado===k)).join('')+'</select></label>'
     +'<label>Pessoa (atribuída ou que gravou)<select onchange="setCarteira(\'pessoa\',this.value)">'+op('','Toda a equipe',!f.pessoa)+Object.keys(pessoas).sort((a,b)=>pessoas[a].localeCompare(pessoas[b])).map(id=>op(id,pessoas[id],f.pessoa===id)).join('')+'</select></label>'
     +'<label>Buscar<input type="search" value="'+esc(f.busca)+'" placeholder="CT, município ou tipo" oninput="setCarteira(\'busca\',this.value)"></label></div>';
-  const acoes='<div class="cart-acoes"><button class="btn claro" onclick="imprimirCarteira()">Imprimir carteira (PDF)</button><button class="btn claro" onclick="planilhaCarteira()">Planilha das vistorias</button><button class="btn claro" onclick="planilhaPvs()">Planilha dos PVs registrados</button></div>';
-  box.innerHTML=filtros+'<div id="cartNums">'+nums+'</div><div id="cartTabela">'+tabela+'</div>'+acoes+'<p class="ajuda" style="font-size:14px">A carteira lê os dados da equipe na hora. "Em campo" é quando a vistoria foi iniciada no local; "Última gravação" é a última vez que ela subiu. As planilhas abrem direto no Excel.</p>';
+  const acoes='<div class="cart-barra"><span class="cart-barra-txt">Exportar</span><button class="mini" onclick="imprimirCarteira()">Imprimir carteira (PDF)</button><button class="mini" onclick="planilhaCarteira()">Planilha das vistorias</button><button class="mini" onclick="planilhaPvs()">Planilha dos PVs registrados</button></div>';
+  box.innerHTML=filtros+'<div id="cartNums">'+nums+'</div>'+acoes+'<div id="cartTabela">'+tabela+'</div><p class="ajuda" style="font-size:14px">A carteira lê os dados da equipe na hora. "Em campo" é quando a vistoria foi iniciada no local; "Última gravação" é a última vez que ela subiu. As planilhas abrem direto no Excel.</p>';
 }
 function baixarTexto(nome,txt){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['\ufeff'+txt],{type:'text/csv;charset=utf-8'})); a.download=nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),8000); }
 const csvCel=v=>{ v=v==null?'':String(v); return /[;"\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
@@ -1180,31 +1206,33 @@ function desenharEquipe(){
   const d=equipeDados, box=$('equipeBox'); const eu=sessao.user.id;
   const ativos=d.pessoas.filter(p=>p.ativo).length;
   const linhas=d.pessoas.map(p=>{ const a=d.atividade[p.id]||{vist:0,pvs:0}; const ult=d.ultimo[p.id]; const id=esc(p.id);
-    return '<tr class="'+(p.ativo?'':'inativo')+'" data-id="'+id+'" ondragover="eqSobre(event,this)" ondragleave="this.classList.remove(\'solta\')" ondrop="eqSoltar(event,this)">'
+    return '<tr class="'+(p.ativo?'':'inativo')+'" data-id="'+id+'">'
       +'<td><b>'+esc(p.nome||'(sem nome)')+'</b> <button class="mini neutro" style="min-height:36px;padding:0 12px;font-size:13.5px" onclick="editarNomeEquipe(\''+id+'\')">editar</button><br><small class="sub" style="display:block;color:var(--sutil);font-size:12.5px">'+esc(p.email)+'</small></td>'
       +'<td>'+(p.matricula?esc(p.matricula):'<span style="color:var(--aten-txt);font-weight:700">sem matrícula</span>')+' <button class="mini neutro" style="min-height:36px;padding:0 12px;font-size:13.5px" onclick="editarMatriculaEquipe(\''+id+'\')">editar</button></td>'
-      +'<td><select aria-label="Papel de '+esc(p.nome||p.email)+'" '+(p.id===eu?'disabled title="Seu próprio papel muda por outro coordenador"':'')+' onchange="mudarPapel(\''+id+'\',this.value)"><option value="vistoriador"'+(p.papel!=='coordenador'?' selected':'')+'>vistoriador</option><option value="coordenador"'+(p.papel==='coordenador'?' selected':'')+'>coordenador</option></select></td>'
+      +'<td><select aria-label="Papel de '+esc(p.nome||p.email)+'" '+(p.id===eu?'disabled title="Seu próprio papel muda por outro coordenador"':'')+' onchange="mudarPapel(\''+id+'\',this.value)">'+['vistoriador','especialista','coordenador'].map(k=>'<option value="'+k+'"'+(p.papel===k?' selected':'')+'>'+k+'</option>').join('')+'</select></td>'
       +'<td><label style="display:inline-flex;align-items:center;gap:8px;font-size:14px"><input type="checkbox" '+(p.ativo?'checked':'')+' '+(p.id===eu?'disabled':'')+' onchange="mudarAtivo(\''+id+'\',this)">'+(p.ativo?'ativo':'desligado')+'</label></td>'
       +'<td class="n">'+a.vist+'</td><td class="n">'+a.pvs+'</td><td class="n">'+(ult?fmtData(ult)+' '+fmtHora(ult):'<span class="sutil">nunca entrou</span>')+'</td></tr>'; }).join('');
   const sem=d.semNinguem.map(v=>{ const id=esc(v.id); const rs=v.resumo||{}; const ja=new Set((atribuicoes[v.id]||[]).map(a=>a.usuario)); const com=[...ja].map(u=>nomeEquipe(u)).join(', '); const ops=d.pessoas.filter(p=>p.ativo&&!ja.has(p.id)).map(p=>'<option value="'+esc(p.id)+'">'+esc(p.nome||p.email)+'</option>').join('');
     return '<div class="eq-item" draggable="true" data-vid="'+id+'" ondragstart="eqArrastar(event,this)" ondragend="this.classList.remove(\'arrastando\')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#9AA6AE" stroke-width="2" stroke-linecap="round"><path d="M8 6h.01M8 12h.01M8 18h.01M16 6h.01M16 12h.01M16 18h.01"/></svg><div style="flex:1;min-width:0"><b>'+esc(d.nomesV[v.id])+'</b><br><small style="color:var(--sutil)">'+(rs.municipio?esc(rs.municipio)+' · ':'')+(rs.total?rs.total+' PVs · ':'')+'carregada '+fmtData(v.atualizado_em)+(com?'<br><b style="color:var(--botao)">com '+esc(com)+' · falta a dupla</b>':'')+'</small></div><select aria-label="Atribuir a" onchange="if(this.value){atribuirPara(\''+id+'\',this.value)}"><option value="">Atribuir a…</option>'+ops+'</select></div>'; }).join('');
   const trilha=d.trilha.map(e=>{ const det=e.detalhe||{}; const alvo=e.vistoria_id&&d.nomesV[e.vistoria_id]?' '+esc(d.nomesV[e.vistoria_id]):(det.pv?' '+esc(det.pv):''); return '<div>'+fmtData(e.quando)+' '+fmtHora(e.quando)+' · <b>'+esc(nomeEquipe(e.usuario))+'</b> '+esc(TIPO_TXT[e.tipo]||e.tipo)+alvo+(det.motivo?' · '+esc(det.motivo):'')+'</div>'; }).join('');
   box.innerHTML='<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px"><div style="flex:1 1 280px"><div style="font-size:14.5px;color:var(--sutil)">'+d.pessoas.length+' pessoas · '+ativos+' ativas · atividade de '+mesRotulo(agoraIso().slice(0,7))+'</div></div><span class="eq-aviso">Só o coordenador vê esta página. Toda mudança fica na trilha.</span><button class="btn claro" style="width:auto;min-height:44px;padding:0 16px;font-size:15px" onclick="comoCriarLogin()">Como criar um login</button></div>'
-    +'<div class="eq-grade"><div class="cart-tabela eq-tabela"><table><thead><tr><th>Pessoa</th><th>Matrícula</th><th>Papel</th><th>Ativo</th><th>Vistorias no mês</th><th>PVs</th><th>Último acesso</th></tr></thead><tbody>'+linhas+'</tbody></table></div>'
-    +'<div class="eq-lado"><div class="eq-caixa"><h3>A vistoriar · formar a dupla</h3><div class="sub">Arraste para uma pessoa da tabela, ou escolha aqui. A vistoria fica aqui até ter duas pessoas.</div>'+(sem||'<div class="sub">Nenhuma vistoria esperando.</div>')+'</div><div class="eq-caixa"><h3>Trilha recente</h3><div class="trilha-lista">'+(trilha||'Nada ainda.')+'</div></div></div></div>'
-    +'<p class="ajuda" style="font-size:14px">"Vistorias no mês" conta as vistorias em que a pessoa está atribuída ou gravou; "PVs" soma os registrados nelas. O login é criado no painel do Supabase; a liberação e o papel são feitos aqui.</p>';
+    +'<p class="eq-papeis"><b>vistoriador</b> vistoria · <b>especialista</b> atribui, corrige de mesa e emite o parecer · <b>coordenador</b> tudo, inclusive esta página</p>'
+    +'<div class="cart-tabela eq-tabela"><table><thead><tr><th>Pessoa</th><th>Matrícula</th><th>Papel</th><th>Ativo</th><th>Vistorias no mês</th><th>PVs</th><th>Último acesso</th></tr></thead><tbody>'+linhas+'</tbody></table></div>'
+    +'<div class="eq-caixa"><h3>Trilha recente</h3><div class="trilha-lista eq-trilha">'+(trilha||'Nada ainda.')+'</div></div>'
+    +'<p class="ajuda" style="font-size:14px">"Vistorias no mês" conta as vistorias em que a pessoa está atribuída ou gravou; "PVs" soma os registrados nelas. O login é criado no painel do Supabase; a liberação e o papel são feitos aqui. As atribuições são feitas na Carteira ou na lista de Vistorias.</p>';
 }
 let eqArrastada=null;
 function eqArrastar(e,el){ eqArrastada=el.dataset.vid; el.classList.add('arrastando'); try{ e.dataTransfer.setData('text/plain',eqArrastada); e.dataTransfer.effectAllowed='move'; }catch(x){} }
 function eqSobre(e,tr){ if(!eqArrastada)return; e.preventDefault(); tr.classList.add('solta'); }
 async function eqSoltar(e,tr){ e.preventDefault(); tr.classList.remove('solta'); const vid=eqArrastada; eqArrastada=null; if(!vid)return; await atribuirPara(vid,tr.dataset.id); }
 async function atribuirPara(vid,usuario){ await assumir(vid,usuario); await renderEquipe(); }
+async function atribuirCarteira(vid){ await atribuir(vid); try{ carteiraItens=await carregarCarteira(); desenharCarteira(true); }catch(e){} }
 async function patchEquipe(id,campos,descricao){
   try{ await sb('/rest/v1/equipe?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{'Prefer':'return=minimal'},json:campos}); registrarEvento('equipe_alterada',{alvo:id,campos,descricao}); toast(descricao||'Equipe atualizada'); }
-  catch(err){ const m=String(err&&err.message||''); await modal({titulo:'Não deu para alterar',texto:/ultimo_coordenador/.test(m)?'A equipe precisa de pelo menos um coordenador ativo.':erroHumano(err),ok:'Entendi',soOk:true}); }
+  catch(err){ const m=String(err&&err.message||''); await modal({titulo:'Não deu para alterar',texto:/ultimo_coordenador/.test(m)?'A equipe precisa de pelo menos um coordenador ativo.':(/papel_check|check constraint/i.test(m)?'Este perfil ainda não está liberado no servidor. Rode o 09_perfis.sql no Supabase (passo 12 do LEIA-ME).':erroHumano(err)),ok:'Entendi',soOk:true}); }
   await renderEquipe();
 }
-async function mudarPapel(id,papel){ const p=equipeDados.pessoas.find(x=>x.id===id); if(!p)return; const ok=await modal({titulo:(papel==='coordenador'?'Tornar coordenador: ':'Tornar vistoriador: ')+(p.nome||p.email),texto:papel==='coordenador'?'Coordenador atribui vistorias, corrige fichas pelo computador, exclui da equipe e administra esta página.':'A pessoa deixa de atribuir, corrigir pelo computador e administrar a equipe.',ok:'Confirmar',cancel:'Cancelar'}); if(!ok){ desenharEquipe(); return; } await patchEquipe(id,{papel},(p.nome||p.email)+' agora é '+papel); }
+async function mudarPapel(id,papel){ const p=equipeDados.pessoas.find(x=>x.id===id); if(!p)return; const desc={vistoriador:'Vistoriador só vistoria: assume as próprias vistorias, registra PVs e fotos no celular. Não atribui, não corrige de mesa e não emite parecer.',especialista:'Especialista atribui vistorias, corrige fichas pelo computador, prepara e emite o parecer. Não administra a equipe nem exclui vistorias.',coordenador:'Coordenador faz tudo: atribui, corrige, emite parecer, exclui da equipe e administra esta página.'}; const ok=await modal({titulo:'Tornar '+papel+': '+(p.nome||p.email),texto:desc[papel]||'',ok:'Confirmar',cancel:'Cancelar'}); if(!ok){ desenharEquipe(); return; } await patchEquipe(id,{papel},(p.nome||p.email)+' agora é '+papel); }
 async function mudarAtivo(id,cb){ const p=equipeDados.pessoas.find(x=>x.id===id); if(!p)return; const ativo=cb.checked; const ok=await modal({titulo:(ativo?'Reativar ':'Desligar ')+(p.nome||p.email)+'?',texto:ativo?'A pessoa volta a entrar no app, ver e gravar vistorias.':'A pessoa perde o acesso às vistorias da equipe. O histórico e os registros dela ficam. Pode reativar depois.',ok:ativo?'Reativar':'Desligar',cancel:'Cancelar',perigo:!ativo}); if(!ok){ desenharEquipe(); return; } await patchEquipe(id,{ativo},(p.nome||p.email)+(ativo?' reativado':' desligado da equipe')); }
 async function editarNomeEquipe(id){ const p=equipeDados.pessoas.find(x=>x.id===id); const v=await modal({titulo:'Nome de '+(p.nome||p.email),texto:'Como aparece nos relatórios e na trilha.',ok:'Guardar',cancel:'Cancelar',input:p.nome||'Nome e sobrenome'}); if(!v||typeof v!=='string'||!v.trim())return; await patchEquipe(id,{nome:v.trim()},'Nome atualizado'); }
 async function editarMatriculaEquipe(id){ const p=equipeDados.pessoas.find(x=>x.id===id); const v=await modal({titulo:'Matrícula de '+(p.nome||p.email),texto:'Só números, como no crachá.',ok:'Guardar',cancel:'Cancelar',input:p.matricula||'Ex.: 114453'}); if(!v||typeof v!=='string')return; await patchEquipe(id,{matricula:v.trim().replace(/\s+/g,'')},'Matrícula atualizada'); }
@@ -1219,21 +1247,21 @@ async function mapaFotos(v){
   for(const f of fs){ const u=URL.createObjectURL(f.blob); urls.push(u); fotos[f.id]={src:u,quando:f.quando,lat:f.lat,lon:f.lon}; }
   return {fotos,urls,fs};
 }
-async function carregarVersoes(vid){ try{ parVersoes=await sb('/rest/v1/pareceres?vistoria_id=eq.'+encodeURIComponent(vid)+'&select=numero,emitido_em,emitido_por,caminho&order=numero.desc'); return true; }catch(e){ parVersoes=[]; return /42P01|404|pareceres/.test(String(e.message))?'sem-tabela':false; } }
+async function carregarVersoes(vid){ try{ try{ parVersoes=await sb('/rest/v1/pareceres?vistoria_id=eq.'+encodeURIComponent(vid)+'&select=numero,emitido_em,emitido_por,caminho,hash&order=numero.desc'); }catch(e){ if(!/hash|42703/.test(String(e.message)))throw e; parVersoes=await sb('/rest/v1/pareceres?vistoria_id=eq.'+encodeURIComponent(vid)+'&select=numero,emitido_em,emitido_por,caminho&order=numero.desc'); } return true; }catch(e){ parVersoes=[]; return /42P01|404|pareceres/.test(String(e.message))?'sem-tabela':false; } }
 function htmlVersoes(estado){
   if(estado==='sem-tabela')return '<p class="ajuda" style="font-size:14px;margin:0">Para emitir versões finais, rode o <b>08_pareceres.sql</b> no Supabase (passo a passo no LEIA-ME).</p>';
   if(!parVersoes.length)return '<p class="ajuda" style="font-size:14px;margin:0">Nenhuma versão final emitida ainda.</p>';
   return parVersoes.map((x,k)=>'<div class="par-versao"><span><b>Parecer nº '+x.numero+'</b> '+(k===0?'<span class="selo verde">vigente</span>':'<span class="selo cinza">substituído pelo nº '+parVersoes[k-1].numero+'</span>')+'<br><small style="color:var(--sutil)">'+fmtData(x.emitido_em)+' às '+fmtHora(x.emitido_em)+' · '+esc(nomeEquipe(x.emitido_por))+'</small></span><span class="acoes"><button class="mini cheio" onclick="abrirParecerEmitido('+x.numero+')">Abrir</button><button class="mini" onclick="baixarParecerEmitido('+x.numero+')">Baixar</button></span></div>').join('');
 }
 async function renderParecer(){
-  const box=$('parecerBox'); const pode=ehMesa()&&souCoordenador();
+  const box=$('parecerBox'); const pode=ehMesa()&&souEspecialista();
   const st=(sessao&&sessao.perfil)?await carregarVersoes(V.id):false;
-  if(!pode){ box.innerHTML='<div class="eq-caixa"><h3>Parecer de vistoria</h3><div class="sub">O parecer é preparado e emitido pelo coordenador, no computador. Versões emitidas desta vistoria:</div>'+htmlVersoes(st)+'</div>'; return; }
+  if(!pode){ box.innerHTML='<div class="eq-caixa"><h3>Parecer de vistoria</h3><div class="sub">O parecer é preparado e emitido pelo especialista ou pelo coordenador, no computador. Versões emitidas desta vistoria:</div>'+htmlVersoes(st)+'</div>'; return; }
   const par=V.parecer||{}; const notas=par.notas||{};
   const regs=V.pontos.filter(p=>{ const e=estadoDe(p.id); return e==='ok'||e==='ressalva'; }).sort((a,b)=>(estadoDe(a.id)==='ressalva'?0:1)-(estadoDe(b.id)==='ressalva'?0:1));
   const pvs=regs.map(p=>{ const e=estadoDe(p.id); const nt=notas[p.id]||''; return '<details class="par-pv"'+(nt||e==='ressalva'?' open':'')+'><summary>'+esc(p.nome)+' <span class="selo '+(e==='ok'?'verde':'aten')+'">'+(e==='ok'?'confere':'com observação')+'</span>'+(nt?' <span class="tem">com nota</span>':'')+'</summary><textarea class="par-nota" data-pid="'+esc(p.id)+'" rows="2" placeholder="Nota do especialista sobre o '+esc(p.nome)+' (opcional)" oninput="parMudou()">'+esc(nt)+'</textarea></details>'; }).join('');
   box.innerHTML='<div class="par-grade"><div class="par-form">'
-    +'<div class="eq-caixa"><h3>Parecer de vistoria · '+esc(nomeV(V))+'</h3><div class="sub" style="margin:0">Escreva o que a obra precisa saber. O rascunho grava sozinho e outro coordenador pode continuar. Os dados de campo não mudam aqui: para corrigir uma ficha, use a vistoria.</div></div>'
+    +'<div class="eq-caixa"><h3>Parecer de vistoria · '+esc(nomeV(V))+'</h3><div class="sub" style="margin:0">Escreva o que a obra precisa saber. O rascunho grava sozinho e outra pessoa com o mesmo perfil pode continuar. Os dados de campo não mudam aqui: para corrigir uma ficha, use a vistoria.</div></div>'
     +'<label class="campo">Destaques da vistoria<small>Aparece no topo, logo depois dos números.</small><textarea id="parDest" rows="5" placeholder="Ex.: Rede conferida em 4 dos 14 PVs. Dois pontos de diâmetro a esclarecer com a gerenciadora." oninput="parMudou()">'+esc(par.destaques||'')+'</textarea></label>'
     +'<div class="eq-caixa"><h3>Nota do especialista por PV</h3><div class="sub">Opcional. Os PVs com observação vêm primeiro e abertos.</div>'+(pvs||'<div class="sub">Nenhum PV registrado nesta vistoria.</div>')+'</div>'
     +'<label class="campo">Conclusão e encaminhamentos para a obra<small>Aparece no fim, antes da trilha, com a sua assinatura na versão final.</small><textarea id="parConc" rows="6" placeholder="Ex.: Solicitamos à gerenciadora confirmar o diâmetro do PV-01 e o material do PI-03 até a próxima medição." oninput="parMudou()">'+esc(par.conclusao||'')+'</textarea></label>'
@@ -1253,7 +1281,7 @@ function parMudou(){
   clearTimeout(parTimer); parTimer=setTimeout(async()=>{ await salvarV(); const g=$('parGravado'); if(g)g.textContent='Rascunho gravado em '+fmtData(V.parecer.atualizadoEm)+' às '+fmtHora(V.parecer.atualizadoEm)+' por '+(V.parecer.atualizadoPor||'você'); atualizarPrevia(); },700);
 }
 async function emitirParecer(){
-  if(!V||!souCoordenador())return;
+  if(!V||!souEspecialista())return;
   if(!navigator.onLine){ toast('Sem sinal agora. A versão final precisa de internet para ser gravada na equipe.'); return; }
   clearTimeout(parTimer); if(V.parecer){ await salvarV(); }
   const par=V.parecer||{};
@@ -1272,14 +1300,16 @@ async function emitirParecer(){
     const html=htmlRelatorio(V,fotos,{final:fin});
     const caminho='pareceres/'+V.id+'/parecer_'+numero+'.html';
     await sb('/storage/v1/object/fotos/'+caminho,{method:'POST',headers:{'Content-Type':'text/html; charset=utf-8'},body:new Blob([html],{type:'text/html'})});
-    await sb('/rest/v1/pareceres',{method:'POST',headers:{'Prefer':'return=minimal'},json:{vistoria_id:V.id,numero,destaques:par.destaques||'',conclusao:par.conclusao||'',notas:par.notas||{},caminho}});
+    const corpoPar={vistoria_id:V.id,numero,destaques:par.destaques||'',conclusao:par.conclusao||'',notas:par.notas||{},caminho}; const hs=await sha256Hex(html);
+    try{ await sb('/rest/v1/pareceres',{method:'POST',headers:{'Prefer':'return=minimal'},json:Object.assign({hash:hs},corpoPar)}); }
+    catch(e){ if(!/hash|PGRST204|42703/.test(String(e.message)))throw e; await sb('/rest/v1/pareceres',{method:'POST',headers:{'Prefer':'return=minimal'},json:corpoPar}); } // antes do 09_perfis.sql não há coluna hash
     registrarEvento('parecer_emitido',{numero},V.id);
     if(w){ w.document.open(); w.document.write(html); w.document.close(); }
     toast('Parecer nº '+numero+' emitido e gravado na equipe');
     await renderParecer();
-  }catch(e){ if(w)w.close(); await modal({titulo:'Não deu para gerar a versão final',texto:/23505|duplicate/.test(String(e.message))?'Outro coordenador emitiu um parecer desta vistoria agora mesmo. Abra de novo a tela e confira as versões.':erroHumano(e),ok:'Entendi',soOk:true}); }
+  }catch(e){ if(w)w.close(); await modal({titulo:'Não deu para gerar a versão final',texto:/23505|duplicate/.test(String(e.message))?'Outra pessoa emitiu um parecer desta vistoria agora mesmo. Abra de novo a tela e confira as versões.':erroHumano(e),ok:'Entendi',soOk:true}); }
 }
-async function htmlParecerEmitido(numero){ const x=parVersoes.find(y=>y.numero===numero); if(!x)throw new Error('versão não encontrada'); const b=await sbBlob('/storage/v1/object/fotos/'+x.caminho); return await b.text(); }
+async function htmlParecerEmitido(numero){ const x=parVersoes.find(y=>y.numero===numero); if(!x)throw new Error('versão não encontrada'); const b=await sbBlob('/storage/v1/object/fotos/'+x.caminho); const txt=await b.text(); if(x.hash){ const h=await sha256Hex(txt); if(h&&h!==x.hash)throw new Error('parecer_alterado'); } return txt; }
 async function abrirParecerEmitido(numero){
   const w=window.open('','_blank'); if(!w){toast('O navegador bloqueou a nova aba. Libere pop-ups para este endereço.');return;}
   w.document.write('<p style="font:16px system-ui;padding:20px">Abrindo o parecer nº '+numero+'…</p>');
@@ -1306,9 +1336,9 @@ function desenharRelatorios(){
   const op=(v,tx,on)=>'<option value="'+esc(v)+'"'+(on?' selected':'')+'>'+esc(tx)+'</option>';
   const linhas=sel.map(i0=>{ const i=Object.assign({},i0,{id:esc(String(i0.id).replace(/['"\\]/g,''))}); return '<tr class="clic" onclick="verRelatorio(\''+i.id+'\')"><td onclick="event.stopPropagation()"><input type="checkbox" aria-label="Selecionar '+esc(i.nome)+'" '+(relSel.has(i0.id)?'checked':'')+' onchange="relMarcar(\''+i.id+'\',this.checked)"></td>'
     +'<td class="ct"><b>'+esc(i.nome)+'</b><small>'+esc(i.tipo)+(i.municipio?' · '+esc(i.municipio):'')+'</small></td><td><span class="selo '+i.estado.cls+'">'+i.estado.t+'</span>'+(i.parecer?'<small class="sub">parecer nº '+i.parecer+' emitido</small>':'')+'</td><td class="n"><b>'+i.reg+'</b><span class="sutil"> / '+i.total+'</span></td><td class="n">'+(i.res?'<b class="obs">'+i.res+'</b>':'<span class="sutil">0</span>')+'</td><td class="n">'+i.fotos+'</td><td class="quando">'+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+'<small>'+esc(i.por)+'</small></td>'
-    +'<td class="acoes"><button class="mini cheio" onclick="event.stopPropagation();verRelatorio(\''+i.id+'\')">Ver</button><button class="mini" onclick="event.stopPropagation();abrirRelatorio(\''+i.id+'\')">Nova aba</button></td></tr>'; }).join('');
+    +'<td class="acoes"><div class="acoes-grp"><button class="mini cheio" onclick="event.stopPropagation();verRelatorio(\''+i.id+'\')">Ver</button><button class="mini" onclick="event.stopPropagation();abrirRelatorio(\''+i.id+'\')">Nova aba</button></div></td></tr>'; }).join('');
   box.innerHTML='<div class="cart-filtros"><label>Mês<select onchange="carteiraF.mes=this.value;desenharRelatorios()">'+op('','Todos os meses',!f.mes)+meses.map(m=>op(m,mesRotulo(m),f.mes===m)).join('')+'</select></label><label>Situação<select onchange="carteiraF.estado=this.value;desenharRelatorios()">'+op('','Todas',!f.estado)+op('andamento','Em campo',f.estado==='andamento')+op('encerrada','Encerrada',f.estado==='encerrada')+'</select></label></div>'
-    +'<div class="cart-acoes"><button class="btn" onclick="imprimirLote()" '+(relSel.size?'':'disabled')+'>Imprimir selecionados em um PDF ('+relSel.size+')</button><button class="btn claro" onclick="relTodos(true)">Selecionar todos da lista</button><button class="btn claro" onclick="relTodos(false)">Limpar seleção</button></div>'
+    +'<div class="cart-barra"><span class="cart-barra-txt">'+(relSel.size?relSel.size+' selecionada'+(relSel.size>1?'s':''):'Marque as vistorias para imprimir juntas')+'</span><button class="mini" onclick="relTodos(true)">Selecionar todas</button><button class="mini" onclick="relTodos(false)" '+(relSel.size?'':'disabled')+'>Limpar</button><button class="mini cheio" onclick="imprimirLote()" '+(relSel.size?'':'disabled')+'>Imprimir em um PDF</button></div>'
     +'<div class="cart-tabela"><table><thead><tr><th></th><th>Vistoria</th><th>Situação</th><th class="n">PVs</th><th class="n">Com obs.</th><th class="n">Fotos</th><th>Última gravação</th><th></th></tr></thead><tbody>'+(linhas||'<tr><td colspan="8" class="vazio">Nenhuma vistoria com registros nesses filtros.</td></tr>')+'</tbody></table></div>'
     +'<p class="ajuda" style="font-size:14px">Clique na linha para ver o relatório ao lado. "Imprimir selecionados" junta os relatórios escolhidos num documento só, um por página, pronto para salvar em PDF.</p>';
 }
@@ -1359,7 +1389,7 @@ async function abrirRelatorioLado(vid){
   try{
     for(const u of ladoUrls)URL.revokeObjectURL(u); ladoUrls=[];
     const r=await montarRelatorio(vid); ladoUrls=r.urls;
-    lado.innerHTML='<div class="cab"><b>Relatório · '+esc(nomeV(r.v))+'</b>'+(souCoordenador()?'<button class="mini" onclick="ir(&quot;parecer&quot;,{vid:&quot;'+esc(String(vid).replace(/[\'"\\\\]/g,''))+'&quot;})">Parecer</button>':'')+'<button class="mini cheio" onclick="imprimirLado()">PDF</button><button class="mini" onclick="abrirRelatorio(\''+esc(String(vid).replace(/[\'"\\]/g,''))+'\')">Nova aba</button><button class="mini neutro" onclick="fecharLado()">Fechar</button></div><iframe id="ladoFrame" title="Relatório da vistoria"></iframe>';
+    lado.innerHTML='<div class="cab"><b>Relatório · '+esc(nomeV(r.v))+'</b>'+(souEspecialista()?'<button class="mini" onclick="ir(&quot;parecer&quot;,{vid:&quot;'+esc(String(vid).replace(/[\'"\\\\]/g,''))+'&quot;})">Parecer</button>':'')+'<button class="mini cheio" onclick="imprimirLado()">PDF</button><button class="mini" onclick="abrirRelatorio(\''+esc(String(vid).replace(/[\'"\\]/g,''))+'\')">Nova aba</button><button class="mini neutro" onclick="fecharLado()">Fechar</button></div><iframe id="ladoFrame" title="Relatório da vistoria"></iframe>';
     $('ladoFrame').srcdoc=r.html;
     registrarEvento('relatorio',{lado:true},vid);
   }catch(err){ lado.innerHTML='<div class="vazio">Não deu para montar o relatório. '+esc(erroHumano(err))+'</div>'; }
@@ -1496,7 +1526,7 @@ function renderSyncBar(estado){
   const el=$('syncBar'); if(!el)return;
   if(!sessao||!sessao.perfil){ el.hidden=false; el.innerHTML='<span class="ajuda" style="font-size:14px">'+noAp('Sem login, as vistorias ficam só neste aparelho.')+'</span><button class="acao-hdr" onclick="abrirEntrar()">Entrar na equipe</button>'; return; }
   el.hidden=false;
-  el.innerHTML='<span><b>'+esc(sessao.perfil.nome||sessao.user.email)+'</b> · '+(estado==='enviando'?'enviando…':(navigator.onLine?(syncUltimaMsg||'conectado à equipe'):'sem sinal: envia quando voltar'))+'</span><button class="acao-hdr" onclick="sincronizar().then(()=>{if(telaAtual===\'vistorias\')renderVistorias();})" '+(estado==='enviando'?'disabled':'')+'>'+(pendentesCount?'Enviar agora':'Atualizar')+'</button>';
+  el.innerHTML='<span>'+(ehMesa()?'':'<b>'+esc(sessao.perfil.nome||sessao.user.email)+'</b> · ')+(estado==='enviando'?'enviando…':(navigator.onLine?(syncUltimaMsg||'conectado à equipe'):'sem sinal: envia quando voltar'))+'</span><button class="acao-hdr" onclick="sincronizar().then(()=>{if(telaAtual===\'vistorias\')renderVistorias();})" '+(estado==='enviando'?'disabled':'')+'>'+(pendentesCount?'Enviar agora':'Atualizar')+'</button>';
 }
 async function pedirMatricula(primeiraVez){
   const atual=(sessao&&sessao.perfil&&sessao.perfil.matricula)||'';
@@ -1583,7 +1613,7 @@ function salvarV(){
 function marcarAlterada(){ if(V&&V.exportadaEm)V.alteradaEm=agoraIso(); zipPronto=null; }
 function novaResp(){return {v:null,chips:[],txt:'',cat:'',rascunho:null,guardado:null};}
 function reg(pid){ if(!V.registros[pid])V.registros[pid]={estado:'rascunho',inicio:agoraIso(),fim:null,respostas:{operando:novaResp(),diametro:novaResp(),material:novaResp()},fotos:[],obs:''}; return V.registros[pid]; }
-const modoCorrecao=()=>ehMesa()&&souCoordenador();
+const modoCorrecao=()=>ehMesa()&&souEspecialista();
 function bloqueada(){ if(!V)return false; if(ehMesa())return !modoCorrecao()||!!V.encerradaEm; return !!(V.encerradaEm||!V.iniciadaEm); } // no computador só o coordenador edita (correção com trilha)
 function anotarCorrecao(r){
   if(!modoCorrecao()||!V||!P)return;
@@ -1659,7 +1689,7 @@ let arrastos=0;
 window.addEventListener('dragenter',e=>{ if(!e.dataTransfer||![...e.dataTransfer.types].includes('Files'))return; e.preventDefault(); arrastos++; document.body.classList.add('arrastando'); });
 window.addEventListener('dragover',e=>{ if(e.dataTransfer&&[...e.dataTransfer.types].includes('Files'))e.preventDefault(); });
 window.addEventListener('dragleave',e=>{ if(--arrastos<=0){arrastos=0;document.body.classList.remove('arrastando');} });
-window.addEventListener('drop',e=>{ if(!e.dataTransfer||!e.dataTransfer.files||!e.dataTransfer.files.length)return; e.preventDefault(); arrastos=0; document.body.classList.remove('arrastando'); const f=e.dataTransfer.files[0]; if(telaAtual!=='vistorias')ir('vistorias',{},telaAtual==='abertura'); setTimeout(()=>lerArquivoKmz(f),telaAtual==='vistorias'?0:400); });
+window.addEventListener('drop',e=>{ if(!e.dataTransfer||!e.dataTransfer.files||!e.dataTransfer.files.length)return; e.preventDefault(); arrastos=0; document.body.classList.remove('arrastando'); if(ehMesa()&&sessao&&sessao.perfil&&!souEspecialista()){ toast('Carregar vistorias na equipe é tarefa do especialista ou do coordenador.'); return; } const f=e.dataTransfer.files[0]; if(telaAtual!=='vistorias')ir('vistorias',{},telaAtual==='abertura'); setTimeout(()=>lerArquivoKmz(f),telaAtual==='vistorias'?0:400); });
 // teclado na lista de PVs: / busca, ↑ ↓ navega, Enter abre
 document.addEventListener('keydown',e=>{
   if(!ehMesa()||sobreposicaoAberta())return;
@@ -1774,7 +1804,7 @@ async function renderInicioMesa(){
     const minhas=itens.filter(i=>i.comIds.includes(eu)&&i.estado.k!=='encerrada');
     const aguardando=itens.filter(i=>i.estado.k==='avistoriar'&&!i.comIds.length&&i.servidor);
     const esq=$('inicioMinhas'); if(esq)esq.innerHTML='<div class="ini-caixa"><h3>As minhas vistorias</h3><div class="ini-lista">'+(minhas.map(i=>linkV(i,'<span class="ult">'+(i.inicio?'em campo desde '+fmtData(i.inicio):'ainda não iniciada')+'</span>')).join('')||'<div class="vazio" style="padding:8px">Nenhuma vistoria atribuída a você no momento.</div>')+'</div></div>'
-      +(souCoordenador()?'<div class="ini-caixa"><h3>Aguardando atribuição</h3><div class="ini-lista">'+(aguardando.map(i=>linkV(i,'<span class="ult">carregada '+fmtData(i.criadoEm||i.atualizadoEm)+' · ninguém atribuído</span>')).join('')||'<div class="vazio" style="padding:8px">Todas as vistorias abertas têm alguém.</div>')+'</div>'+(aguardando.length?'<button class="btn claro" style="margin-top:10px;min-height:42px;font-size:14.5px" onclick="ir(&quot;equipe&quot;)">Atribuir na página Equipe</button>':'')+'</div>':'');
+      +(souEspecialista()?'<div class="ini-caixa"><h3>Aguardando atribuição</h3><div class="ini-lista">'+(aguardando.map(i=>linkV(i,'<span class="ult">carregada '+fmtData(i.criadoEm||i.atualizadoEm)+' · ninguém atribuído</span>')).join('')||'<div class="vazio" style="padding:8px">Todas as vistorias abertas têm alguém.</div>')+'</div>'+(aguardando.length?'<button class="btn claro" style="margin-top:10px;min-height:42px;font-size:14.5px" onclick="carteiraF.estado=&quot;avistoriar&quot;;ir(&quot;carteira&quot;)">Atribuir na Carteira</button>':'')+'</div>':'');
     el.innerHTML='<div class="ini-caixa"><h3>Equipe em '+esc(mesRotulo(mes))+'</h3><div class="ini-nums"><div><b>'+tot.avist+'</b><small>a vistoriar</small></div><div><b>'+tot.campo+'</b><small>em campo</small></div><div class="ok"><b>'+tot.enc+'</b><small>encerradas</small></div><div class="obs"><b>'+tot.res+'</b><small>PVs com obs.</small></div></div></div>'
       +'<div class="ini-caixa"><h3>Vistorias recentes</h3><div class="ini-lista">'+(recentes.map(i=>linkV(i,'<span class="ult">última gravação '+fmtData(i.atualizadoEm)+' '+fmtHora(i.atualizadoEm)+' · '+esc(i.por)+'</span>')).join('')||'<div class="vazio" style="padding:8px">Nenhuma vistoria ainda.</div>')+'</div></div>'
       +'<div class="ini-caixa"><h3>Últimas movimentações</h3><div class="trilha-lista">'+(trilha.map(e=>{ const det=e.detalhe||{}; const alvo=e.vistoria_id&&nomesV[e.vistoria_id]?' '+esc(nomesV[e.vistoria_id]):(det.pv?' '+esc(det.pv):''); return '<div>'+fmtData(e.quando)+' '+fmtHora(e.quando)+' · <b>'+esc(nomeEquipe(e.usuario))+'</b> '+esc(TIPO_TXT[e.tipo]||e.tipo)+alvo+'</div>'; }).join('')||'Nada ainda.')+'</div></div>'
@@ -1800,11 +1830,21 @@ async function renderVistorias(){
   renderSyncBar();
   if(todas.length&&sessao&&sessao.perfil&&!box.children.length)box.innerHTML=todas.map(v=>cardVistoria(v,false)).join('')+'<p class="ajuda" style="text-align:center;font-size:14px">Conferindo com a equipe…</p>'; // mostra o que já há no aparelho enquanto consulta a equipe
   const remotas=(sessao&&sessao.perfil)?await listarRemotas(todas):[];
-  if(ehMesa()&&telaAtual==='vistorias'&&!V&&todas.length&&todas[0].id!==naoAutoAbrir){ ir('pvs',{vid:todas[0].id},true); return; } // na mesa sempre há uma vistoria aberta à direita: a mais recente
-  const bk=$('btnAbrirKmz'); if(bk){ const sec=!!(sessao&&sessao.perfil)&&!souCoordenador(); bk.classList.toggle('claro',sec); bk.textContent=sec?'Abrir um KMZ do Conversor':'Abrir um KMZ'; }
+  const bk=$('btnAbrirKmz'); if(bk){ const sec=!!(sessao&&sessao.perfil)&&!souEspecialista(); const podeKmz=!(sessao&&sessao.perfil)||souEspecialista()||!ehMesa(); bk.classList.toggle('oculta',!podeKmz); const zk=$('zonaKmz'); if(zk)zk.classList.toggle('oculta',!podeKmz); bk.classList.toggle('claro',sec); bk.textContent=sec?'Abrir um KMZ do Conversor':'Abrir um KMZ'; }
   if(!todas.length&&!remotas.length)box.innerHTML='<div class="vazio"><div class="ico">'+ICO.pasta+'</div>'+((sessao&&sessao.perfil)?(souCoordenador()?'Nenhuma vistoria na equipe ainda.<br>Abra um KMZ gerado pelo Conversor: ele sobe para a equipe e aparece para todos.':'Nenhuma vistoria na equipe ainda.<br>O coordenador carrega as vistorias; quando houver, elas aparecem aqui. '+TQ()+' em Atualizar para conferir.'):noAp('Nenhuma vistoria neste aparelho.')+'<br>Entre na equipe para ver as vistorias, ou abra um KMZ gerado pelo Conversor.<br><button class="btn" style="margin-top:12px" onclick="abrirEntrar()">Entrar na equipe</button>')+'</div>';
-  else box.innerHTML=todas.map(v=>cardVistoria(v,false)).join('')+(remotas.length?'<h3 style="margin:14px 0 8px;font-size:16px">'+noAp('Na equipe, ainda não neste aparelho')+'</h3>'+remotas.map(r=>cardVistoria(r,true)).join(''):'');
+  else{
+    let lista=todas, remo=remotas, filtroHtml='';
+    if(ehMesa()){ // na mesa a lista mostra só as abertas; encerradas ficam a um clique (e sempre na Carteira e em Relatórios)
+      const enc=v=>!!(v.encerradaEm||v.encerrada_em); const nEnc=todas.filter(enc).length+remotas.filter(enc).length, nAb=todas.length+remotas.length-nEnc; const fl=listaMesaFiltro;
+      const mostra=v=>fl==='todas'||(fl==='encerradas'?enc(v):(!enc(v)||(V&&V.id===v.id)));
+      lista=todas.filter(mostra); remo=remotas.filter(mostra);
+      filtroHtml='<div class="lista-filtro">'+[['abertas','Abertas',nAb],['encerradas','Encerradas',nEnc],['todas','Todas',nAb+nEnc]].map(([k,tx,n])=>'<button class="'+(fl===k?'on':'')+'" onclick="listaMesaFiltro=\''+k+'\';renderVistorias()">'+tx+'<span>'+n+'</span></button>').join('')+'</div>';
+    }
+    box.innerHTML=filtroHtml+lista.map(v=>cardVistoria(v,false)).join('')+(remo.length?'<h3 style="margin:14px 0 8px;font-size:16px">'+noAp('Na equipe, ainda não neste aparelho')+'</h3>'+remo.map(r=>cardVistoria(r,true)).join(''):'')+(!lista.length&&!remo.length?'<div class="vazio" style="padding:18px 10px;font-size:14.5px">Nenhuma vistoria '+(listaMesaFiltro==='encerradas'?'encerrada':'aberta')+'.</div>':'');
+  }
   if(atualizouSilencio){ atualizouSilencio=false; renderVistorias().catch(()=>{}); return; }
+  const prim=todas.find(v=>!v.encerradaEm)||todas[0];
+  if(ehMesa()&&telaAtual==='vistorias'&&!V&&todas.length&&prim.id!==naoAutoAbrir){ ir('pvs',{vid:prim.id},true); return; } // na mesa sempre há uma vistoria aberta à direita: a mais recente ainda aberta
   if(ehMesa())marcarSelecionada();
   limparOrfas(todas).catch(()=>{});
   mostrarEspaco().catch(()=>{});
@@ -1827,7 +1867,7 @@ function cardVistoria(v,remoto){
   const atrib=logado?textoAtrib(id):'';
   const noServidor=remoto||(v.sync&&v.sync.enviadoEm&&!v.sync.excluidaNaEquipe);
   const acoes=[];
-  if(logado&&!atribIndisp&&noServidor&&!v.treino){ if(!remoto)acoes.push(euAtribuido(id)?'<button class="mini neutro" onclick="event.stopPropagation();deixar(\''+id+'\')">Liberar</button>':'<button class="mini" onclick="event.stopPropagation();assumir(\''+id+'\')">Assumir</button>'); if(souCoordenador()&&ehMesa())acoes.push('<button class="mini" onclick="event.stopPropagation();atribuir(\''+id+'\')">Atribuir</button>'); }
+  if(logado&&!atribIndisp&&noServidor&&!v.treino){ if(!remoto)acoes.push(euAtribuido(id)?'<button class="mini neutro" onclick="event.stopPropagation();deixar(\''+id+'\')">Liberar</button>':'<button class="mini" onclick="event.stopPropagation();assumir(\''+id+'\')">Assumir</button>'); if(souEspecialista()&&ehMesa())acoes.push('<button class="mini" onclick="event.stopPropagation();atribuir(\''+id+'\')">Atribuir</button>'); }
   if(reg>0||est.k==='encerrada')acoes.push('<button class="mini cheio" onclick="event.stopPropagation();abrirRelatorio(\''+id+'\')">Relatório</button>');
   if(remoto)acoes.push('<button class="mini" onclick="event.stopPropagation();baixarVistoria(\''+id+'\')">Baixar</button>');
   const abrir=remoto?"baixarVistoria('"+id+"')":"ir('pvs',{vid:'"+id+"'})";
@@ -1891,7 +1931,7 @@ async function menuVistoria(vid){
   const v=await dbGet('vistorias',vid);
   if(!v){ // está só no servidor
     if(!(sessao&&sessao.perfil))return;
-    const ops=[{id:'baixar',txt:'Baixar para este aparelho'},{id:'rel',txt:'Ver o relatório'}]; if(souCoordenador()&&!atribIndisp)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
+    const ops=[{id:'baixar',txt:'Baixar para este aparelho'},{id:'rel',txt:'Ver o relatório'}]; if(souEspecialista()&&!atribIndisp)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
     const op=await modal({titulo:'Vistoria da equipe',texto:'Está na equipe e ainda não neste aparelho.',opcoes:ops,cancel:'Voltar'});
     if(op==='baixar')baixarVistoria(vid);
     else if(op==='rel')abrirRelatorio(vid);
@@ -1922,7 +1962,7 @@ async function menuVistoria(vid){
   const txt=logado&&v.sync?(v.sync.pendente?(v.sync.erro?'O último envio não deu certo: '+erroHumano(v.sync.erro)+' ':'Ainda não enviada para a equipe. '):(noServidor?'Na equipe desde as '+fmtHora(v.sync.enviadoEm)+'. ':'')):'';
   let op='local';
   if(logado&&(noServidor||v.sync.pendente)){
-    const ops=[]; if(v.sync.pendente)ops.push({id:'enviar',txt:'Enviar agora'}); ops.push({id:'rel',txt:'Ver o relatório'}); if(souCoordenador()&&noServidor&&!atribIndisp&&!v.treino)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); ops.push({id:'local',txt:'Excluir só deste aparelho'}); if(souCoordenador()&&noServidor)ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
+    const ops=[]; if(v.sync.pendente)ops.push({id:'enviar',txt:'Enviar agora'}); ops.push({id:'rel',txt:'Ver o relatório'}); if(souEspecialista()&&noServidor&&!atribIndisp&&!v.treino)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); ops.push({id:'local',txt:'Excluir só deste aparelho'}); if(souCoordenador()&&noServidor)ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
     op=await modal({titulo:nomeV(v),texto:txt+'O que você quer fazer?',opcoes:ops,cancel:'Voltar'});
     if(!op)return; if(op==='rel'){abrirRelatorio(vid);return;} if(op==='atribuir'){atribuir(vid);return;} if(op==='enviar'){ v.sync.erro=null; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync.erro=null; toast('Enviando…'); await sincronizar(); return; }
   }else{
@@ -2024,7 +2064,7 @@ function renderPvs(){
   const fim=$('btnIrResumo'); if(fim)fim.classList.toggle('oculta',!(c.reg>0&&c.consta+c.rasc===0&&!V.encerradaEm));
   const av=$('pvsAviso');
   if(V.encerradaEm){av.textContent='Vistoria encerrada em '+fmtData(V.encerradaEm)+'. As fichas estão só para leitura. Para editar, reabra no resumo.';av.classList.remove('oculta');}
-  else if(!V.iniciadaEm){av.innerHTML=ehMesa()?('<b>Vistoria ainda não iniciada.</b> O início é registrado no celular, no local, com data, hora e GPS.'+(modoCorrecao()?' Como coordenador, você pode preencher fichas daqui; elas ficam na trilha como correção de mesa.':'')):'<b>Vistoria ainda não iniciada.</b> Quando chegar ao local, toque em Iniciar: ficam registrados data, hora, quem iniciou e a posição. Até lá dá para ver os PVs e o mapa, sem registrar.<button class="btn" style="margin-top:10px" onclick="iniciarVistoria()">Iniciar vistoria em campo</button>';av.classList.remove('oculta');}
+  else if(!V.iniciadaEm){av.innerHTML=ehMesa()?('<b>Vistoria ainda não iniciada.</b> O início é registrado no celular, no local, com data, hora e GPS.'+(modoCorrecao()?' Pelo seu perfil, você pode preencher fichas daqui; elas ficam na trilha como correção de mesa.':'')):'<b>Vistoria ainda não iniciada.</b> Quando chegar ao local, toque em Iniciar: ficam registrados data, hora, quem iniciou e a posição. Até lá dá para ver os PVs e o mapa, sem registrar.<button class="btn" style="margin-top:10px" onclick="iniciarVistoria()">Iniciar vistoria em campo</button>';av.classList.remove('oculta');}
   else av.classList.add('oculta');
   renderListaPvs();
   if(ehMesa()){ setTimeout(montarMapa,50); } else setAba(V.ui.aba||'lista',true);
@@ -2205,7 +2245,7 @@ function renderFicha(){
   $('obs').value=r.obs||'';
   const leitura=bloqueada(); $('fichaLeitura').classList.toggle('oculta',!leitura);
   $('fichaCorrecao').classList.toggle('oculta',!modoCorrecao());
-  if(leitura)$('fichaLeitura').innerHTML=ehMesa()?(V.encerradaEm&&modoCorrecao()?'<span>Vistoria encerrada. Para corrigir, reabra; depois encerre de novo.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button>':'<span>No computador a ficha é só para leitura. Correções são feitas pelo coordenador; registros, no celular.</span>'):(V.encerradaEm?'<span>Vistoria encerrada. A ficha está só para leitura.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button>':'<span>Vistoria ainda não iniciada. '+TQ()+' em Iniciar quando estiver no local.</span><button class="acao-hdr" onclick="iniciarVistoria().then(()=>renderFicha())">Iniciar</button>');
+  if(leitura)$('fichaLeitura').innerHTML=ehMesa()?(V.encerradaEm&&modoCorrecao()?'<span>Vistoria encerrada. Para corrigir, reabra; depois encerre de novo.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button>':'<span>No computador a ficha é só para leitura. Correções são feitas pelo especialista ou pelo coordenador; registros, no celular.</span>'):(V.encerradaEm?'<span>Vistoria encerrada. A ficha está só para leitura.</span><button class="acao-hdr" onclick="reabrir()">Reabrir</button>':'<span>Vistoria ainda não iniciada. '+TQ()+' em Iniciar quando estiver no local.</span><button class="acao-hdr" onclick="iniciarVistoria().then(()=>renderFicha())">Iniciar</button>');
   renderFichaTrilha();
   ['btnVoltarLista','btnLimpar','barraFicha','acoesFicha'].forEach(id=>$(id).classList.toggle('oculta',leitura));
   if(ehMesa()&&leitura){ $('acoesFicha').classList.remove('oculta'); $('btnVoltarLista').classList.remove('oculta'); $('btnLimpar').classList.add('oculta'); }
@@ -2440,8 +2480,8 @@ async function reabrir(){
 let exportAberto=false;
 async function renderResumo(){
   const c=contagens();
-  $('btnParecer').classList.toggle('oculta',!(ehMesa()&&souCoordenador()&&!V.treino));
-  const naEquipe=!!(sessao&&sessao.perfil)&&!V.treino, soLeitura=ehMesa()&&!souCoordenador();
+  $('btnParecer').classList.toggle('oculta',!(ehMesa()&&souEspecialista()&&!V.treino));
+  const naEquipe=!!(sessao&&sessao.perfil)&&!V.treino, soLeitura=ehMesa()&&!souEspecialista();
   $('blocoExport').classList.toggle('oculta',(naEquipe&&!exportAberto)||soLeitura); $('btnMostrarExport').classList.toggle('oculta',!naEquipe||exportAberto||soLeitura);
   $('btnEncerrar').classList.toggle('claro',!naEquipe); $('btnEncerrar').classList.toggle('oculta',soLeitura); $('encCaption').classList.toggle('oculta',soLeitura); $('blocoResp').classList.toggle('oculta',soLeitura);
   const rs=$('resumoSync'); if(naEquipe&&V.sync){ rs.classList.remove('oculta'); rs.textContent=V.sync.excluidaNaEquipe?'Esta vistoria foi excluída da equipe. Veja as opções no ⋯ da lista.':V.sync.conflito?(V.sync.conflito.pvs?'Outra pessoa também alterou '+V.sync.conflito.pvs.length+' PV'+(V.sync.conflito.pvs.length===1?'':'s')+' desta vistoria. O resto já se junta sozinho; escolha esses PVs pelo ⋯ na lista.':'Há duas versões desta vistoria. Escolha qual fica pelo ⋯ na lista de vistorias.'):V.sync.pendente?(V.sync.erro?'O último envio não deu certo: '+erroHumano(V.sync.erro)+' O app tenta de novo sozinho.':(navigator.onLine?'Enviando para a equipe… (alguns segundos)':'Sem sinal: envia para a equipe quando a internet voltar.')):(V.sync.enviadoEm?'Na equipe desde '+fmtData(V.sync.enviadoEm)+' às '+fmtHora(V.sync.enviadoEm)+'.':'Ainda não enviada para a equipe.'); } else rs.classList.add('oculta'); $('nReg').textContent=c.reg;$('nOk').textContent=c.ok;$('nRes').textContent=c.res;$('nConsta').textContent=c.consta+c.rasc;
