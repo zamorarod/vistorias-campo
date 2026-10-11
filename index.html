@@ -91,6 +91,32 @@ body.mesa #t-bases.on,body.mesa #t-abertura.on,body.mesa #t-carteira.on,body.mes
 .eq-aviso{font-size:13.5px;color:var(--botao);background:#E6F4FC;border-radius:10px;padding:8px 12px;font-weight:700}
 #relLado{display:none}
 #basesLado{display:none}
+#ativosCorpo{display:none}
+#t-pvs.loc #ativosCorpo{display:flex;flex-direction:column;gap:12px}
+#t-pvs.loc .abas,#t-pvs.loc #pvsCorpo{display:none !important}
+.planta-card{background:var(--card);border:1.5px solid var(--fio);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:5px}
+.planta-card .pc-tit{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.planta-card .pc-tit b{font-size:16.5px}
+.planta-card .sub{font-size:14px;color:var(--sutil)}
+.planta-card .pc-rota{min-height:44px;font-size:15px;text-decoration:none;margin-top:4px}
+.pc-obs{margin-top:4px;font-size:13.5px;color:var(--aten-txt);background:var(--aten-bg);border-radius:10px;padding:8px 10px}.pc-obs summary{cursor:pointer;font-weight:700}.pc-obs div{margin-top:5px;line-height:1.4}
+.ativos-filtros{flex-wrap:wrap}
+.ativos-loc{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--sutil)}.ativos-loc select{font:15px var(--texto);padding:6px 8px;border:1.5px solid var(--fio);border-radius:10px;background:#fff}
+.busca .tecla{border:1.5px solid var(--fio);border-radius:9px;background:#fff;color:var(--botao);font:700 13px var(--mono);width:auto;height:36px;padding:0 9px;margin-right:4px}
+#listaAtivos{display:flex;flex-direction:column;gap:12px}
+.ativos-grupo{display:flex;flex-direction:column;gap:6px}
+.grupo-cab{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:#E9F3F9;border-radius:10px;padding:9px 12px;font:600 14.5px var(--texto);color:var(--ink);cursor:pointer}
+.grupo-cab .seta{color:var(--botao);width:12px}.grupo-cab .gn{flex:1;min-width:0}.grupo-cab .gc{color:var(--sutil);font-size:13.5px;white-space:nowrap}
+.ativos-lista{display:flex;flex-direction:column;gap:6px}
+.ativo-lin{grid-template-columns:auto 1fr;align-items:start}
+.ativo-lin .ad{font-weight:700;font-size:15.5px;line-height:1.3}
+.ativo-lin .ai{margin-top:3px}.ativo-lin .inv-rot{font-size:12.5px;color:var(--sutil)}.ativo-lin .inv{font:700 17px var(--mono);letter-spacing:.02em}
+.ativo-lin .sub{font-size:13.5px;color:var(--sutil);margin-top:2px}
+.ativo-lin.aberto{border-color:var(--sabesp);background:#F7FBFE}
+.ativo-det{margin-top:8px;display:flex;flex-direction:column;gap:4px;font-size:13.5px;border-top:1px solid var(--fio);padding-top:8px}
+.ativo-det>div{display:grid;grid-template-columns:minmax(110px,40%) 1fr;gap:8px}.ativo-det span{color:var(--sutil)}.ativo-det b{font-weight:600;overflow-wrap:anywhere}
+.ativo-det .ativo-obs,.ativo-det .ativo-nota{display:block;margin-top:4px;font-size:13px}.ativo-obs{color:var(--aten-txt)}.ativo-nota{color:var(--sutil);font-style:italic}
+body.mesa #t-pvs.loc .ativos-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:8px}
+body.mesa #t-pvs.loc .ativo-lin{min-height:0;padding:10px 12px}
 #basesBox{display:flex;flex-direction:column;gap:14px;min-width:0}
 body.mesa #t-bases.on.comLado{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,38%);gap:16px;align-items:start}
 body.mesa #t-bases.on.comLado>#basesBox{grid-column:1}
@@ -177,7 +203,7 @@ body.mesa #zonaKmz{display:block}
 #zonaKmz{display:none;border:2px dashed #9CC9E6;border-radius:14px;padding:14px 16px;text-align:center;color:var(--botao);font-size:14.5px;background:#F7FBFE;cursor:pointer;line-height:1.4}
 #zonaKmz.sobre{background:#E6F4FC;border-color:var(--sabesp)}
 body.arrastando.na-bases::after{content:"Solte a planilha para conferir" !important}
-body.arrastando::after{content:"Solte o KMZ para abrir";position:fixed;inset:0;background:rgba(0,147,221,.14);border:4px dashed var(--sabesp);display:flex;align-items:center;justify-content:center;font:800 28px var(--texto);color:var(--botao);z-index:60;pointer-events:none}
+body.arrastando::after{content:"Solte o arquivo para abrir";position:fixed;inset:0;background:rgba(0,147,221,.14);border:4px dashed var(--sabesp);display:flex;align-items:center;justify-content:center;font:800 28px var(--texto);color:var(--botao);z-index:60;pointer-events:none}
 .mesa-marca{display:flex;align-items:center;gap:10px;padding:4px 6px 16px}
 .mesa-marca img{height:34px}
 .mesa-marca b{display:block;font-size:14.5px;line-height:1.1}.mesa-marca small{font-size:12px;color:var(--sutil)}
@@ -505,13 +531,13 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div class="continuar oculta" id="continuar" onclick="continuarUltima()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')this.click()"><span id="continuarTxt"></span><b>›</b></div>
     <h2 style="text-align:center;font-size:20px;margin:10px 0 0">Escolha o tipo de vistoria</h2>
     <button class="modulo" onclick="ir('vistorias')"><span class="ico" aria-hidden="true"><svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="#0072AD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15 H37" /><path d="M11 33 H37" /><path d="M11 15 a4.6 9 0 0 0 0 18" /><ellipse cx="37" cy="24" rx="4.6" ry="9" fill="#fff"/><ellipse cx="37" cy="24" rx="2" ry="4.6" fill="#9CC9E6" stroke="none"/><path d="M17 12.5 v23 M21 12.5 v23" stroke-width="2.4"/></svg></span><div><b>Obras Lineares</b><span>Coletores, redes, interligações, linhas de recalque, interceptores</span></div></button>
-    <button class="modulo off" onclick="toast('Em construção. Por enquanto, use Obras Lineares.')"><span class="ico" aria-hidden="true"><svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="#0072AD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 v17 a15 5.8 0 0 0 30 0 v-17" fill="#fff"/><ellipse cx="24" cy="15" rx="15" ry="5.8" fill="#fff"/><path d="M13.5 27 q5.25-3.6 10.5 0 t10.5 0" stroke-width="2.4"/><path d="M24 9.2 v-3" stroke-width="2.4"/></svg></span><div><b>Obras Localizadas</b><span class="selo" style="margin-top:6px">Em construção</span></div></button>
+    <button class="modulo" onclick="ir('vistorias')"><span class="ico" aria-hidden="true"><svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="#0072AD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 v17 a15 5.8 0 0 0 30 0 v-17" fill="#fff"/><ellipse cx="24" cy="15" rx="15" ry="5.8" fill="#fff"/><path d="M13.5 27 q5.25-3.6 10.5 0 t10.5 0" stroke-width="2.4"/><path d="M24 9.2 v-3" stroke-width="2.4"/></svg></span><div><b>Obras Localizadas</b><span>Estações, elevatórias, reservatórios e outras plantas, pelo Anexo 2</span></div></button>
     <div class="conta" id="conta"></div>
     <div class="instalar oculta" id="instalarBox"></div>
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.46 · 11/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -520,22 +546,22 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <div class="lista" id="listaVistorias"></div>
   <input type="file" id="arqKmz" class="oculta">
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
-  <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste um KMZ do Conversor para esta janela.<br>Ele sobe para a equipe na hora.</div>
+  <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste para esta janela um KMZ do Conversor (Lineares) ou um Anexo 2 em Excel (Localizadas).<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.46 · 11/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.46 · 11/10/2026</div>
+  <div class="rodape">versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.46 · 11/10/2026</div>
+  <div class="rodape">versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T1e BASES DE CONSULTA (mesa) -->
@@ -543,20 +569,20 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <div id="basesBox"></div>
   <aside id="basesLado" aria-label="Detalhe da consulta"></aside>
   <input type="file" id="arqBase" class="oculta" accept=".xlsx,.xlsm">
-  <div class="rodape">versão 0.46 · 11/10/2026</div>
+  <div class="rodape">versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.46 · 11/10/2026</div>
+  <div class="rodape">versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T1e PARECER DO ESPECIALISTA -->
 <section class="tela" id="t-parecer">
   <div id="parecerBox"></div>
-  <div class="rodape">versão 0.46 · 11/10/2026</div>
+  <div class="rodape">versão 0.47 · 11/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -590,6 +616,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <p class="ajuda" style="font-size:15px">Círculo maior: transição. Verde: registrado. Laranja: com observação. Azul: em andamento. Branco: sem registro. Os nomes aparecem em todos os PVs ao aproximar o zoom; "Nomes: sempre" força em qualquer zoom.</p>
   </div>
   </div>
+<div id="ativosCorpo"></div>
 </section>
 <div id="mesaVazio"><div class="vazio"><div class="ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a1 1 0 0 1 1-1h5.2l2 2H20a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg></div>Nenhuma vistoria aberta neste computador.<br>Abra um KMZ do Conversor pelo botão à esquerda, arraste o arquivo para esta janela, ou baixe uma vistoria da equipe.</div></div>
 
@@ -690,7 +717,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.46';
+const VERSAO='0.47';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -1072,7 +1099,7 @@ async function carregarAtribuicoes(){
 function resumoServidor(v){
   const c=contagens(v); let ini=null,fim=null,fotos=0;
   for(const k in v.registros){ const r=v.registros[k]; if(!r||r.estado==='rascunho')continue; if(r.inicio&&(!ini||r.inicio<ini))ini=r.inicio; const f=r.fim||r.inicio; if(f&&(!fim||f>fim))fim=f; fotos+=(r.fotos||[]).length; }
-  return {total:c.total,reg:c.reg,ok:c.ok,res:c.res,rasc:c.rasc,trans:c.trans,fotos,inicio:ini,fim,iniciadaEm:v.iniciadaEm||null,iniciadaPor:v.iniciadaPor||'',responsaveis:(v.responsaveis||[]).map(r=>r.nome),tipo:tipoAtivo((v.ct&&v.ct.nome)||nomeV(v)),municipio:(v.ct&&v.ct.municipio)||'',uf:(v.ct&&v.ct.uf)||'',un:(v.ct&&v.ct.un&&v.ct.un.sigla)||''};
+  return {total:c.total,reg:c.reg,ok:c.ok,res:c.res,rasc:c.rasc,trans:c.trans,fotos,inicio:ini,fim,iniciadaEm:v.iniciadaEm||null,iniciadaPor:v.iniciadaPor||'',responsaveis:(v.responsaveis||[]).map(r=>r.nome),tipo:v.modulo==='localizadas'?'obra localizada':tipoAtivo((v.ct&&v.ct.nome)||nomeV(v)),municipio:(v.ct&&v.ct.municipio)||'',uf:(v.ct&&v.ct.uf)||'',un:(v.ct&&v.ct.un&&v.ct.un.sigla)||'',modulo:v.modulo||'lineares',planta:(v.planta&&v.planta.codigo)||'',anexo:(v.origem&&v.origem.anexo)||''};
 }
 function estadoVistoria(x){ // x: vistoria local ou linha do servidor
   const enc=x.encerradaEm||x.encerrada_em;
@@ -1227,7 +1254,7 @@ function imprimirCarteira(){
 
 /* ---------- página Equipe (só coordenador) ---------- */
 let equipeDados=null, relSel=new Set();
-const TIPO_TXT={login:'entrou no app',vistoria_salva:'gravou',iniciada:'iniciou em campo',atribuida:'atribuiu',liberada:'liberou a atribuição de',excluida:'excluiu da equipe',relatorio:'abriu o relatório de',corrigida:'corrigiu de mesa',matricula:'informou a matrícula',instalado:'instalou o app',mapa_offline:'guardou o mapa de',planilha:'baixou a planilha',planilha_pvs:'baixou a planilha de PVs',carteira_impressa:'imprimiu a carteira',baixada:'baixou',senha_trocada:'trocou a senha',equipe_alterada:'alterou a equipe',relatorio_lote:'imprimiu relatórios em lote',parecer_emitido:'emitiu o parecer de',versoes_juntadas:'juntou as versões de',base_importada:'atualizou a base'};
+const TIPO_TXT={login:'entrou no app',vistoria_salva:'gravou',iniciada:'iniciou em campo',atribuida:'atribuiu',liberada:'liberou a atribuição de',excluida:'excluiu da equipe',relatorio:'abriu o relatório de',corrigida:'corrigiu de mesa',matricula:'informou a matrícula',instalado:'instalou o app',mapa_offline:'guardou o mapa de',planilha:'baixou a planilha',planilha_pvs:'baixou a planilha de PVs',carteira_impressa:'imprimiu a carteira',baixada:'baixou',senha_trocada:'trocou a senha',equipe_alterada:'alterou a equipe',relatorio_lote:'imprimiu relatórios em lote',parecer_emitido:'emitiu o parecer de',versoes_juntadas:'juntou as versões de',base_importada:'atualizou a base',anexo2_carregado:'carregou o Anexo 2 de'};
 async function carregarEquipe(){
   const [pessoas,vist,logins,trilha]=await Promise.all([
     sb('/rest/v1/equipe?select=id,email,nome,matricula,papel,ativo&order=nome'),
@@ -1565,6 +1592,177 @@ async function verUar(uar){
   }catch(e){} });
 }
 document.getElementById('arqBase').addEventListener('change',e=>{ const f=e.target.files[0]; e.target.value=''; if(f)basesArquivo(f); });
+
+/* ---------- Obras Localizadas: carga do Anexo 2 e lista de ativos (entrega 2) ---------- */
+const AX_COLS={planta:'PLANTA GLOBAL',localidade:'LOCALIDADE',cc:'CENTRO DE CUSTO',up:'UP',uar:'UAR',uarDesc:'DESCRICAO DA UAR',um:'UNIDADE DE MEDIDA',inventario:'N DE INVENTARIO',quantidade:'QUANTIDADE',fabricante:'FABRICANTE',serie:'NUMERO DE SERIE',marca:'MARCA',modelo:'MODELO',obs:'OBSERVACAO',a1n:'DESCRICAO A1',a1v:'ATRIBUTO 1',a2n:'DESCRICAO A2',a2v:'ATRIBUTO 2',a3n:'DESCRICAO A3',a3v:'ATRIBUTO 3',a4n:'DESCRICAO A4',a4v:'ATRIBUTO 4',a5n:'DESCRICAO A5',a5v:'ATRIBUTO 5'};
+async function lerAnexo2(pl){ // custos e colunas sem uso na vistoria nunca são lidos
+  let L=null,h=-1;
+  for(const a of pl.abas){ const ls=await pl.ler(a.nome); if(!ls)continue; for(let i=0;i<Math.min(ls.length,20);i++){ const r=(ls[i]||[]).map(normTxt); if(r.includes('PLANTA GLOBAL')&&r.includes('UAR')){ L=ls; h=i; break; } } if(L)break; }
+  if(!L)return null;
+  const cab=(L[h]||[]).map(normTxt); const ix={};
+  for(const k in AX_COLS){ const alvo=AX_COLS[k]; ix[k]=cab.findIndex(x=>x===alvo||(x&&x.startsWith(alvo+' ')&&!['UP','UAR'].includes(alvo))); }
+  const txt=v=>v==null?'':(typeof v==='number'?String(Number.isInteger(v)?v:v):String(v)).trim();
+  const ativos=[], ids=new Set(), invs=new Map(), plantas=new Map(), locs=new Set(), ccs=new Set(), obs=[]; let ignoradas=0, semInv=0, repetidos=0;
+  for(let i=h+1;i<L.length;i++){
+    const r=L[i]; if(!r)continue; const s=k=>ix[k]>=0?txt(r[ix[k]]):'';
+    if(!s('uar')&&!s('inventario')&&!s('obs')){ if(r.some(v=>v!=null&&v!==''))ignoradas++; continue; }
+    const pg=s('planta').replace(/\D/g,''); const plc=pg?pg.padStart(6,'0'):''; if(plc)plantas.set(plc,(plantas.get(plc)||0)+1);
+    const lin=s('obs').split(/\n/).map(x=>x.trim()).filter(Boolean);
+    const local=lin.length>1?lin[0]:''; let descricao=lin.length>1?lin.slice(1).join(' · '):(lin[0]||'');
+    const uarTxt=s('uar'); const uar=(uarTxt.match(/^\s*(\d+)/)||[,''])[1].replace(/^0+/,''); const uarDesc=s('uarDesc')||uarTxt.replace(/^\s*\d+\s*-\s*/,'');
+    if(!descricao)descricao=uarDesc||'(sem descrição)';
+    const upTxt=s('up'); const up=(upTxt.match(/^\s*(\d+)/)||[,''])[1]; const upNome=upTxt.replace(/^\s*\d+\s*-\s*/,'');
+    const atributos=[]; for(let k=1;k<=5;k++){ const n=s('a'+k+'n'), v=s('a'+k+'v'); if(!n||/^SEM ATRIBUTO$/i.test(n)||/^0*\s*-?\s*SEM ATRIBUTO$/i.test(v))continue; atributos.push({nome:n,valor:v}); }
+    const inv=s('inventario'); const loc=s('localidade'), cc=s('cc'); if(loc)locs.add(loc); if(cc)ccs.add(cc);
+    const a={id:'',nome:inv||descricao,inventario:inv,local,descricao,planta:plc,localidade:loc,cc,up:up?up.padStart(2,'0'):'',upNome,uar,uarCod:uarTxt.split(' - ')[0].trim(),uarDesc,um:s('um').toUpperCase(),quantidade:(()=>{ const q=parseFloat(String(ix.quantidade>=0?r[ix.quantidade]:'').replace(',','.')); return isFinite(q)?q:null; })(),fabricante:s('fabricante'),serie:s('serie'),marca:s('marca'),modelo:s('modelo'),atributos,linha:i+1,obs:[]};
+    if(!inv){ semInv++; a.obs.push('Sem número de inventário no Anexo 2.'); }
+    else if(invs.has(inv)){ repetidos++; a.obs.push('Inventário '+inv+' repetido no Anexo 2 (também na linha '+invs.get(inv)+').'); }
+    else invs.set(inv,i+1);
+    let id='a_'+(inv.replace(/[^A-Za-z0-9]/g,'')||('l'+(i+1))); let k=id,j=2; while(ids.has(k))k=id+'_'+(j++); ids.add(k); a.id=k;
+    ativos.push(a);
+  }
+  if(!ativos.length)return null;
+  const plantaCod=[...plantas].sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
+  if(plantas.size>1)obs.push('O Anexo 2 traz '+plantas.size+' plantas ('+[...plantas.keys()].join(', ')+'). A vistoria fica na '+plantaCod+', a mais frequente.');
+  if(!plantaCod)obs.push('O Anexo 2 não informa a Planta Global.');
+  if(ignoradas)obs.push(ignoradas+' linha'+(ignoradas>1?'s':'')+' sem UAR, inventário nem observação (legenda ou anotação) deixada'+(ignoradas>1?'s':'')+' de fora.');
+  if(repetidos)obs.push(repetidos+' inventário'+(repetidos>1?'s':'')+' repetido'+(repetidos>1?'s':'')+' no Anexo 2.');
+  if(semInv)obs.push(semInv+' ativo'+(semInv>1?'s':'')+' sem número de inventário.');
+  const hash=hashStr(plantaCod+'|'+ativos.map(a=>a.inventario||a.descricao).sort().join(','));
+  return {plantaCod,ativos,localidades:[...locs],ccs:[...ccs],obs,hash,planta:null,conferido:false};
+}
+async function conferirAnexo2(lido){ // planta e catálogo: só informam, nada impede a carga
+  if(!(sessao&&sessao.perfil&&navigator.onLine)){ lido.obs.push('Sem conexão com a equipe: a planta e o catálogo MCPR não foram conferidos agora.'); return; }
+  try{
+    if(lido.plantaCod){ const pr=(await sb('/rest/v1/plantas?codigo=eq.'+encodeURIComponent(lido.plantaCod)+'&select=codigo,nome,cidade,uf,bairro,rua,numero,cep,lat,lon,coord,desativada,na_base'))[0];
+      if(!pr)lido.obs.push('A planta '+lido.plantaCod+' não está na base de Plantas Globais.');
+      else{ lido.planta=pr; if(pr.desativada)lido.obs.push('A planta '+lido.plantaCod+' consta como desativada na base.'); if(!pr.na_base)lido.obs.push('A planta '+lido.plantaCod+' deixou de constar na versão atual da base.'); if(pr.coord!=='ok')lido.obs.push(pr.coord==='sem'?'A planta não tem coordenada na base: a vistoria fica sem mapa e sem rota.':'A coordenada da planta na base está "a conferir".'); } }
+    const uars=[...new Set(lido.ativos.map(a=>a.uar).filter(Boolean))]; const cat=new Map();
+    for(let i=0;i<uars.length;i+=150){ const rs=await sb('/rest/v1/mcpr_uar?uar=in.('+uars.slice(i,i+150).map(u=>'"'+u+'"').join(',')+')&select=uar,up,nome,um,na_base'); for(const u of rs)cat.set(u.uar,u); }
+    if(!cat.size&&uars.length){ lido.obs.push('O catálogo MCPR não respondeu ou está vazio: as UARs não foram conferidas.'); }
+    else{ let fora=0,upDif=0,umDif=0;
+      for(const a of lido.ativos){ if(!a.uar){ a.obs.push('Sem código de UAR no Anexo 2.'); continue; } const u=cat.get(a.uar);
+        if(!u||!u.na_base){ fora++; a.obs.push('A UAR '+a.uarCod+' não está no catálogo MCPR atual.'); continue; }
+        if(a.up&&u.up&&a.up!==u.up){ upDif++; a.obs.push('No MCPR a UAR '+a.uarCod+' é da UP '+u.up+'; no Anexo 2 está na UP '+a.up+'.'); }
+        const um1=(a.um||'').replace('M²','M2'), um2=(u.um||''); if(um1&&um2&&um1!==um2){ umDif++; a.obs.push('Unidade '+um1+' no Anexo 2; '+um2+' no MCPR.'); } }
+      if(fora)lido.obs.push(fora+' ativo'+(fora>1?'s':'')+' com UAR fora do catálogo MCPR.'); if(upDif)lido.obs.push(upDif+' ativo'+(upDif>1?'s':'')+' com UP diferente da indicada no MCPR.'); if(umDif)lido.obs.push(umDif+' ativo'+(umDif>1?'s':'')+' com unidade de medida diferente do MCPR.'); }
+    lido.conferido=true;
+  }catch(e){ lido.obs.push('Não deu para conferir com as bases agora ('+erroHumano(e)+').'); }
+}
+function novaVistoriaLoc(lido,arquivo,sufixo){
+  const pr=lido.planta; const nome=(pr&&pr.nome)||('Planta '+(lido.plantaCod||'sem código'));
+  const planta=pr?{codigo:pr.codigo,nome:pr.nome,cidade:pr.cidade||'',uf:pr.uf||'',bairro:pr.bairro||'',rua:pr.rua||'',numero:pr.numero||'',cep:pr.cep||'',lat:pr.lat,lon:pr.lon,coord:pr.coord,desativada:!!pr.desativada,naBase:true}:{codigo:lido.plantaCod,nome:'',naBase:false};
+  const agora=agoraIso();
+  return {id:uid(),esquema:ESQUEMA,modulo:'localizadas',ct:{nome,municipio:planta.cidade||'',uf:planta.uf||''},rotulo:nome+(sufixo||''),planta,localidades:lido.localidades,centrosCusto:lido.ccs,
+    origem:{arquivo,carregadoEm:agora,anexo:lido.hash,conferido:lido.conferido,mcpr:(basesInfo&&basesInfo.mcpr&&basesInfo.mcpr.versao)||null},
+    observacoes:lido.obs.map(x=>({quando:agora,origem:'carga',texto:x})),
+    resumo:{},pontos:lido.ativos,trechos:[],registros:{},responsaveis:[],
+    criadaEm:agora,atualizadaEm:agora,iniciadaEm:null,iniciadaPor:'',iniciadaGps:null,encerradaEm:null,exportadaEm:null,alteradaEm:null,ui:{aba:'lista',filtro:'todos',busca:'',localidade:'',fechados:[]}};
+}
+async function carregarAnexo2(f){
+  if(lendo)return; if(sessao&&sessao.perfil&&!souEspecialista()){ toast('Carregar vistorias na equipe é tarefa do especialista ou do coordenador.'); return; }
+  lendo=true; toast('Lendo o Anexo 2…');
+  try{
+    const pl=await lerPlanilha(f); const lido=await lerAnexo2(pl);
+    if(!lido){ await modal({titulo:'Esta planilha não parece um Anexo 2',texto:'Não achei o cabeçalho com "Planta Global" e "UAR", nem linhas de ativos. Confira se é a Lista de Ativos Instalados (Anexo 2).',ok:'Entendi',soOk:true}); return; }
+    if(!basesInfo&&sessao&&sessao.perfil){ try{ basesInfo=await carregarBasesInfo(); }catch(e){} }
+    await conferirAnexo2(lido);
+    const nome=(lido.planta&&lido.planta.nome)||('Planta '+(lido.plantaCod||'sem código'));
+    const locais=new Set(lido.ativos.map(a=>a.local||'')).size;
+    const daPlanta=(await dbAll('vistorias')).filter(v=>v.modulo==='localizadas'&&v.planta&&v.planta.codigo===lido.plantaCod);
+    const mesmo=daPlanta.find(v=>v.origem&&v.origem.anexo===lido.hash);
+    if(mesmo){ const r=await modal({titulo:'Este Anexo 2 já foi carregado',texto:nomeV(mesmo)+' tem os mesmos ativos e está '+noAp('neste aparelho')+'.',opcoes:[{id:'abrir',txt:'Abrir a que existe'},{id:'outra',txt:'Carregar outra mesmo assim'}],cancel:'Cancelar'}); if(r==='abrir'){ ir('pvs',{vid:mesmo.id}); return; } if(r!=='outra')return; }
+    else if(sessao&&sessao.perfil&&navigator.onLine){ try{
+      const rows=await sb('/rest/v1/vistorias?select=id,ct_nome,resumo,atualizado_por,atualizado_em&order=atualizado_em.desc'); const loc=new Set((await dbAll('vistorias')).map(v=>v.id));
+      const eq=rows.find(r=>!loc.has(r.id)&&r.resumo&&r.resumo.planta===lido.plantaCod&&r.resumo.anexo===lido.hash);
+      if(eq){ const r=await modal({titulo:'Este Anexo 2 já está na equipe',texto:String(eq.ct_nome||'')+', carregado por '+nomeEquipe(eq.atualizado_por)+' em '+fmtData(eq.atualizado_em)+'.',opcoes:[{id:'baixar',txt:'Baixar a da equipe'},{id:'outra',txt:'Carregar outra mesmo assim'}],cancel:'Cancelar'}); if(r==='baixar'){ const v=await baixarVistoria(eq.id); if(v)ir('pvs',{vid:v.id}); return; } if(r!=='outra')return; }
+    }catch(e){} }
+    const n=lido.obs.length+lido.ativos.filter(a=>a.obs.length).length;
+    const texto=nome+(lido.planta&&lido.planta.cidade?' · '+lido.planta.cidade:'')+' · Planta '+(lido.plantaCod||'?')+'. '+lido.ativos.length+' ativos em '+locais+' loca'+(locais===1?'l':'is')+'.'
+      +(lido.localidades.length?' Localidade '+lido.localidades.join(', ')+'.':'')+(lido.ccs.length?' Centro de custo '+lido.ccs.join(', ')+'.':'')
+      +(daPlanta.length&&!mesmo?' Já há outra vistoria desta planta '+noAp('neste aparelho')+'.':'')
+      +(n?' Observações para o especialista: '+lido.obs.join(' ')+(lido.ativos.some(a=>a.obs.length)?' Há observações em '+lido.ativos.filter(a=>a.obs.length).length+' ativos.':''):' Tudo confere com as bases.')
+      +' Custos do Anexo 2 não entram no sistema.';
+    const ok=await modal({titulo:'Carregar '+nome+'?',texto,ok:'Carregar',cancel:'Cancelar'});
+    if(!ok)return;
+    const usados=new Set(daPlanta.map(v=>nomeV(v))); let sufixo=''; if(usados.has(nome)){ let k=2; while(usados.has(nome+' ('+k+')'))k++; sufixo=' ('+k+')'; }
+    const v=novaVistoriaLoc(lido,f.name,sufixo); V=v;
+    if(!(await salvarV())){ V=null; return; }
+    V=null; registrarEvento('anexo2_carregado',{planta:lido.plantaCod,ativos:lido.ativos.length,obs:n},v.id);
+    toast(nomeV(v)+': '+lido.ativos.length+' ativos carregados'+((sessao&&sessao.perfil)?'. Subindo para a equipe':''));
+    if(telaAtual==='vistorias')renderVistorias(); else ir('vistorias',{},true);
+  }catch(e){ await modal({titulo:'Não deu para ler o Anexo 2',texto:String(e&&e.message||e),ok:'Entendi',soOk:true}); }
+  finally{ lendo=false; }
+}
+function grupoLoc(local){ const m=String(local||'').match(/^\s*([A-Z0-9]{2,6}(?:\s\d+)?)\s*-\s*(.+)$/i); return m?{sigla:m[1].toUpperCase(),nome:m[2].trim()}:{sigla:'',nome:String(local||'').trim()||'Sem local informado'}; }
+function ativosFiltrados(){
+  const f=V.ui.filtro||'todos', b=normTxt(V.ui.busca||''), lc=V.ui.localidade||'';
+  return V.pontos.filter(a=>{ const e=estadoDe(a.id);
+    if(f==='pendentes'&&(e==='ok'||e==='ressalva'))return false; if(f==='vistoriados'&&!(e==='ok'||e==='ressalva'))return false; if(f==='observacao'&&e!=='ressalva')return false;
+    if(lc&&a.localidade!==lc)return false;
+    if(b&&!normTxt([a.inventario,a.descricao,a.uarDesc,a.marca,a.modelo,a.serie,a.local].join(' ')).includes(b))return false;
+    return true; });
+}
+function setFiltroAtivos(k,v){ V.ui[k]=v; salvarV(); if(k==='busca'){ desenharListaAtivos(); return; } renderAtivos(); }
+function alternarGrupo(chave){ const fs=V.ui.fechados||(V.ui.fechados=[]); const i=fs.indexOf(chave); if(i>=0)fs.splice(i,1); else fs.push(chave); salvarV(); desenharListaAtivos(); }
+function abrirAtivo(id){ V.ui.aberto=V.ui.aberto===id?null:id; desenharListaAtivos(); }
+function tecladoNum(){ const i=$('buscaAtivos'); if(!i)return; i.inputMode=i.inputMode==='numeric'?'search':'numeric'; $('btnTeclado').textContent=i.inputMode==='numeric'?'abc':'123'; i.blur(); setTimeout(()=>i.focus(),50); }
+function renderAtivos(){
+  const t=$('t-pvs'); t.classList.add('loc'); const pl=V.planta||{};
+  $('hdrTit').textContent=nomeV(V); $('hdrSub').textContent=[pl.cidade,'Planta '+(pl.codigo||'?'),V.pontos.length+' ativos'].filter(Boolean).join(' · ');
+  $('hdrAcao').classList.add('oculta');
+  const c=contagens(); const locais=new Set(V.pontos.map(a=>a.local||'')).size;
+  $('progTxt').textContent=c.reg+' vistoriado'+(c.reg===1?'':'s')+' de '+c.total;
+  $('progSub').textContent=V.iniciadaEm?('em campo desde '+fmtData(V.iniciadaEm)+' '+fmtHora(V.iniciadaEm)):(locais+' loca'+(locais===1?'l':'is')+' na planta');
+  $('progBar').style.width=(c.total?Math.round(c.reg/c.total*100):0)+'%';
+  const av=$('pvsAviso');
+  if(V.encerradaEm){ av.textContent='Vistoria encerrada em '+fmtData(V.encerradaEm)+'.'; av.classList.remove('oculta'); }
+  else if(!V.iniciadaEm){ av.innerHTML=ehMesa()?'<b>Vistoria ainda não iniciada.</b> O início é registrado no celular, na planta, com data, hora e GPS.':'<b>Vistoria ainda não iniciada.</b> Quando chegar à planta, toque em Iniciar: ficam registrados data, hora, quem iniciou e a posição.<button class="btn" style="margin-top:10px" onclick="iniciarVistoria()">Iniciar vistoria em campo</button>'; av.classList.remove('oculta'); }
+  else if(V.iniciadaGps&&pl.lat!=null&&pl.lon!=null){ const d=distM(V.iniciadaGps.lat,V.iniciadaGps.lon,pl.lat,pl.lon); av.textContent=d<300?'Início registrado na planta.':'Início registrado a '+(d<1000?Math.round(d)+' m':(d/1000).toFixed(1).replace('.',',')+' km')+' da coordenada cadastrada da planta. É só uma informação.'; av.classList.remove('oculta'); }
+  else av.classList.add('oculta');
+  const temCoord=pl.lat!=null&&pl.lon!=null; const end=[[pl.rua,pl.numero].filter(Boolean).join(', '),pl.bairro,[pl.cidade,pl.uf].filter(Boolean).join(' · ')].filter(Boolean).join(' · ');
+  const obsCarga=(V.observacoes||[]).filter(o=>o.origem==='carga'), obsAtivos=V.pontos.filter(a=>(a.obs||[]).length);
+  const verObs=souEspecialista()&&(obsCarga.length||obsAtivos.length);
+  const cont={todos:c.total,pendentes:c.total-c.reg,vistoriados:c.reg,observacao:c.res}; const rot={todos:'Todos',pendentes:'Pendentes',vistoriados:'Vistoriados',observacao:'Com observação'};
+  const locsDistintas=[...new Set(V.pontos.map(a=>a.localidade).filter(Boolean))];
+  $('ativosCorpo').innerHTML='<div class="planta-card"><div class="pc-tit"><b>'+esc(pl.nome||nomeV(V))+'</b><span class="base-cod">PG '+esc(pl.codigo||'?')+'</span>'+(pl.desativada?'<span class="selo cinza">desativada na base</span>':'')+'</div>'
+    +(end?'<div class="sub">'+esc(end)+'</div>':(pl.naBase===false?'<div class="sub">Planta fora da base de Plantas Globais.</div>':''))
+    +'<div class="sub">'+(V.localidades&&V.localidades.length?'Localidade '+esc(V.localidades.join(', ')):'')+(V.centrosCusto&&V.centrosCusto.length?' · Centro de custo '+esc(V.centrosCusto.join(', ')):'')+'</div>'
+    +(temCoord?'<a class="btn claro pc-rota" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination='+pl.lat+','+pl.lon+'">Como chegar</a>':'')
+    +(verObs?'<details class="pc-obs"><summary>Observações para o especialista · '+(obsCarga.length+obsAtivos.length)+'</summary>'+obsCarga.map(o=>'<div>'+esc(o.texto)+'</div>').join('')+obsAtivos.map(a=>'<div><span class="base-cod">'+esc(a.inventario||a.descricao)+'</span> '+esc(a.obs.join(' '))+'</div>').join('')+'</details>':'')+'</div>'
+    +'<div class="filtros ativos-filtros">'+Object.keys(rot).map(k=>'<button class="filtro'+((V.ui.filtro||'todos')===k?' on':'')+'" onclick="setFiltroAtivos(\'filtro\',\''+k+'\')">'+rot[k]+' '+cont[k]+'</button>').join('')+'</div>'
+    +(locsDistintas.length>1?'<label class="ativos-loc">Localidade <select onchange="setFiltroAtivos(\'localidade\',this.value)"><option value="">Todas</option>'+locsDistintas.map(l=>'<option'+(V.ui.localidade===l?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select></label>':'')
+    +'<div class="busca"><span style="display:flex;color:var(--sutil)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="M20 20l-4.4-4.4"/></svg></span><input type="search" id="buscaAtivos" placeholder="Inventário, descrição ou marca" autocomplete="off" value="'+esc(V.ui.busca||'')+'" oninput="setFiltroAtivos(\'busca\',this.value)"><button id="btnTeclado" class="tecla" onclick="tecladoNum()" aria-label="Alternar teclado numérico">123</button></div>'
+    +'<div id="listaAtivos"></div>';
+  desenharListaAtivos();
+}
+function desenharListaAtivos(){
+  const el=$('listaAtivos'); if(!el||!V)return; const lista=ativosFiltrados(); const fechados=V.ui.fechados||[]; const grupos=new Map();
+  for(const a of lista){ const k=a.local||''; if(!grupos.has(k))grupos.set(k,[]); grupos.get(k).push(a); }
+  const todosPorLocal=new Map(); for(const a of V.pontos){ const k=a.local||''; todosPorLocal.set(k,(todosPorLocal.get(k)||[]).concat(a)); }
+  if(!lista.length){ el.innerHTML='<div class="vazio" style="padding:18px">Nenhum ativo com esse filtro.</div>'; return; }
+  const forte=!!(V.ui.busca||'').trim();
+  el.innerHTML=[...grupos].map(([k,as])=>{ const g=grupoLoc(k); const tot=todosPorLocal.get(k)||as; const feitos=tot.filter(a=>{ const e=estadoDe(a.id); return e==='ok'||e==='ressalva'; }).length; const fechado=!forte&&fechados.includes(k);
+    return '<div class="ativos-grupo'+(fechado?' fechado':'')+'"><button class="grupo-cab" onclick="alternarGrupo(\''+esc(k).replace(/'/g,'&#39;')+'\')"><span class="seta">'+(fechado?'▸':'▾')+'</span>'+(g.sigla?'<b class="base-cod">'+esc(g.sigla)+'</b>':'')+'<span class="gn">'+esc(g.nome)+'</span><span class="gc">'+feitos+' de '+tot.length+'</span></button>'
+      +(fechado?'':'<div class="ativos-lista">'+as.map(a=>cardAtivo(a)).join('')+'</div>')+'</div>'; }).join('');
+}
+function cardAtivo(a){
+  const e=estadoDe(a.id); const ab=V.ui.aberto===a.id; const placa=[a.fabricante&&a.marca&&a.fabricante.toUpperCase()===a.marca.toUpperCase()?a.marca:[a.fabricante,a.marca].filter(Boolean).join(' / '),a.modelo,a.serie?'série '+a.serie:''].filter(Boolean).join(' · ');
+  const varias=(V.localidades||[]).length>1;
+  const limpa=v=>String(v||'').replace(/^\s*\d+\s*-\s*/,'').replace(/^.*?=\s*/,'').replace(/\bANT(?:\.|ERIOR)?\s+AT[ÉE](?![A-Za-zÀ-ÿ])/gi,'até');
+  return '<div class="lin ativo-lin'+(ab?' aberto':'')+'" role="button" tabindex="0" onclick="abrirAtivo(\''+esc(a.id)+'\')" onkeydown="if(event.key===\'Enter\')this.click()">'
+    +'<span class="est '+(e==='ressalva'?'ressalva':(e==='ok'?'ok':''))+'">'+(e==='ok'?'✓':(e==='ressalva'?'!':''))+'</span>'
+    +'<div class="ativo-corpo"><div class="ad">'+esc(a.descricao)+'</div>'
+    +'<div class="ai">'+(a.inventario?'<span class="inv-rot">Inv.</span> <span class="inv">'+esc(a.inventario)+'</span>':'<span class="sub">sem inventário</span>')+(a.quantidade!=null&&!(a.quantidade===1&&/^UN$/i.test(a.um))?' <span class="sub">· '+esc(String(a.quantidade).replace('.',','))+' '+esc(a.um.replace('M2','m²'))+'</span>':'')+'</div>'
+    +'<div class="sub">'+(a.up?esc(a.up)+' · ':'')+esc(a.uarDesc||'')+'</div>'
+    +(placa?'<div class="sub">'+esc(placa)+'</div>':'')
+    +(varias&&a.localidade?'<div class="sub">Localidade '+esc(a.localidade)+'</div>':'')
+    +(ab?'<div class="ativo-det">'+(a.atributos.length?a.atributos.map(x=>'<div><span>'+esc(x.nome)+'</span><b>'+esc(limpa(x.valor))+'</b></div>').join(''):'<div><span>Atributos</span><b>sem atributos no Anexo 2</b></div>')
+      +'<div><span>UAR</span><b>'+esc(a.uarCod||a.uar)+'</b></div><div><span>UP</span><b>'+esc(a.upNome||a.up)+'</b></div>'+(a.cc?'<div><span>Centro de custo</span><b>'+esc(a.cc)+'</b></div>':'')+'<div><span>Linha do Anexo 2</span><b>'+a.linha+'</b></div>'
+      +(souEspecialista()&&a.obs&&a.obs.length?'<div class="ativo-obs">'+esc(a.obs.join(' '))+'</div>':'')
+      +'<div class="ativo-nota">A ficha de conferência deste ativo está em preparação.</div></div>':'')
+    +'</div></div>';
+}
 
 /* ---------- parecer do especialista ---------- */
 let parUrls=[], parFotos={}, parTimer=null, parVersoes=[];
@@ -2159,7 +2357,7 @@ async function renderVistorias(){
   renderSyncBar();
   if(todas.length&&sessao&&sessao.perfil&&!box.children.length)box.innerHTML=todas.map(v=>cardVistoria(v,false)).join('')+'<p class="ajuda" style="text-align:center;font-size:14px">Conferindo com a equipe…</p>'; // mostra o que já há no aparelho enquanto consulta a equipe
   const remotas=(sessao&&sessao.perfil)?await listarRemotas(todas):[];
-  const bk=$('btnAbrirKmz'); if(bk){ const sec=!!(sessao&&sessao.perfil)&&!souEspecialista(); const podeKmz=!(sessao&&sessao.perfil)||souEspecialista()||!ehMesa(); bk.classList.toggle('oculta',!podeKmz); const zk=$('zonaKmz'); if(zk)zk.classList.toggle('oculta',!podeKmz); bk.classList.toggle('claro',sec); bk.textContent=sec?'Abrir um KMZ do Conversor':'Abrir um KMZ'; }
+  const bk=$('btnAbrirKmz'); if(bk){ const sec=!!(sessao&&sessao.perfil)&&!souEspecialista(); const podeKmz=!(sessao&&sessao.perfil)||souEspecialista()||!ehMesa(); bk.classList.toggle('oculta',!podeKmz); const zk=$('zonaKmz'); if(zk)zk.classList.toggle('oculta',!podeKmz); bk.classList.toggle('claro',sec); bk.textContent=sec?'Abrir um KMZ do Conversor':'Abrir KMZ ou Anexo 2'; }
   if(!todas.length&&!remotas.length)box.innerHTML='<div class="vazio"><div class="ico">'+ICO.pasta+'</div>'+((sessao&&sessao.perfil)?(souCoordenador()?'Nenhuma vistoria na equipe ainda.<br>Abra um KMZ gerado pelo Conversor: ele sobe para a equipe e aparece para todos.':'Nenhuma vistoria na equipe ainda.<br>O coordenador carrega as vistorias; quando houver, elas aparecem aqui. '+TQ()+' em Atualizar para conferir.'):noAp('Nenhuma vistoria neste aparelho.')+'<br>Entre na equipe para ver as vistorias, ou abra um KMZ gerado pelo Conversor.<br><button class="btn" style="margin-top:12px" onclick="abrirEntrar()">Entrar na equipe</button>')+'</div>';
   else{
     let lista=todas, remo=remotas, filtroHtml='';
@@ -2184,7 +2382,7 @@ function cardVistoria(v,remoto){
   const rs=remoto?(v.resumo||{}):contagens(v);
   const reg=rs.reg||0,total=rs.total||(v.pontos?v.pontos.length:0),res=rs.res||0;
   const est=estadoVistoria(v);
-  const chips=['<span class="selo '+est.cls+'">'+est.t+'</span>'];
+  const chips=['<span class="selo '+est.cls+'">'+est.t+'</span>']; const ehLoc=remoto?rs.modulo==='localizadas':v.modulo==='localizadas'; if(ehLoc)chips.push('<span class="selo cinza">localizada · PG '+esc(remoto?rs.planta:(v.planta&&v.planta.codigo)||'')+'</span>');
   if(!remoto&&v.treino)chips.push('<span class="selo cinza">'+noAp('treino · só neste aparelho')+'</span>');
   if(!remoto&&!v.treino){
     if(logado&&v.sync)chips.push(v.sync.excluidaNaEquipe?'<span class="selo aten">excluída da equipe: '+tq()+' em ⋯</span>':(v.sync.conflito?'<span class="selo aten">'+(v.sync.conflito.pvs?'escolher '+v.sync.conflito.pvs.length+' PV'+(v.sync.conflito.pvs.length===1?'':'s')+': '+tq()+' em ⋯':'duas versões: '+tq()+' em ⋯')+'</span>':(v.sync.pendente?(v.sync.erro?'<span class="selo aten">não enviada ainda: '+tq()+' em ⋯</span>':'<span class="selo cinza">aguardando envio</span>'):(v.sync.enviadoEm?'<span class="selo verde">na equipe · '+fmtHora(v.sync.enviadoEm)+'</span>':''))));
@@ -2192,7 +2390,7 @@ function cardVistoria(v,remoto){
   }else chips.push('<span class="selo cinza">na equipe</span>');
   const quando=remoto?'Gravada por '+esc(nomeEquipe(v.atualizado_por))+' em '+fmtData(v.atualizado_em)+' '+fmtHora(v.atualizado_em)+'. <b>'+noAp('Toque para baixar para este aparelho.')+'</b>':'Carregada '+fmtData(v.criadaEm)+' '+fmtHora(v.criadaEm);
   const iniEm=remoto?rs.iniciadaEm:v.iniciadaEm, iniPor=remoto?rs.iniciadaPor:v.iniciadaPor;
-  const det=quando+(total?' · <b>'+reg+' de '+total+'</b> registrados':'')+(res?' · '+res+' com observação':'')+(iniEm?'<br>Em campo desde '+fmtData(iniEm)+' '+fmtHora(iniEm)+(iniPor?' · '+esc(iniPor):''):'');
+  const det=quando+(total?' · <b>'+reg+' de '+total+'</b> '+(ehLoc?'ativos vistoriados':'registrados'):'')+(res?' · '+res+' com observação':'')+(iniEm?'<br>Em campo desde '+fmtData(iniEm)+' '+fmtHora(iniEm)+(iniPor?' · '+esc(iniPor):''):'');
   const atrib=logado?textoAtrib(id):'';
   const noServidor=remoto||(v.sync&&v.sync.enviadoEm&&!v.sync.excluidaNaEquipe);
   const acoes=[];
@@ -2313,6 +2511,7 @@ let lendo=false;
 $('arqKmz').addEventListener('change',e=>{ const f=e.target.files[0]; e.target.value=''; if(f)lerArquivoKmz(f); });
 async function lerArquivoKmz(f){
   if(!f||lendo)return;
+  if(/\.(xlsx|xlsm|xls)$/i.test(f.name)){ if(/\.xls$/i.test(f.name)){ await modal({titulo:'Formato antigo do Excel',texto:'Salve o Anexo 2 como .xlsx no Excel e carregue de novo.',ok:'Entendi',soOk:true}); return; } return carregarAnexo2(f); }
   lendo=true; $('btnAbrirKmz').disabled=true; $('btnExemplo').disabled=true; toast('Lendo o arquivo…');
   try{
     let pk=null;
@@ -2377,6 +2576,8 @@ async function abrirPacote(pk,arquivo){
 /* ===================== T2 lista de PVs e mapa ===================== */
 let mapa=null,camadaPontos=null,camadaRede=null,marcaGps=null,marcasPv=[],gpsWatchMapa=null,circuloGps=null,ultimoPan=0;
 function renderPvs(){
+  if(V.modulo==='localizadas'){ renderAtivos(); return; }
+  $('t-pvs').classList.remove('loc');
   $('hdrTit').textContent=nomeV(V);
   const partes=[];if(V.ct.municipio)partes.push(V.ct.municipio);if(V.ct.un)partes.push('UN '+V.ct.un.nome);partes.push(V.pontos.length+' PVs');
   $('hdrSub').textContent=partes.join(' · ');
