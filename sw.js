@@ -3,7 +3,7 @@
    - App (index.html, manifesto, ícones, leitor.js): responde do cache na hora e atualiza o cache por trás quando há sinal.
    - Mapas (tiles Esri do app e OpenStreetMap do relatório): guarda cada tile visto; sem sinal, serve do cache.
    - Servidor da equipe (Supabase) e tudo o mais: passa direto, sem cache. */
-const SHELL='vc-app-v1', TILES='vc-tiles-v2', MAX_TILES=2500; // v2: os quadros opacos da v0.23 e anteriores não servem para os pedidos CORS da v0.24
+const SHELL='vc-app-v1', TILES='vc-tiles-v2', FIXO='vc-tiles-fixo', MAX_TILES=2500; // FIXO: mapas guardados pelo botão "Guardar o mapa" (v0.56), fora da poda // v2: os quadros opacos da v0.23 e anteriores não servem para os pedidos CORS da v0.24
 const SHELL_FILES=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png','./leitor.js']; // leitor.js: leitor de código de barras (v0.54), guardado para funcionar sem sinal
 const ehTile=u=>/tile\.openstreetmap\.org|server\.arcgisonline\.com\/ArcGIS\/rest\/services\/World_Street_Map/.test(u);
 
@@ -17,14 +17,14 @@ self.addEventListener('install',e=>{
 self.addEventListener('activate',e=>{
   e.waitUntil((async()=>{
     const ks=await caches.keys();
-    await Promise.all(ks.filter(k=>k.startsWith('vc-')&&k!==SHELL&&k!==TILES).map(k=>caches.delete(k)));
+    await Promise.all(ks.filter(k=>k.startsWith('vc-')&&k!==SHELL&&k!==TILES&&k!==FIXO).map(k=>caches.delete(k)));
     await self.clients.claim();
   })());
 });
 self.addEventListener('message',e=>{
   const d=e.data||{};
   if(d.t==='skipWaiting')self.skipWaiting();
-  if(d.t==='limparTiles')caches.delete(TILES);
+  if(d.t==='limparTiles'){ caches.delete(TILES); caches.delete(FIXO); }
 });
 
 let putsDesdeTrim=0;
@@ -40,7 +40,7 @@ self.addEventListener('fetch',e=>{
   if(ehTile(url)){
     e.respondWith((async()=>{
       const c=await caches.open(TILES);
-      const hit=await c.match(req,{ignoreVary:true}); if(hit&&!(hit.type==='opaque'&&req.mode==='cors'))return hit; // resposta opaca nunca atende um pedido CORS (o navegador a rejeita e o quadro some)
+      const hit=(await c.match(req,{ignoreVary:true}))||(await (await caches.open(FIXO)).match(req.url,{ignoreVary:true})); if(hit&&!(hit.type==='opaque'&&req.mode==='cors'))return hit; // resposta opaca nunca atende um pedido CORS (o navegador a rejeita e o quadro some)
       try{ const r=await fetch(req); if(r&&r.ok)guardarTile(c,req,r.clone()); return r; } // só respostas legíveis (CORS): as opacas inflam a cota do navegador
       catch(err){ return new Response('',{status:504,statusText:'sem sinal'}); }
     })());
@@ -56,7 +56,8 @@ self.addEventListener('fetch',e=>{
     const c=await caches.open(SHELL);
     const chave=navegacao?'./index.html':req;
     const hit=await c.match(chave,{ignoreSearch:true});
-    const rede=fetch(req).then(r=>{ if(r&&r.ok)c.put(chave,r.clone()).catch(()=>{}); return r; }).catch(()=>null);
+    const pagina=navegacao||u.pathname.endsWith('/index.html')||u.pathname.endsWith('/');
+    const rede=fetch(req).then(async r=>{ if(r&&r.ok){ let inteira=true; if(pagina){ try{ inteira=(await r.clone().text()).includes('const VERSAO='); }catch(err){ inteira=false; } } if(inteira)c.put(chave,r.clone()).catch(()=>{}); } return r; }).catch(()=>null); // página incompleta não substitui a guardada
     if(hit){ e.waitUntil(rede); return hit; } // cache na hora; rede atualiza por trás
     const r=await rede; if(r)return r;
     return new Response('<!DOCTYPE html><meta charset="utf-8"><p style="font:16px system-ui;padding:20px">Sem sinal e o app ainda não foi guardado neste aparelho. Abra com internet uma vez.</p>',{headers:{'Content-Type':'text/html; charset=utf-8'}});
