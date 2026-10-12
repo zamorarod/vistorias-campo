@@ -93,6 +93,13 @@ body.mesa #t-bases.on,body.mesa #t-abertura.on,body.mesa #t-carteira.on,body.mes
 #basesLado{display:none}
 #ativosCorpo{display:none}
 #pgAtivo{display:none}
+.ex-l{display:flex;flex-direction:column;gap:5px;font-size:14px;font-weight:700;margin:0}
+.ex-l select,.ex-i{font:16px var(--texto);font-weight:400;padding:10px 12px;border:1.5px solid var(--fio);border-radius:10px;width:100%;box-sizing:border-box;background:#fff;color:var(--ink)}
+#extraFolha .dois{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ex-uars{display:flex;flex-direction:column;gap:4px;max-height:220px;overflow:auto}
+.ex-uars button{text-align:left;border:1px solid var(--fio);background:#fff;border-radius:8px;padding:8px 10px;font:14px var(--texto);cursor:pointer;color:var(--ink)}
+.ex-uars button:hover{background:#F2F9FD}.ex-uars .sub{font-size:13.5px;color:var(--sutil);padding:4px 2px}
+.ex-uar{display:flex;gap:8px;align-items:center;background:#E6F4FC;border-radius:10px;padding:8px 10px;font-size:14.5px}.ex-uar span{flex:1}.ex-uar small{display:block;color:var(--sutil);font-size:12.5px}
 .mod-sel{display:none}
 body.mesa .mod-sel{display:flex;gap:2px;background:#EEF3F6;border-radius:10px;padding:3px;margin:2px 0 8px}
 body.mesa .mod-sel button{flex:1;border:0;background:transparent;border-radius:8px;font:600 12.5px var(--texto);color:var(--sutil);padding:7px 2px;cursor:pointer;white-space:nowrap}
@@ -572,7 +579,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.51 · 11/10/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -583,20 +590,20 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste para esta janela um KMZ do Conversor (Lineares) ou um Anexo 2 em Excel (Localizadas).<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.51 · 11/10/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.51 · 11/10/2026</div>
+  <div class="rodape">versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.51 · 11/10/2026</div>
+  <div class="rodape">versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T1e BASES DE CONSULTA (mesa) -->
@@ -604,20 +611,20 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <div id="basesBox"></div>
   <aside id="basesLado" aria-label="Detalhe da consulta"></aside>
   <input type="file" id="arqBase" class="oculta" accept=".xlsx,.xlsm">
-  <div class="rodape">versão 0.51 · 11/10/2026</div>
+  <div class="rodape">versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.51 · 11/10/2026</div>
+  <div class="rodape">versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T1e PARECER DO ESPECIALISTA -->
 <section class="tela" id="t-parecer">
   <div id="parecerBox"></div>
-  <div class="rodape">versão 0.51 · 11/10/2026</div>
+  <div class="rodape">versão 0.52 · 11/10/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -751,6 +758,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
   <div class="ff"><button class="btn" id="btnEntrarOk" onclick="confirmarEntrar()">Entrar</button></div>
 </div>
 
+<div class="notas-fundo" id="extraFundo" onclick="if(event.target===this)fecharExtra()"><div class="notas-folha" id="extraFolha" role="dialog" aria-modal="true"></div></div>
 <div class="notas-fundo" id="notasFundo" onclick="if(event.target===this)fecharNotas()"><div class="notas-folha" role="dialog" aria-modal="true" aria-labelledby="notasTit"><div class="nf-cab"><div><b id="notasTit">Notas</b><small id="notasSub"></small></div><button class="mini neutro" onclick="fecharNotas()">Fechar</button></div><div id="notasLista"></div><textarea id="notasTxt" rows="3"></textarea><button class="btn" onclick="addNota()">Adicionar nota</button></div></div>
 <div class="modal-fundo" id="modalFundo"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"><span id="toastTxt"></span></div>
@@ -759,7 +767,7 @@ label{font-weight:700;font-size:16px;display:block;margin-bottom:6px}
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.51';
+const VERSAO='0.52';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -1778,7 +1786,8 @@ function renderAtivos(){
     +'<div class="filtros ativos-filtros">'+Object.keys(rot).map(k=>'<button class="filtro'+((V.ui.filtro||'todos')===k?' on':'')+'" onclick="setFiltroAtivos(\'filtro\',\''+k+'\')">'+rot[k]+' '+cont[k]+'</button>').join('')+'</div>'
     +(locsDistintas.length>1?'<label class="ativos-loc">Localidade <select onchange="setFiltroAtivos(\'localidade\',this.value)"><option value="">Todas</option>'+locsDistintas.map(l=>'<option'+(V.ui.localidade===l?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select></label>':'')
     +'<div class="busca"><span style="display:flex;color:var(--sutil)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="M20 20l-4.4-4.4"/></svg></span><input type="search" id="buscaAtivos" placeholder="Inventário, descrição ou marca" autocomplete="off" value="'+esc(V.ui.busca||'')+'" oninput="setFiltroAtivos(\'busca\',this.value)"><button id="btnTeclado" class="tecla" onclick="tecladoNum()" aria-label="Alternar teclado numérico">123</button></div>'
-    +'<div id="listaAtivos"></div>';
+    +'<div id="listaAtivos"></div>'+(bloqueada()?'':'<button class="btn texto" onclick="abrirExtra()">+ Registrar ativo fora do Anexo 2</button>');
+  catalogo().catch(()=>{});
   desenharListaAtivos();
 }
 function desenharListaAtivos(){
@@ -1798,7 +1807,7 @@ function cardAtivo(a){
   return '<div class="lin ativo-lin'+(ab?' aberto':'')+'" role="button" tabindex="0" onclick="abrirAtivo(\''+esc(a.id)+'\')" onkeydown="if(event.key===\'Enter\')this.click()">'
     +'<span class="est '+(e==='ressalva'?'ressalva':(e==='ok'?'ok':''))+'">'+(e==='ok'?'✓':(e==='ressalva'?'!':''))+'</span>'
     +'<div class="ativo-corpo"><div class="ad"><span class="ad-t">'+esc(a.descricao)+'</span>'+icNota(a.id,true)+'</div>'
-    +'<div class="ai">'+(a.inventario?'<span class="inv-rot">Inv.</span> <span class="inv">'+esc(a.inventario)+'</span>':'<span class="sub">sem inventário</span>')+(a.quantidade!=null&&!(a.quantidade===1&&/^UN$/i.test(a.um))?' <span class="sub">· '+esc(String(a.quantidade).replace('.',','))+' '+esc(a.um.replace('M2','m²'))+'</span>':'')+'</div>'
+    +'<div class="ai">'+(a.inventario?'<span class="inv-rot">Inv.</span> <span class="inv">'+esc(a.inventario)+'</span>':(a.extra?'<span class="selo aten">fora do Anexo 2</span>':'<span class="sub">sem inventário</span>'))+(a.quantidade!=null&&!(a.quantidade===1&&/^UN$/i.test(a.um))?' <span class="sub">· '+esc(String(a.quantidade).replace('.',','))+' '+esc(a.um.replace('M2','m²'))+'</span>':'')+'</div>'
     +'<div class="sub">'+(a.up?esc(a.up)+' · ':'')+esc(a.uarDesc||'')+'</div>'
     +(placa?'<div class="sub">'+esc(placa)+'</div>':'')
     +(varias&&a.localidade?'<div class="sub">Localidade '+esc(a.localidade)+'</div>':'')
@@ -1811,7 +1820,7 @@ function cardAtivo(a){
 
 /* ---------- Obras Localizadas: ficha do ativo (entrega 3) ---------- */
 const uP=n=>V&&V.modulo==='localizadas'?(n===1?'ativo':'ativos'):(n===1?'PV':'PVs');
-function novoRegAtivo(a){ const z=()=>({v:null,txt:''}); return {tipo:'ativo',temInv:!!(a&&a.inventario),temSerie:!!(a&&a.serie),estado:'rascunho',inicio:agoraIso(),fim:null,respostas:{localizado:z(),operacao:z(),plaqueta:z(),confere:z(),serie:z()},fotos:[],obs:''}; }
+function novoRegAtivo(a){ const z=()=>({v:null,txt:''}); return {tipo:'ativo',extra:!!(a&&a.extra),temInv:!!(a&&a.inventario),temSerie:!!(a&&a.serie),estado:'rascunho',inicio:agoraIso(),fim:null,respostas:{localizado:a&&a.extra?{v:'sim',txt:''}:z(),operacao:z(),plaqueta:z(),confere:z(),serie:z()},fotos:[],obs:''}; }
 function fotosMinAtivo(r){ return r.respostas.localizado.v==='nao'?1:2; }
 function pendAtivo(r){
   const q=r.respostas, f=[]; let semResp=0, semJust=0, semNum=0; const vz=s=>!String(s||'').trim();
@@ -1832,16 +1841,16 @@ function pendAtivo(r){
 function estadoAtivo(r){
   const q=r.respostas; const vazio=!(r.fotos||[]).length&&!String(r.obs||'').trim()&&!Object.values(q).some(a=>a&&(a.v||String(a.txt||'').trim()));
   if(vazio)return null; if(pendAtivo(r).length)return 'rascunho';
-  return (q.localizado.v==='nao'||q.operacao.v==='nao'||q.plaqueta.v==='nao'||q.confere.v==='nao'||q.serie.v==='nao')?'ressalva':'ok';
+  return (r.extra||q.localizado.v==='nao'||q.operacao.v==='nao'||q.plaqueta.v==='nao'||q.confere.v==='nao'||q.serie.v==='nao')?'ressalva':'ok';
 }
 const limpaAttr=v=>String(v||'').replace(/^\s*\d+\s*-\s*/,'').replace(/^.*?=\s*/,'').replace(/\bANT(?:\.|ERIOR)?\s+AT[ÉE](?![A-Za-zÀ-ÿ])/gi,'até');
-function placaAtivo(a){ return [a.fabricante&&a.marca&&a.fabricante.toUpperCase()===a.marca.toUpperCase()?a.marca:[a.fabricante,a.marca].filter(Boolean).join(' / '),a.modelo,a.serie?'série '+a.serie:''].filter(Boolean).join(' · '); }
+function placaAtivo(a){ return [a.fabricante&&a.marca&&a.fabricante.toUpperCase()===a.marca.toUpperCase()?a.marca:[a.fabricante,a.marca].filter(Boolean).join(' / '),a.modelo,(a.serie||a.serieCampo)?'série '+(a.serie||a.serieCampo):''].filter(Boolean).join(' · '); }
 function textosFicha(loc){
   $('fotosMin').textContent=loc?'(pelo menos 2)':'(pelo menos 1)';
   $('fotoDica').textContent=loc?'Sugestão: uma do ativo inteiro e uma da plaqueta de inventário ou da placa do fabricante. Cada foto sai carimbada com data, hora, posição e inventário.':'Sugestão: uma do local e uma da tampa aberta, vistas de fora. Cada foto sai carimbada com data, hora e posição.';
   $('obs').placeholder=loc?'Ex.: equipamento em manutenção, plaqueta pintada':'Ex.: tampa na calçada, em frente ao nº 120';
   const nb=document.querySelectorAll('#fichaNav button'); if(nb.length===2){ nb[0].textContent='‹ '+(loc?'Ativo':'PV')+' anterior'; nb[1].textContent=(loc?'Ativo':'PV')+' seguinte ›'; }
-  $('btnLimpar').textContent='Limpar este '+(loc?'ativo':'PV');
+  $('btnLimpar').textContent='Limpar este '+(loc?'ativo':'PV'); $('btnExcluirPv').textContent='Excluir este '+(loc?'ativo':'PV');
 }
 function cabecalhoAtivo(){
   const a=P; const idx=V.pontos.indexOf(a)+1; const g=grupoLoc(a.local);
@@ -1849,7 +1858,7 @@ function cabecalhoAtivo(){
   const placa=placaAtivo(a); const lin=(k,v)=>v?'<span class="k">'+k+'</span>'+esc(v)+'<br>':'';
   const cad=$('cad');
   cad.innerHTML='<div class="linha1"><span>'+esc(a.descricao)+'</span><i>detalhes</i></div>'
-    +'<div class="cad-ativo">'+(a.inventario?'<span class="inv-rot">Inv.</span> <b class="inv">'+esc(a.inventario)+'</b>':'<span class="sub">sem inventário no Anexo 2</span>')+'<div class="sub">'+esc((a.up?a.up+' · ':'')+(a.uarDesc||''))+'</div>'+(placa?'<div class="sub">'+esc(placa)+'</div>':'')+'</div>'
+    +'<div class="cad-ativo">'+(a.inventario?'<span class="inv-rot">Inv.</span> <b class="inv">'+esc(a.inventario)+'</b>':(a.extra?'<span class="selo aten">fora do Anexo 2</span> <span class="sub">registrado em campo'+(a.criadoPor?' por '+esc(a.criadoPor):'')+'</span>':'<span class="sub">sem inventário no Anexo 2</span>'))+'<div class="sub">'+esc((a.up?a.up+' · ':'')+(a.uarDesc||''))+'</div>'+(placa?'<div class="sub">'+esc(placa)+'</div>':'')+'</div>'
     +'<div class="det">'+lin('Local',a.local)+a.atributos.map(x=>lin(x.nome,limpaAttr(x.valor))).join('')+lin('UAR',a.uarCod||a.uar)+lin('UP',a.upNome||a.up)+lin('Localidade',a.localidade)+lin('Centro de custo',a.cc)+(a.quantidade!=null&&!(a.quantidade===1&&/^UN$/i.test(a.um))?lin('Quantidade',String(a.quantidade).replace('.',',')+' '+a.um):'')+lin('Linha do Anexo 2',String(a.linha))+'</div>';
   cad.classList.remove('aberto');
 }
@@ -1860,14 +1869,14 @@ function renderRespostasAtivo(){
   const campo=(k,rot,ph,modo)=>{ const v=esc(q[k].txt||''); const vazio=!String(q[k].txt||'').trim();
     return '<div class="qa-txt'+(vazio?' pend':'')+'"><label for="qt-'+k+'">'+rot+'</label>'+(modo?'<input type="text" id="qt-'+k+'" inputmode="'+(modo==='n'?'numeric':'text')+'" autocomplete="off" value="'+v+'" placeholder="'+esc(ph)+'"'+(ro?' disabled':'')+' oninput="txtA(\''+k+'\',this.value,this)">':'<textarea id="qt-'+k+'" rows="2" placeholder="'+esc(ph)+'"'+(ro?' disabled':'')+' oninput="txtA(\''+k+'\',this.value,this)">'+v+'</textarea>')+'</div>'; };
   const SN=k=>[bt(k,'sim','Sim','sim'),bt(k,'nao','Não','nao')];
-  let h=perg('localizado','Ativo localizado?','',SN('localizado'),q.localizado.v==='nao'?campo('localizado','Por que não foi localizado?','Ex.: não está no local indicado; removido; área sem acesso'):'');
+  let h=a.extra?'':perg('localizado','Ativo localizado?','',SN('localizado'),q.localizado.v==='nao'?campo('localizado','Por que não foi localizado?','Ex.: não está no local indicado; removido; área sem acesso'):'');
   if(q.localizado.v!=='nao'){
     h+=perg('operacao','Ativo em operação?','',SN('operacao'),q.operacao.v==='nao'?campo('operacao','Por que não está em operação?','Ex.: em manutenção; desligado; aguardando energia'):'');
     let ext='';
     if(q.plaqueta.v==='nao')ext=campo('plaqueta','O que foi encontrado?','Ex.: sem plaqueta; ilegível; sem acesso para ler');
     else if(q.plaqueta.v==='sim'){
       if(a.inventario)ext='<div class="sub-perg'+(q.confere.v==='nao'?' nao':'')+'"><div class="q2">O número confere com <b class="inv">'+esc(a.inventario)+'</b>?</div><div class="sn">'+SN('confere').join('')+'</div>'+(q.confere.v==='nao'?campo('confere','Número lido na plaqueta','Só os números','n'):'')+'</div>';
-      else ext=campo('confere','Número lido na plaqueta','O Anexo 2 não traz inventário para este ativo','n');
+      else ext=campo('confere','Número lido na plaqueta',a.extra?'Anote o número da plaqueta deste ativo':'O Anexo 2 não traz inventário para este ativo','n');
     }
     h+=perg('plaqueta','Plaqueta de inventário visível?','',SN('plaqueta'),ext);
     if(a.serie)h+=perg('serie','Número de série confere?','No Anexo 2: <b class="inv">'+esc(a.serie)+'</b>',[bt('serie','sim','Sim','sim'),bt('serie','nao','Não','nao'),bt('serie','nv','Não visível','nv')],q.serie.v==='nao'?campo('serie','Série lida na placa','Como está na placa','t'):'');
@@ -1896,6 +1905,7 @@ function pendenciaAtivoAlvo(r){
 }
 function motivosAtivo(a,r){ // texto curto de cada observação do ativo, para Resumo e relatório
   const q=r.respostas, m=[];
+  if(r.extra||a.extra)m.push({t:'Encontrado em campo, fora do Anexo 2',j:a.uarCod?a.uarCod+' · '+a.uarDesc:(a.uarDesc||'UAR a definir')});
   if(q.localizado.v==='nao')m.push({t:'Não localizado',j:q.localizado.txt});
   if(q.operacao.v==='nao')m.push({t:'Fora de operação',j:q.operacao.txt});
   if(q.plaqueta.v==='nao')m.push({t:'Plaqueta de inventário não visível',j:q.plaqueta.txt});
@@ -1908,8 +1918,8 @@ function htmlRelatorioLoc(v,fotos,opts){
   const h=esc, txtBr=s=>esc(s).replace(/\n/g,'<br>'); const c=contagens(v); const pl=v.planta||{};
   const est=a=>{ const r=v.registros[a.id]; return r?(recalcEstado(r)||'consta'):'consta'; };
   const feitos=v.pontos.filter(a=>{ const e=est(a); return e==='ok'||e==='ressalva'; }), pend=v.pontos.filter(a=>!feitos.includes(a));
-  let nF=0; const cat={nl:0,op:0,pl:0,inv:0,se:0,nv:0};
-  for(const a of feitos){ const r=v.registros[a.id], q=r.respostas; nF+=(r.fotos||[]).length; if(q.localizado.v==='nao')cat.nl++; if(q.operacao.v==='nao')cat.op++; if(q.plaqueta.v==='nao')cat.pl++; if(q.confere.v==='nao')cat.inv++; if(q.serie.v==='nao')cat.se++; if(q.serie.v==='nv')cat.nv++; }
+  let nF=0; const cat={nl:0,op:0,pl:0,inv:0,se:0,nv:0,ex:0}; const doAnexo=v.pontos.filter(a=>!a.extra).length;
+  for(const a of feitos){ const r=v.registros[a.id], q=r.respostas; nF+=(r.fotos||[]).length; if(a.extra)cat.ex++; if(q.localizado.v==='nao')cat.nl++; if(q.operacao.v==='nao')cat.op++; if(q.plaqueta.v==='nao')cat.pl++; if(q.confere.v==='nao')cat.inv++; if(q.serie.v==='nao')cat.se++; if(q.serie.v==='nv')cat.nv++; }
   const logo=(document.getElementById('hdrLogo')||{}).src||'';
   const resp=(v.responsaveis||[]).map(r=>h(r.nome)+(r.matricula?' <small>(matr. '+h(r.matricula)+')</small>':'')).join(', ');
   const atrib=textoAtrib(v.id); const end=[[pl.rua,pl.numero].filter(Boolean).join(', '),pl.bairro,[pl.cidade,pl.uf].filter(Boolean).join(' · ')].filter(Boolean).join(' · ');
@@ -1923,7 +1933,7 @@ function htmlRelatorioLoc(v,fotos,opts){
   const grupos=new Map(); for(const a of feitos){ const k=a.local||''; if(!grupos.has(k))grupos.set(k,[]); grupos.get(k).push(a); }
   const ficha=a=>{ const r=v.registros[a.id]; const fs=(r.fotos||[]).map((fid,i)=>{ const f=fotos[fid]; return f?'<figure><img src="'+f.src+'" alt="Foto '+(i+1)+'"><figcaption>Foto '+(i+1)+(f.quando?' · '+fmtData(f.quando)+' '+fmtHora(f.quando):'')+(f.lat!=null?' · GPS':'')+'</figcaption></figure>':'<figure class="semfoto">Foto '+(i+1)+'<br><small>ainda não chegou a este aparelho</small></figure>'; }).join('');
     const placa=placaAtivo(a); const nt=notas[a.id];
-    return '<div class="ficha"><div class="fcab"><span class="inv">'+(a.inventario?'Inv. '+h(a.inventario):'sem inventário')+'</span><b>'+h(a.descricao)+'</b>'+(est(a)==='ressalva'?'<span class="tag">com observação</span>':'')+'</div>'
+    return '<div class="ficha"><div class="fcab"><span class="inv">'+(a.inventario?'Inv. '+h(a.inventario):(a.extra&&v.registros[a.id]&&v.registros[a.id].respostas.confere.txt?'Inv. lido '+h(v.registros[a.id].respostas.confere.txt):'sem inventário'))+'</span><b>'+h(a.descricao)+'</b>'+(a.extra?'<span class="tag">fora do Anexo 2</span>':(est(a)==='ressalva'?'<span class="tag">com observação</span>':''))+'</div>'
       +'<div class="fsub">'+h((a.up?a.up+' · ':'')+(a.uarDesc||''))+(placa?' · '+h(placa):'')+'</div><div class="res">'+resultado(a)+'</div>'
       +(String(r.obs||'').trim()?'<div class="fobs"><b>Observação:</b> '+txtBr(r.obs)+'</div>':'')+notasRelHtml(v,a.id,h)+(comParecer&&nt?'<div class="nota"><b>Nota do especialista:</b> '+txtBr(nt)+'</div>':'')
       +(fs?'<div class="fotos">'+fs+'</div>':'')+((r.correcoes||[]).length?'<div class="fsub">Corrigido de mesa: '+r.correcoes.map(x=>h(x.por)+' em '+fmtData(x.quando)+(x.motivo?' ('+h(x.motivo)+')':'')).join('; ')+'</div>':'')+'</div>'; };
@@ -1948,11 +1958,11 @@ function htmlRelatorioLoc(v,fotos,opts){
     +'<div class="meta"><div><span>Endereço</span>'+(h(end)||'não informado')+'</div><div><span>Localidade · Centro de custo</span>'+h((v.localidades||[]).join(', ')||'não informada')+' · '+h((v.centrosCusto||[]).join(', ')||'não informado')+'</div>'
     +'<div><span>Início em campo</span>'+(v.iniciadaEm?fmtData(v.iniciadaEm)+' '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' · '+h(v.iniciadaPor):''):'não iniciada')+'</div><div><span>Situação</span>'+h(estadoVistoria(v).t)+(v.encerradaEm?' em '+fmtData(v.encerradaEm):'')+'</div>'
     +'<div><span>Responsáveis</span>'+(resp||'não informados')+'</div><div><span>Atribuída a</span>'+(h(atrib)||'ninguém')+'</div>'
-    +'<div><span>Anexo 2</span>'+h((v.origem&&v.origem.arquivo)||'')+(v.origem&&v.origem.carregadoEm?' · carregado em '+fmtData(v.origem.carregadoEm):'')+'</div><div><span>Ativos no Anexo 2</span>'+v.pontos.length+'</div></div>'
-    +'<div class="nums"><div><b>'+v.pontos.length+'</b><small>no Anexo 2</small></div><div><b>'+c.reg+'</b><small>vistoriados</small></div><div class="o"><b>'+c.ok+'</b><small>conferem</small></div><div class="a"><b>'+c.res+'</b><small>com observação</small></div><div><b>'+(v.pontos.length-c.reg)+'</b><small>pendentes</small></div><div><b>'+nF+'</b><small>fotos</small></div></div>'
+    +'<div><span>Anexo 2</span>'+h((v.origem&&v.origem.arquivo)||'')+(v.origem&&v.origem.carregadoEm?' · carregado em '+fmtData(v.origem.carregadoEm):'')+'</div><div><span>Ativos no Anexo 2</span>'+doAnexo+(v.pontos.length>doAnexo?' · '+(v.pontos.length-doAnexo)+' encontrado'+(v.pontos.length-doAnexo>1?'s':'')+' fora dele':'')+'</div></div>'
+    +'<div class="nums"><div><b>'+doAnexo+'</b><small>no Anexo 2</small></div><div><b>'+c.reg+'</b><small>vistoriados</small></div><div class="o"><b>'+c.ok+'</b><small>conferem</small></div><div class="a"><b>'+c.res+'</b><small>com observação</small></div><div><b>'+(v.pontos.length-c.reg)+'</b><small>pendentes</small></div><div><b>'+nF+'</b><small>fotos</small></div></div>'
     +comentarioRelHtml(v,h)
     +(comParecer&&String(par.destaques||'').trim()?'<h2>Destaques</h2><div>'+txtBr(par.destaques)+'</div>':'')
-    +(c.res||cat.nv?'<h2>Observações</h2><ul class="obs-lista">'+(cat.nl?'<li><b>'+cat.nl+'</b> não localizado'+(cat.nl>1?'s':'')+'</li>':'')+(cat.op?'<li><b>'+cat.op+'</b> fora de operação</li>':'')+(cat.pl?'<li><b>'+cat.pl+'</b> com plaqueta de inventário não visível</li>':'')+(cat.inv?'<li><b>'+cat.inv+'</b> com número de inventário diferente do Anexo 2</li>':'')+(cat.se?'<li><b>'+cat.se+'</b> com número de série diferente do Anexo 2</li>':'')+(cat.nv?'<li><b>'+cat.nv+'</b> com série não visível (informação)</li>':'')+'</ul>':'')
+    +(c.res||cat.nv?'<h2>Observações</h2><ul class="obs-lista">'+(cat.ex?'<li><b>'+cat.ex+'</b> encontrado'+(cat.ex>1?'s':'')+' em campo, fora do Anexo 2</li>':'')+(cat.nl?'<li><b>'+cat.nl+'</b> não localizado'+(cat.nl>1?'s':'')+'</li>':'')+(cat.op?'<li><b>'+cat.op+'</b> fora de operação</li>':'')+(cat.pl?'<li><b>'+cat.pl+'</b> com plaqueta de inventário não visível</li>':'')+(cat.inv?'<li><b>'+cat.inv+'</b> com número de inventário diferente do Anexo 2</li>':'')+(cat.se?'<li><b>'+cat.se+'</b> com número de série diferente do Anexo 2</li>':'')+(cat.nv?'<li><b>'+cat.nv+'</b> com série não visível (informação)</li>':'')+'</ul>':'')
     +'<h2>Ativos vistoriados, por local</h2>'+(feitos.length?[...grupos].map(([k,as])=>{ const g=grupoLoc(k); return '<h3>'+(g.sigla?h(g.sigla)+' · ':'')+h(g.nome)+' <small>('+as.length+')</small></h3>'+as.map(ficha).join(''); }).join(''):'<p>Nenhum ativo vistoriado ainda.</p>')
     +(pend.length?'<h2>Ativos sem vistoria ('+pend.length+')</h2><ul class="pend">'+pend.map(a=>'<li>'+(a.inventario?'Inv. '+h(a.inventario)+' · ':'')+h(a.descricao)+(a.local?' <small>('+h(grupoLoc(a.local).sigla||grupoLoc(a.local).nome)+')</small>':'')+(est(a)==='rascunho'?' <small>· ficha em andamento</small>':'')+notasRelHtml(v,a.id,h)+'</li>').join('')+'</ul>':'')
     +(comParecer&&String(par.conclusao||'').trim()?'<h2>Conclusão e encaminhamentos</h2><div>'+txtBr(par.conclusao)+'</div>':'')
@@ -2028,7 +2038,7 @@ async function setModulo(m,naoRender){
 async function planilhaAtivos(){
   const sel=filtrarCarteira(carteiraItens).filter(i=>i.modulo==='localizadas'&&i.reg>0); if(!sel.length){ toast('Nenhuma vistoria com ativos vistoriados nesses filtros'); return; }
   toast('Montando a planilha de ativos…');
-  const cab=['Vistoria','Id vistoria','Planta Global','Município','Situação da vistoria','Local','Inventário (Anexo 2)','Descrição','UP','UAR','Descrição da UAR','Fabricante','Marca','Modelo','Série (Anexo 2)','Localidade','Centro de custo','Localizado','Por que não localizado','Em operação','Por que não opera','Plaqueta visível','Sem plaqueta: o que foi encontrado','Inventário confere','Inventário lido','Série confere','Série lida','Resultado','Fotos','Notas','Registrado em'];
+  const cab=['Vistoria','Id vistoria','Planta Global','Município','Situação da vistoria','Local','Inventário (Anexo 2)','Descrição','UP','UAR','Descrição da UAR','Fabricante','Marca','Modelo','Série (Anexo 2)','Localidade','Centro de custo','Localizado','Por que não localizado','Em operação','Por que não opera','Plaqueta visível','Sem plaqueta: o que foi encontrado','Inventário confere','Inventário lido','Série confere','Série lida','Resultado','Fora do Anexo 2','Fotos','Notas','Registrado em'];
   const sn=x=>x&&x.v?(x.v==='sim'?'Sim':(x.v==='nv'?'Não visível':'Não')):''; const ls=[];
   for(const i of sel){
     let v=await dbGet('vistorias',i.id);
@@ -2037,10 +2047,67 @@ async function planilhaAtivos(){
     for(const a of v.pontos){ const r=v.registros[a.id]; if(!r)continue; const e=recalcEstado(r); if(!e||e==='rascunho')continue; const q=r.respostas;
       ls.push([nomeV(v),i.id,(v.planta&&v.planta.codigo)||'',(v.planta&&v.planta.cidade)||'',i.estado.t,a.local,a.inventario,a.descricao,a.upNome||a.up,a.uarCod||a.uar,a.uarDesc,a.fabricante,a.marca,a.modelo,a.serie,a.localidade,a.cc,
         sn(q.localizado),q.localizado.v==='nao'?q.localizado.txt:'',sn(q.operacao),q.operacao.v==='nao'?q.operacao.txt:'',sn(q.plaqueta),q.plaqueta.v==='nao'?q.plaqueta.txt:'',a.inventario?sn(q.confere):'',q.confere.txt||'',a.serie?sn(q.serie):'',q.serie.v==='nao'?q.serie.txt:'',
-        e==='ok'?'confere':'com observação',(r.fotos||[]).length,notasDe(v,a.id).map(n=>n.txt).join(' | '),dh(r.fim||r.inicio)]); }
+        e==='ok'?'confere':'com observação',a.extra?'Sim':'',(r.fotos||[]).length,notasDe(v,a.id).map(n=>n.txt).join(' | '),dh(r.fim||r.inicio)]); }
   }
   baixarTexto('carteira_ativos_'+nomeData()+'.csv',[csvLinha(cab),...ls.map(csvLinha)].join('\r\n'));
   toast('Planilha baixada: '+ls.length+' ativo'+(ls.length===1?'':'s')); registrarEvento('planilha_ativos',{linhas:ls.length});
+}
+
+/* ---------- ativo fora do Anexo 2 (v0.52) ---------- */
+let mcprCache=null, extraF=null;
+async function catalogo(forcar){
+  if(!mcprCache){ try{ const c=await pref('mcprCache'); if(c&&c.rows&&c.rows.length)mcprCache=c; }catch(e){} }
+  const velho=!mcprCache||Date.now()-new Date(mcprCache.em).getTime()>7*864e5;
+  if((velho||forcar)&&sessao&&sessao.perfil&&navigator.onLine){
+    try{ const rows=await lerTudo('/rest/v1/mcpr_uar?select=uar,up,up_nome,nome,um&na_base=is.true&order=up,uar'); if(rows.length){ mcprCache={em:agoraIso(),rows}; await pref('mcprCache',mcprCache); } }catch(e){}
+  }
+  return mcprCache;
+}
+async function abrirExtra(){
+  if(!V||bloqueada())return;
+  extraF={local:'',localNovo:'',up:'',uar:null,uarLivre:'',busca:'',descricao:'',fab:'',modelo:'',serie:''};
+  $('extraFundo').classList.add('on'); $('extraFolha').innerHTML='<div class="vazio" style="padding:14px">Abrindo o catálogo…</div>';
+  await catalogo(); desenharExtra();
+}
+function fecharExtra(){ $('extraFundo').classList.remove('on'); extraF=null; }
+function desenharExtra(){
+  const f=extraF; if(!f)return; const cat=mcprCache&&mcprCache.rows||[];
+  const locais=[...new Set(V.pontos.map(a=>a.local).filter(Boolean))];
+  const ups=[...new Map(cat.map(u=>[u.up,u.up_nome])).entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+  const op=(v,tx,on)=>'<option value="'+esc(v)+'"'+(on?' selected':'')+'>'+esc(tx)+'</option>';
+  $('extraFolha').innerHTML='<div class="nf-cab"><div><b>Ativo fora do Anexo 2</b><small>Encontrado em campo e não listado no Anexo 2 desta planta.</small></div><button class="mini neutro" onclick="fecharExtra()">Cancelar</button></div>'
+    +'<label class="ex-l">Local na planta<select onchange="extraF.local=this.value;desenharExtra()">'+op('','Escolha o local',!f.local)+locais.map(l=>op(l,l,f.local===l)).join('')+op('__novo','Outro local',f.local==='__novo')+'</select></label>'
+    +(f.local==='__novo'?'<input class="ex-i" placeholder="Ex.: CDX 2 - Caixa de distribuição 2" value="'+esc(f.localNovo)+'" oninput="extraF.localNovo=this.value">':'')
+    +(cat.length
+      ?'<label class="ex-l">UP<select onchange="extraF.up=this.value;extraF.uar=null;desenharExtra()">'+op('','Todas as UPs',!f.up)+ups.map(u=>op(u[0],u[1]||u[0],f.up===u[0])).join('')+'</select></label>'
+        +(f.uar?'<div class="ex-uar"><span><b class="base-cod">'+esc(String(f.uar.uar).padStart(7,'0'))+'</b> '+esc(f.uar.nome)+'<small>'+esc(f.uar.up_nome||'')+'</small></span><button class="mini neutro" onclick="extraF.uar=null;desenharExtra()">Trocar</button></div>'
+          :'<label class="ex-l">Tipo de ativo (UAR)<input class="ex-i" id="exBusca" placeholder="Buscar: bomba, painel, válvula…" value="'+esc(f.busca)+'" oninput="extraF.busca=this.value;listarUarsExtra()" autocomplete="off"></label><div id="exUars" class="ex-uars"></div>')
+      :'<div class="aviso-base">O catálogo MCPR não está '+noAp('neste aparelho')+' agora. Descreva o tipo do ativo; o especialista define a UAR depois.</div>')
+    +(!f.uar?'<input class="ex-i" placeholder="Ou descreva o tipo, se não achar na lista" value="'+esc(f.uarLivre)+'" oninput="extraF.uarLivre=this.value">':'')
+    +'<label class="ex-l">Descrição do ativo<input class="ex-i" id="exDesc" placeholder="Ex.: Bomba dosadora de cloro 02" value="'+esc(f.descricao)+'" oninput="extraF.descricao=this.value"></label>'
+    +'<div class="dois"><input class="ex-i" placeholder="Fabricante ou marca" value="'+esc(f.fab)+'" oninput="extraF.fab=this.value"><input class="ex-i" placeholder="Modelo" value="'+esc(f.modelo)+'" oninput="extraF.modelo=this.value"></div>'
+    +'<input class="ex-i" placeholder="Número de série (se houver)" value="'+esc(f.serie)+'" oninput="extraF.serie=this.value">'
+    +'<p class="ajuda" style="font-size:13.5px;margin:0">O número de inventário é perguntado na ficha, junto com a plaqueta.</p>'
+    +'<button class="btn" onclick="criarExtra()">Criar e abrir a ficha</button>';
+  if(cat.length&&!f.uar)listarUarsExtra();
+}
+function listarUarsExtra(){
+  const el=$('exUars'); if(!el||!extraF)return; const cat=mcprCache&&mcprCache.rows||[]; const ws=normTxt(extraF.busca).split(' ').filter(Boolean);
+  const rs=cat.filter(u=>(!extraF.up||u.up===extraF.up)&&ws.every(w=>normTxt(u.nome+' '+u.uar).includes(w)));
+  if(!ws.length&&!extraF.up){ el.innerHTML='<div class="sub">Escolha a UP ou digite parte do nome.</div>'; return; }
+  el.innerHTML=rs.length?rs.slice(0,25).map(u=>'<button onclick="escolherUarExtra(\''+esc(u.uar)+'\')"><b class="base-cod">'+esc(String(u.uar).padStart(7,'0'))+'</b> '+esc(u.nome)+'</button>').join('')+(rs.length>25?'<div class="sub">Mais '+(rs.length-25)+'. Refine a busca.</div>':''):'<div class="sub">Nenhuma UAR com essa busca. Se não achar, descreva o tipo no campo abaixo.</div>';
+}
+function escolherUarExtra(uar){ const u=(mcprCache.rows||[]).find(x=>x.uar===uar); if(!u)return; extraF.uar=u; desenharExtra(); }
+async function criarExtra(){
+  const f=extraF; if(!f)return; const desc=String(f.descricao||'').trim();
+  if(!desc){ toast('Escreva a descrição do ativo'); const d=$('exDesc'); if(d)d.focus(); return; }
+  const local=f.local==='__novo'?String(f.localNovo||'').trim():f.local;
+  const u=f.uar; const obs=[];
+  if(!u)obs.push(String(f.uarLivre||'').trim()?'Tipo informado em campo ("'+String(f.uarLivre).trim()+'"): UAR a definir pelo especialista.':'UAR não informada: a definir pelo especialista.');
+  const quem=(sessao&&sessao.perfil&&sessao.perfil.nome)||V.iniciadaPor||'';
+  const a={id:'x_'+uid(),extra:true,nome:desc,inventario:'',local,descricao:desc,planta:(V.planta&&V.planta.codigo)||'',localidade:'',cc:'',up:u?u.up:'',upNome:u?String(u.up_nome||'').replace(/^\s*\d+\s*-\s*/,''):'',uar:u?u.uar:'',uarCod:u?String(u.uar).padStart(7,'0'):'',uarDesc:u?u.nome:String(f.uarLivre||'').trim(),um:u?u.um:'',quantidade:1,fabricante:String(f.fab||'').trim(),marca:'',modelo:String(f.modelo||'').trim(),serie:'',serieCampo:String(f.serie||'').trim(),atributos:[],linha:null,obs,criadoPor:quem,criadoEm:agoraIso()};
+  V.pontos.push(a); marcarAlterada(); await salvarV(); registrarEvento('ativo_extra',{pv:desc,uar:a.uarCod||a.uarDesc},V.id);
+  fecharExtra(); toast('Ativo incluído. Complete a ficha'); ir('ficha',{vid:V.id,pid:a.id});
 }
 
 /* ---------- parecer do especialista ---------- */
@@ -2558,7 +2625,7 @@ async function render(st){
   if(V&&P&&!mesma&&V.modulo!=='localizadas'){ for(const k of ['operando','diametro','material'])reg(P.id).respostas[k].guardado=null; }
   if(V&&!mesma)await salvarV(); // grava o que estava esperando o debounce antes de trocar de tela
   if(meu!==renderSeq)return;
-  telaAtual=st.tela; ultimoState=st; document.body.classList.toggle('na-bases',st.tela==='bases'); { const nf=document.getElementById('notasFundo'); if(nf)nf.classList.remove('on'); }
+  telaAtual=st.tela; ultimoState=st; document.body.classList.toggle('na-bases',st.tela==='bases'); { const nf=document.getElementById('notasFundo'); if(nf)nf.classList.remove('on'); const ef=document.getElementById('extraFundo'); if(ef)ef.classList.remove('on'); }
   if(st.tela!=='ficha'){ pararGps(); for(const k in fotosCache)URL.revokeObjectURL(fotosCache[k]); fotosCache={}; } // libera a memória das miniaturas
   if(st.tela!=='pvs')pararSeguir();
   document.querySelectorAll('.tela').forEach(t=>t.classList.toggle('on',t.id==='t-'+st.tela));
@@ -3276,9 +3343,9 @@ async function limparFicha(){
 }
 async function excluirPvExtra(){
   if(!P.extra)return;
-  if(!(await modal({titulo:'Excluir o '+P.nome+'?',texto:'Este PV foi registrado em campo. Ele some da vistoria junto com as fotos e respostas.',ok:'Excluir',cancel:'Manter',perigo:true})))return;
+  if(!(await modal({titulo:'Excluir '+(V.modulo==='localizadas'?'+P.nome+':'o '+P.nome)+'?',texto:'Este '+uP(1)+' foi registrado em campo. Ele some da vistoria junto com as fotos, respostas e notas.',ok:'Excluir',cancel:'Manter',perigo:true})))return;
   const r=V.registros[P.id]; if(r)for(const fid of r.fotos)await dbDel('fotos',fid);
-  delete V.registros[P.id]; V.pontos=V.pontos.filter(p=>p.id!==P.id); marcarAlterada(); await salvarV(); toast('PV excluído'); voltarParaLista();
+  delete V.registros[P.id]; if(V.notas)delete V.notas[P.id]; V.pontos=V.pontos.filter(p=>p.id!==P.id); marcarAlterada(); await salvarV(); toast((V.modulo==='localizadas'?'Ativo':'PV')+' excluído'); voltarParaLista();
 }
 async function iniciarVistoria(){
   if(!V||V.iniciadaEm||V.encerradaEm)return false;
