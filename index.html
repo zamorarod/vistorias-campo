@@ -612,7 +612,7 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.70 · 12/11/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -623,26 +623,26 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste para esta janela um KMZ do Conversor (Lineares) ou um Anexo 2 em Excel (Localizadas).<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.70 · 12/11/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.70 · 12/11/2026</div>
+  <div class="rodape">versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.70 · 12/11/2026</div>
+  <div class="rodape">versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1f OBSERVAÇÕES PARA O ESPECIALISTA (Localizadas) -->
 <section class="tela" id="t-obs">
   <div id="obsBox" style="display:flex;flex-direction:column;gap:10px"></div>
-  <div class="rodape">versão 0.70 · 12/11/2026</div>
+  <div class="rodape">versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1e BASES DE CONSULTA (mesa) -->
@@ -650,20 +650,20 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
   <div id="basesBox"></div>
   <aside id="basesLado" aria-label="Detalhe da consulta"></aside>
   <input type="file" id="arqBase" class="oculta" accept=".xlsx,.xlsm">
-  <div class="rodape">versão 0.70 · 12/11/2026</div>
+  <div class="rodape">versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.70 · 12/11/2026</div>
+  <div class="rodape">versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T1e PARECER DO ESPECIALISTA -->
 <section class="tela" id="t-parecer">
   <div id="parecerBox"></div>
-  <div class="rodape">versão 0.70 · 12/11/2026</div>
+  <div class="rodape">versão 0.74 · 12/11/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -733,6 +733,7 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
     <button class="btn texto" id="btnVoltarLista" onclick="salvarFicha(false)">Voltar à lista</button>
     <button class="btn texto" id="btnLimpar" onclick="limparFicha()">Limpar este PV</button>
     <button class="btn texto oculta" id="btnExcluirPv" style="color:var(--crit)" onclick="excluirPvExtra()">Excluir este PV</button>
+    <button class="btn texto oculta" id="btnRetirar" style="color:var(--crit)" onclick="retirarAtivo()">Excluir este ativo da vistoria</button>
   </div>
   <div class="barra" id="barraFicha"><div class="falta" id="falta" onclick="irParaPendencia()"></div><button class="btn" id="btnProximo" onclick="salvarFicha(true)">Salvar e abrir o próximo</button></div>
 </section>
@@ -748,6 +749,8 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
   <div id="resumoComentario" style="display:flex;flex-direction:column;gap:9px"></div>
   <h3 id="resumoNotasTit">Notas</h3>
   <div class="lista" id="resumoNotas"></div>
+  <h3 id="resumoRetTit" class="oculta">Ativos excluídos da vistoria</h3>
+  <div class="lista oculta" id="resumoRetirados"></div>
   <div id="blocoResp" style="display:contents">
   <h3>Responsáveis pela vistoria</h3>
   <div class="lista" id="listaResp"></div>
@@ -816,7 +819,7 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.70';
+const VERSAO='0.74';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -1037,7 +1040,7 @@ function juntarVistorias(L,S,base,esc){
     let perdida=null; if(!decidido){ if(esc[k]==='minha')fica=l; else if(esc[k]==='equipe')fica=s; else { fica=vencedorReg(l,s); perdida=fica===l?s:l; } } // v0.70: sem conflito para escolher; o envio nunca para
     if(fica){ const c=JSON.parse(JSON.stringify(fica)); const outra=fica===l?s:l; if(outra&&outra.correcoes&&outra.correcoes.length){ const ja=new Set((c.correcoes||[]).map(x=>x.quando+x.por)); c.correcoes=(c.correcoes||[]).concat(outra.correcoes.filter(x=>!ja.has(x.quando+x.por))).sort((a,b)=>(a.quando||'').localeCompare(b.quando||'')); } juntarVersoes(c,outra,perdida,k,autoNotas); regs[k]=c; }
   }
-  const excl=Object.assign({},S.excluidos||{},L.excluidos||{}); const mov=Object.assign({},S.movidos||{},L.movidos||{}); const voltaram=[]; for(const k in mov)if(excl[k]&&regs[k]){ delete excl[k]; voltaram.push(k); } /* v0.69: ativo separado que recebeu ficha depois, num aparelho sem sinal: a ficha não se perde */ for(const k in excl)delete regs[k];
+  const excl=juntarExcl(S.excluidos,L.excluidos); const mov=Object.assign({},S.movidos||{},L.movidos||{}); const voltaram=[]; for(const k in mov)if(excl[k]&&regs[k]){ delete excl[k]; voltaram.push(k); } /* v0.69: ativo separado que recebeu ficha depois, num aparelho sem sinal: a ficha não se perde */ for(const k in excl){ const x=excl[k]; if(ehRetirado(x)&&!x.restaurado&&regs[k]){ const hr=hashReg(regs[k]); if(!fichasRetirado(x).some(f=>hashReg(f)===hr))excl[k]=Object.assign({},x,{depois:(x.depois||[]).concat([JSON.parse(JSON.stringify(regs[k]))])}); } } /* v0.72: ficha feita depois da exclusão fica guardada na marca */ for(const k in excl)delete regs[k];
   const pontos=JSON.parse(JSON.stringify(L.pontos||[])).filter(p=>!excl[p.id]); const pid=new Set(pontos.map(p=>p.id)); for(const p of (S.pontos||[]))if(!pid.has(p.id)&&!excl[p.id])pontos.push(JSON.parse(JSON.stringify(p)));
   for(const k of voltaram){ const p=pontos.find(x=>x.id===k), m=mov[k]; if(!p||!m)continue; const dn=m.paraNome||'outra vistoria'; const tx='Separado para "'+dn+'" em '+fmtData(m.quando)+', mas recebeu ficha em campo nesta vistoria depois. Ficou aqui também: confira em "'+dn+'" para não vistoriar duas vezes.'; p.obs=p.obs||[]; if(!p.obs.includes(tx))p.obs.push(tx); }
   const resp=JSON.parse(JSON.stringify(L.responsaveis||[])); const rn=new Set(resp.map(r=>(r.nome||'').trim().toLowerCase())); for(const r of (S.responsaveis||[]))if(!rn.has((r.nome||'').trim().toLowerCase()))resp.push(r);
@@ -1048,7 +1051,9 @@ function juntarVistorias(L,S,base,esc){
   for(const p of pontos){ const s=sP.get(p.id); if(!s||!p.extra)continue; const lq=p.serieCampoEm||'', sq=s.serieCampoEm||''; if(sq>lq||(!lq&&!sq&&!p.serieCampo&&s.serieCampo)){ p.serieCampo=s.serieCampo; if(sq)p.serieCampoEm=sq; } }
   const sl=L.sentidoEm||'', sq2=S.sentidoEm||''; const sentidoDeS=sq2>sl||(!sl&&!sq2&&!L.sentido&&!!S.sentido); // sentido do fluxo: o mais recente
   const plantaDeS=!!(L.planta&&L.planta.naBase===null&&S.planta&&S.planta.naBase!=null); // planta conferida no outro aparelho
-  return {conflitos,campos:{...(sentidoDeS?{sentido:S.sentido,sentidoEm:S.sentidoEm||undefined,trechos:JSON.parse(JSON.stringify(S.trechos||[]))}:{}),...(plantaDeS?{planta:S.planta,ct:S.ct,rotulo:S.rotulo}:{}),registros:regs,pontos,responsaveis:resp,encerradaEm:enc,encerradaPor:enc?(((enc===L.encerradaEm)?L.encerradaPor:S.encerradaPor)||undefined):undefined,iniciadaEm:ini,iniciadaPor:iniDe.iniciadaPor||'',iniciadaGps:iniDe.iniciadaGps||null,parecer:parecer||undefined,exportadaEm:[L.exportadaEm,S.exportadaEm].filter(Boolean).sort().pop()||null,notas:(()=>{ const n=juntarNotas(juntarNotas(L.notas,S.notas),autoNotas); if(n)for(const k in excl)delete n[k]; return n&&Object.keys(n).length?n:undefined; })(),excluidos:Object.keys(excl).length?excl:undefined,roteiro:juntarRoteiro(L.roteiro,S.roteiro),anexos:(()=>{ if(!L.anexos&&!S.anexos)return undefined; const m=new Map(); for(const x of [...(S.anexos||[]),...(L.anexos||[])])m.set(x.hash||('n'+x.n),x); return [...m.values()].sort((a,b)=>a.n-b.n); })(),observacoes:(()=>{ if(!L.observacoes&&!S.observacoes)return undefined; const m=new Map(); for(const o of [...(L.observacoes||[]),...(S.observacoes||[])])m.set((o.origem==='carga'?'':(o.quando||''))+'|'+o.texto+'|'+(o.anexo||1),o); return [...m.values()]; })(),localidades:(L.localidades||S.localidades)?[...new Set([...(L.localidades||[]),...(S.localidades||[])])]:undefined,localNomes:(L.localNomes||S.localNomes)?Object.assign({},S.localNomes||{},L.localNomes||{}):undefined,centrosCusto:(L.centrosCusto||S.centrosCusto)?[...new Set([...(L.centrosCusto||[]),...(S.centrosCusto||[])])]:undefined,movidos:Object.keys(mov).length?mov:undefined,separacoes:juntarSep(L.separacoes,S.separacoes),tratamentos:juntarTrat(L.tratamentos,S.tratamentos),comentario:(()=>{ const a=L.comentario||null,b=S.comentario||null; if(!a)return b||undefined; if(!b)return a; return (a.quando||'')>=(b.quando||'')?a:b; })()}};
+  const rotDeS=String(S.rotuloEm||'')>String(L.rotuloEm||''); // v0.74: nome trocado pelo especialista ou coordenador: fica o mais recente
+  const nomesJ=(()=>{ const m=new Map(); for(const x of [...(S.nomes||[]),...(L.nomes||[])])m.set((x.quando||'')+'|'+(x.para||''),x); return m.size?[...m.values()].sort((a,b)=>String(a.quando||'').localeCompare(String(b.quando||''))):undefined; })();
+  return {conflitos,campos:{...(sentidoDeS?{sentido:S.sentido,sentidoEm:S.sentidoEm||undefined,trechos:JSON.parse(JSON.stringify(S.trechos||[]))}:{}),...(plantaDeS?{planta:S.planta,ct:S.ct,rotulo:S.rotulo}:{}),...((L.rotuloEm||S.rotuloEm)?(rotDeS?{rotulo:S.rotulo,rotuloEm:S.rotuloEm,rotuloPor:S.rotuloPor}:{rotulo:L.rotulo,rotuloEm:L.rotuloEm,rotuloPor:L.rotuloPor}):{}),nomes:nomesJ,registros:regs,pontos,responsaveis:resp,encerradaEm:enc,encerradaPor:enc?(((enc===L.encerradaEm)?L.encerradaPor:S.encerradaPor)||undefined):undefined,iniciadaEm:ini,iniciadaPor:iniDe.iniciadaPor||'',iniciadaGps:iniDe.iniciadaGps||null,parecer:parecer||undefined,exportadaEm:[L.exportadaEm,S.exportadaEm].filter(Boolean).sort().pop()||null,notas:(()=>{ const n=juntarNotas(juntarNotas(L.notas,S.notas),autoNotas); if(n)for(const k in excl)delete n[k]; return n&&Object.keys(n).length?n:undefined; })(),excluidos:Object.keys(excl).length?excl:undefined,roteiro:juntarRoteiro(L.roteiro,S.roteiro),anexos:(()=>{ if(!L.anexos&&!S.anexos)return undefined; const m=new Map(); for(const x of [...(S.anexos||[]),...(L.anexos||[])])m.set(x.hash||('n'+x.n),x); return [...m.values()].sort((a,b)=>a.n-b.n); })(),observacoes:(()=>{ if(!L.observacoes&&!S.observacoes)return undefined; const m=new Map(); for(const o of [...(L.observacoes||[]),...(S.observacoes||[])])m.set((o.origem==='carga'?'':(o.quando||''))+'|'+o.texto+'|'+(o.anexo||1),o); return [...m.values()]; })(),localidades:(L.localidades||S.localidades)?[...new Set([...(L.localidades||[]),...(S.localidades||[])])]:undefined,localNomes:(L.localNomes||S.localNomes)?Object.assign({},S.localNomes||{},L.localNomes||{}):undefined,centrosCusto:(L.centrosCusto||S.centrosCusto)?[...new Set([...(L.centrosCusto||[]),...(S.centrosCusto||[])])]:undefined,movidos:Object.keys(mov).length?mov:undefined,separacoes:juntarSep(L.separacoes,S.separacoes),tratamentos:juntarTrat(L.tratamentos,S.tratamentos),comentario:(()=>{ const a=L.comentario||null,b=S.comentario||null; if(!a)return b||undefined; if(!b)return a; return (a.quando||'')>=(b.quando||'')?a:b; })()}};
 }
 function juntarRoteiro(a,b){ // pontos um a um pela data de cada mudança; campos de texto um a um
   if(!a)return b||undefined; if(!b)return a;
@@ -1112,7 +1117,7 @@ async function sincronizar(){
   }finally{ sincronizando=false; renderSyncBar(); atualizarTelasAposEnvio(); }
 }
 async function enviarVistoria(v){
-  const uid=sessao.user.id; let juntadoCom=null;
+  const uid=sessao.user.id; let juntadoCom=null, avisoFicha=false;
   const disp=await idDispositivo();
   const rows=await sb('/rest/v1/vistorias?id=eq.'+encodeURIComponent(v.id)+'&select=versao,atualizado_por,atualizado_em,disp:dados->>dispositivo');
   const row=rows&&rows[0];
@@ -1126,9 +1131,18 @@ async function enviarVistoria(v){
       const full=await sb('/rest/v1/vistorias?id=eq.'+encodeURIComponent(v.id)+'&select=dados,versao,atualizado_por,atualizado_em');
       const fr=full&&full[0]; if(!fr||!fr.dados)throw new Error('versão da equipe indisponível agora');
       const atual=(V&&V.id===v.id)?V:(await dbGet('vistorias',v.id))||v;
+      const naFicha=(atual===V&&telaAtual==='ficha'&&P)?P.id:null, hAntes=naFicha?hashReg(atual.registros[naFicha]):null; // v0.71
       const j=juntarVistorias(atual,fr.dados,atual.sync&&atual.sync.base);
       if(j.conflitos.length){ await gravarSync(v.id,{conflito:{versao:fr.versao,por:fr.atualizado_por,quando:fr.atualizado_em,pvs:j.conflitos,servidor:fr.dados},pendente:true}); return; }
       aplicarJuncao(atual,j.campos); atual.sync=Object.assign(atual.sync||{},{versaoServidor:fr.versao,conflito:null}); await dbPut('vistorias',atual);
+      const saiuAtivo=!!naFicha&&!(atual.pontos||[]).some(q=>q.id===naFicha); // v0.72
+      if(naFicha&&V===atual&&P&&P.id===naFicha&&telaAtual==='ficha'&&saiuAtivo){ clearTimeout(salvarTimer); salvarTimer=null; const xr=(atual.excluidos||{})[naFicha]; if(!ehMesa())pref('fichaPresa',null).catch(()=>{}); toast(ehRetirado(xr)?rotItem(P)+' foi excluído da vistoria por '+(xr.por||'o coordenador')+': '+(xr.motivo||'')+'.'+(hAntes?' O que você tinha feito ficou guardado.':''):'Este ativo saiu da vistoria em outro aparelho.'); avisoFicha=true; voltarParaLista(); }
+      else if(naFicha&&V===atual&&P&&P.id===naFicha&&telaAtual==='ficha'&&hashReg(atual.registros[naFicha])!==hAntes){ // v0.71: a ficha aberta mudou com o que chegou de outro aparelho
+        clearTimeout(salvarTimer); salvarTimer=null; const rr=atual.registros[naFicha]; const quem=rr?(rr.porFim||rr.por||''):'';
+        if(!ehMesa())pref('fichaPresa',fichaPresa()?{vid:V.id,pid:P.id}:null).catch(()=>{});
+        try{ const rf=renderFicha(); if(rf&&rf.catch)rf.catch(()=>{}); }catch(x){}
+        toast(rr?'Esta ficha chegou atualizada de outro aparelho'+(quem?' ('+quem+')':'')+'. O que você tinha feito ficou guardado na ficha.':'Esta ficha foi limpa em outro aparelho.'); avisoFicha=true;
+      }
       v=atual; juntadoCom=fr.atualizado_por;
     }
   }
@@ -1140,7 +1154,7 @@ async function enviarVistoria(v){
   const baseEnviada=baseDe(corpo.dados);
   await gravarSync(v.id,{versaoServidor:versao,conflito:null,assinaturaEnviada:assEnviada,base:baseEnviada}); // a linha já subiu: se cair agora, a próxima rodada não vê conflito consigo mesma nem recria versão
   // fotos: só as referenciadas por registros e ainda não enviadas
-  const usadas=new Set(); for(const k in v.registros)for(const f of fotosDoReg(v.registros[k]))usadas.add(f);
+  const usadas=new Set(); for(const k in v.registros)for(const f of fotosDoReg(v.registros[k]))usadas.add(f); for(const f of fotosRetiradas(v))usadas.add(f);
   const fs=(await fotosDa(v.id)).filter(f=>usadas.has(f.id)&&!f.enviada);
   let n=0;
   for(const f of fs){
@@ -1158,7 +1172,7 @@ async function enviarVistoria(v){
   const mudouDurante=assinatura(atual)!==assEnviada;
   await gravarSync(v.id,{pendente:mudouDurante,enviadoEm:agoraIso(),versaoServidor:versao,conflito:null,erro:null,assinaturaEnviada:assEnviada,base:baseEnviada}); if(mudouDurante)agendarSync();
   registrarEvento('vistoria_salva',{versao,fotos:n,ct:corpo.ct_nome,juntada:!!juntadoCom},v.id);
-  if(juntadoCom){ toast('Juntado com a versão de '+nomeEquipe(juntadoCom)+': nada se perdeu'); baixarFotosFaltantes(atual).then(k=>{ if(k&&V&&V.id===v.id&&telaAtual==='ficha'&&P)renderFotos(); }).catch(()=>{}); }
+  if(juntadoCom){ if(!avisoFicha)toast('Juntado com a versão de '+nomeEquipe(juntadoCom)+': nada se perdeu'); baixarFotosFaltantes(atual).then(k=>{ if(k&&V&&V.id===v.id&&telaAtual==='ficha'&&P)renderFotos(); }).catch(()=>{}); }
 }
 async function listarRemotas(locais){
   try{
@@ -1407,7 +1421,7 @@ function imprimirCarteira(){
 
 /* ---------- página Equipe (só coordenador) ---------- */
 let equipeDados=null, relSel=new Set();
-const TIPO_TXT={login:'entrou no app',vistoria_salva:'gravou',iniciada:'iniciou em campo',atribuida:'atribuiu',liberada:'liberou a atribuição de',excluida:'excluiu da equipe',relatorio:'abriu o relatório de',corrigida:'corrigiu de mesa',matricula:'informou a matrícula',instalado:'instalou o app',mapa_offline:'guardou o mapa de',planilha:'baixou a planilha',planilha_pvs:'baixou a planilha de PVs',carteira_impressa:'imprimiu a carteira',baixada:'baixou',senha_trocada:'trocou a senha',equipe_alterada:'alterou a equipe',relatorio_lote:'imprimiu relatórios em lote',parecer_emitido:'emitiu o parecer de',versoes_juntadas:'juntou as versões de',base_importada:'atualizou a base',anexo2_carregado:'carregou o Anexo 2 de',anexo2_empilhado:'empilhou mais um Anexo 2 em',roteiro_pdf:'gerou o roteiro da visita de',sentido_atualizado:'atualizou o sentido do fluxo de',ativo_extra:'registrou um ativo fora do Anexo 2 em',planilha_ativos:'baixou a planilha de ativos',compartilhada:'compartilhou o relatório de'};
+const TIPO_TXT={login:'entrou no app',vistoria_salva:'gravou',iniciada:'iniciou em campo',atribuida:'atribuiu',liberada:'liberou a atribuição de',excluida:'excluiu da equipe',relatorio:'abriu o relatório de',corrigida:'corrigiu de mesa',matricula:'informou a matrícula',instalado:'instalou o app',mapa_offline:'guardou o mapa de',planilha:'baixou a planilha',planilha_pvs:'baixou a planilha de PVs',carteira_impressa:'imprimiu a carteira',baixada:'baixou',senha_trocada:'trocou a senha',equipe_alterada:'alterou a equipe',relatorio_lote:'imprimiu relatórios em lote',parecer_emitido:'emitiu o parecer de',versoes_juntadas:'juntou as versões de',base_importada:'atualizou a base',anexo2_carregado:'carregou o Anexo 2 de',anexo2_empilhado:'empilhou mais um Anexo 2 em',roteiro_pdf:'gerou o roteiro da visita de',sentido_atualizado:'atualizou o sentido do fluxo de',ativo_extra:'registrou um ativo fora do Anexo 2 em',planilha_ativos:'baixou a planilha de ativos',compartilhada:'compartilhou o relatório de',ficha_deixada:'deixou uma ficha para outro vistoriador em',ativo_retirado:'excluiu um ativo do Anexo 2 em',ativo_restaurado:'desfez a exclusão de um ativo em',vistoria_renomeada:'renomeou'};
 async function carregarEquipe(){
   const [pessoas,vist,logins,trilha]=await Promise.all([
     sb('/rest/v1/equipe?select=id,email,nome,matricula,papel,ativo&order=nome'),
@@ -1847,7 +1861,7 @@ function empilharAnexo2(alvo,lido,arquivo){ // junta os ativos de mais um Anexo 
   const ant=anexosDe(alvo).map(x=>Object.assign({},x)); const n=Math.max(0,...ant.map(x=>Number(x.n)||1))+1; const agora=agoraIso();
   const ja=new Map(); for(const a of alvo.pontos)if(a.inventario&&!ja.has(normInv(a.inventario)))ja.set(normInv(a.inventario),a);
   for(const a of alvo.pontos){ const c=(((alvo.registros||{})[a.id]||{}).respostas||{}).confere; const n=c&&c.txt?normInv(c.txt):''; if(n&&!ja.has(n))ja.set(n,Object.assign({},a,{_lido:true})); } // número lido em campo (ex.: ativo fora do Anexo 2)
-  const ids=new Set(alvo.pontos.map(a=>a.id)); let rep=0;
+  const ids=new Set([...alvo.pontos.map(a=>a.id),...Object.keys(alvo.excluidos||{})]); let rep=0; // v0.72: id de ativo excluído não volta
   for(const a of lido.ativos){ a.anexo=n; if(ids.has(a.id)){ const sfx='_x'+String(lido.hash||n).replace(/[^A-Za-z0-9]/g,'').slice(0,6); let k=a.id+sfx, j=2; while(ids.has(k))k=a.id+sfx+'_'+(j++); a.id=k; } ids.add(a.id);
     const o=a.inventario&&ja.get(normInv(a.inventario)); if(o){ rep++; a.obs.push(o._lido?'Inventário '+a.inventario+' já foi lido em campo'+(o.extra?' num ativo fora do Anexo 2 ('+o.descricao+')':' no ativo '+(o.inventario||o.descricao))+'.':'Inventário '+a.inventario+' também no '+(Number(o.anexo)||1)+'º Anexo 2'+(o.linha?' (linha '+o.linha+')':'')+'.'); }
     alvo.pontos.push(a); }
@@ -1857,6 +1871,28 @@ function empilharAnexo2(alvo,lido,arquivo){ // junta os ativos de mais um Anexo 
   ant.push({n,arquivo,carregadoEm:agora,hash:lido.hash,ativos:lido.ativos.length,conferido:lido.conferido,por:(sessao&&sessao.perfil&&sessao.perfil.nome)||''});
   alvo.anexos=ant; return {n,rep};
 }
+/* v0.73 · inventário já carregado não entra de novo: confere contra todas as vistorias de Obras Localizadas, do aparelho e da equipe */
+async function inventariosCarregados(){
+  const m=new Map(); const add=(inv,x)=>{ const n=normInv(inv); if(!n)return; if(!m.has(n))m.set(n,[]); const l=m.get(n); const y=l.find(z=>z.vid===x.vid); if(y){ y.enc=y.enc||x.enc; } else l.push(x); };
+  for(const v of (await dbAll('vistorias'))){ if(v.modulo!=='localizadas'||v.treino)continue; for(const a of (v.pontos||[]))if(!a.extra&&a.inventario)add(a.inventario,{vid:v.id,nome:nomeV(v),enc:!!v.encerradaEm}); }
+  let completo=true;
+  if(sessao&&sessao.perfil){ try{ const rows=(await sb('/rest/v1/vistorias?select=id,ct_nome,encerrada_em,pontos:dados->pontos&dados->>modulo=eq.localizadas'))||[]; for(const r of rows)for(const a of (Array.isArray(r.pontos)?r.pontos:[]))if(a&&!a.extra&&a.inventario)add(a.inventario,{vid:r.id,nome:String(r.ct_nome||'').replace(/_/g,' '),enc:!!r.encerrada_em}); }catch(e){ completo=false; } }
+  return {m,completo};
+}
+async function filtrarJaCarregados(lido){ // devolve false se nada deve ser carregado
+  const {m,completo}=await inventariosCarregados();
+  if(sessao&&sessao.perfil&&!completo){ await modal({titulo:'Sem conexão com a equipe agora',texto:'Antes de carregar, o app confere se cada inventário deste Anexo 2 já foi carregado em outra vistoria da equipe. Tente de novo com internet. Nada foi carregado.',ok:'Entendi',soOk:true}); return false; }
+  const ja=[], doArq=new Map(), novos=[];
+  for(const a of lido.ativos){ const n=normInv(a.inventario); if(!n){ novos.push(a); continue; } if(m.has(n)){ ja.push({a,onde:m.get(n)}); continue; } if(doArq.has(n)){ ja.push({a,linhaAnt:doArq.get(n)}); continue; } doArq.set(n,a.linha); novos.push(a); }
+  if(!ja.length)return true;
+  const desc=x=>'Inv. '+x.a.inventario+(x.onde?' já está em '+x.onde.map(o=>o.nome+(o.enc?' (encerrada)':' (aberta)')).join(' e '):' aparece duas vezes na planilha (linhas '+x.linhaAnt+' e '+x.a.linha+')');
+  const lista=ja.slice(0,8).map(desc).join('; ')+(ja.length>8?'; e mais '+(ja.length-8):'')+'.';
+  if(!novos.length){ await modal({titulo:'Os inventários deste Anexo 2 já estão carregados',texto:lista+'\n\nUm inventário só entra uma vez. Nada foi carregado.',ok:'Entendi',soOk:true}); return false; }
+  const ok=await modal({titulo:ja.length+' inventário'+(ja.length===1?' já está carregado':'s já estão carregados'),texto:lista+'\n\nUm inventário só entra uma vez: '+(ja.length===1?'este fica':'estes ficam')+' de fora.'+(novos.length===1?' O outro ativo deste Anexo 2 pode ser carregado.':' Os outros '+novos.length+' ativos deste Anexo 2 podem ser carregados.'),ok:novos.length===1?'Carregar só o novo':'Carregar só os '+novos.length+' novos',cancel:'Cancelar'});
+  if(!ok)return false;
+  lido.ativos=novos; lido.obs.push(ja.length+' inventário'+(ja.length===1?'':'s')+' deste Anexo 2 '+(ja.length===1?'ficou':'ficaram')+' de fora porque já '+(ja.length===1?'estava carregado':'estavam carregados')+': '+ja.map(desc).join('; ')+'.');
+  return true;
+}
 async function carregarAnexo2(f){
   if(lendo)return; if(sessao&&sessao.perfil&&!souEspecialista()){ toast('Carregar vistorias na equipe é tarefa do especialista ou do coordenador.'); return; }
   lendo=true; toast('Lendo o Anexo 2…');
@@ -1865,6 +1901,7 @@ async function carregarAnexo2(f){
     if(!lido){ await modal({titulo:'Esta planilha não parece um Anexo 2',texto:'Não achei o cabeçalho com "Planta Global" e "UAR", nem linhas de ativos. Confira se é a Lista de Ativos Instalados (Anexo 2).',ok:'Entendi',soOk:true}); return; }
     if(!basesInfo&&sessao&&sessao.perfil){ try{ basesInfo=await carregarBasesInfo(); }catch(e){} }
     await conferirAnexo2(lido);
+    if(!(await filtrarJaCarregados(lido)))return; // v0.73
     const nome=(lido.planta&&lido.planta.nome)||('Planta '+(lido.plantaCod||'sem código'));
     const locais=new Set(lido.ativos.map(a=>a.local||'')).size;
     const daPlanta=(await dbAll('vistorias')).filter(v=>v.modulo==='localizadas'&&v.planta&&v.planta.codigo===lido.plantaCod);
@@ -2312,10 +2349,11 @@ function htmlRelatorioLoc(v,fotos,opts){
     +(c.res||cat.nv?'<h2>Observações</h2><ul class="obs-lista">'+(cat.ex?'<li><b>'+cat.ex+'</b> encontrado'+(cat.ex>1?'s':'')+' em campo, fora do Anexo 2</li>':'')+(cat.nl?'<li><b>'+cat.nl+'</b> não localizado'+(cat.nl>1?'s':'')+'</li>':'')+(cat.op?'<li><b>'+cat.op+'</b> fora de operação</li>':'')+(cat.pl?'<li><b>'+cat.pl+'</b> com plaqueta de inventário não visível</li>':'')+(cat.inv?'<li><b>'+cat.inv+'</b> com número de inventário diferente do Anexo 2</li>':'')+(cat.se?'<li><b>'+cat.se+'</b> com número de série diferente do Anexo 2</li>':'')+(cat.nv?'<li><b>'+cat.nv+'</b> com série não visível (informação)</li>':'')+'</ul>':'')
     +'<h2>Ativos vistoriados, por local</h2>'+(feitos.length?[...grupos].map(([k,as])=>{ const g=grupoLoc(k); return '<h3>'+(g.sigla?h(g.sigla)+' · ':'')+h(g.nome)+' <small>('+as.length+')</small></h3>'+as.map(ficha).join(''); }).join(''):'<p>Nenhum ativo vistoriado ainda.</p>')
     +(pend.length?'<h2>Ativos pendentes ('+pend.length+')</h2><ul class="pend">'+pend.map(a=>'<li>'+(a.inventario?'Inv. '+h(a.inventario)+' · ':'')+h(a.descricao)+(a.local?' <small>('+h(grupoLoc(a.local).sigla||grupoLoc(a.local).nome)+')</small>':'')+(est(a)==='rascunho'?' <small>· ficha em andamento'+((r0=>r0&&deixadaVale(r0)?', deixada por '+h(r0.deixada.por||'')+': '+h(r0.deixada.motivo||''):'')(v.registros[a.id]))+'</small>':'')+notasRelHtml(v,a.id,h)+'</li>').join('')+'</ul>':'')
+    +retiradosRelHtml(v,h)
     +(comParecer&&String(par.conclusao||'').trim()?'<h2>Conclusão e encaminhamentos</h2><div>'+txtBr(par.conclusao)+'</div>':'')
     +tratRelHtml(v,h)
     +(obsCarga.length?'<h2>Observações da carga do Anexo 2</h2><ul class="obs-lista">'+obsCarga.map(o=>'<li>'+(anexosDe(v).length>1?'<b>'+(Number(o.anexo)||1)+'º Anexo 2:</b> ':'')+h(o.texto)+'</li>').join('')+'</ul>':'')
-    +'<h2>Trilha</h2><div style="font-size:10pt;color:#3D4954;line-height:1.6">'+(v.criadaEm&&!v.separadaDe?'<div><b>Carregada no app</b> em '+fmtData(v.criadaEm)+' às '+fmtHora(v.criadaEm)+'</div>':'')+trilhaSep(v,h,'antes')+(v.iniciadaEm?'<div><b>Iniciada em campo</b> em '+fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' por '+h(v.iniciadaPor):'')+'</div>':'')+trilhaMarcos(v,feitos,h,true)+trilhaSep(v,h,'depois')+txtEncerrada(v,h)+(fin?'<div><b>Parecer nº '+fin.numero+'</b> emitido em '+fmtData(fin.quando)+' às '+fmtHora(fin.quando)+' por '+h(fin.por)+'</div>':'')+'</div>'+'<footer><span>Sabesp · Encerramento de Ativos Regulatórios</span><span>Vistorias em Campo v'+VERSAO+(sessao&&sessao.perfil&&sessao.perfil.nome?' · emitido por '+h(sessao.perfil.nome):'')+' · '+fmtData(agoraIso())+'</span></footer>'
+    +'<h2>Trilha</h2><div style="font-size:10pt;color:#3D4954;line-height:1.6">'+(v.criadaEm&&!v.separadaDe?'<div><b>Carregada no app</b> em '+fmtData(v.criadaEm)+' às '+fmtHora(v.criadaEm)+'</div>':'')+trilhaNomes(v,h)+trilhaSep(v,h,'antes')+(v.iniciadaEm?'<div><b>Iniciada em campo</b> em '+fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' por '+h(v.iniciadaPor):'')+'</div>':'')+trilhaMarcos(v,feitos,h,true)+trilhaSep(v,h,'depois')+txtEncerrada(v,h)+(fin?'<div><b>Parecer nº '+fin.numero+'</b> emitido em '+fmtData(fin.quando)+' às '+fmtHora(fin.quando)+' por '+h(fin.por)+'</div>':'')+'</div>'+'<footer><span>Sabesp · Encerramento de Ativos Regulatórios</span><span>Vistorias em Campo v'+VERSAO+(sessao&&sessao.perfil&&sessao.perfil.nome?' · emitido por '+h(sessao.perfil.nome):'')+' · '+fmtData(agoraIso())+'</span></footer>'
     +'</div></body></html>';
   return html;
 }
@@ -2363,6 +2401,8 @@ function renderResumoExtras(){
     +(!enc&&!soLeit?'<button class="btn claro" style="min-height:44px;font-size:15px" onclick="editarComentario()">'+(c?'Editar comentário':'Escrever comentário')+'</button>':'');
   const itens=V.pontos.filter(x=>notasDe(V,x.id).length);
   $('resumoNotasTit').textContent=V.modulo==='localizadas'?'Notas dos ativos':'Notas dos PVs';
+  { const rt=V.modulo==='localizadas'?retiradosDe(V):[]; const el=$('resumoRetirados'); $('resumoRetTit').classList.toggle('oculta',!rt.length); el.classList.toggle('oculta',!rt.length); // v0.72
+    el.innerHTML=rt.map(x=>{ const a=x.ativo||{}; const fs=fichasRetirado(x); return '<div class="nc"><b>'+esc(nomeRetirado(x))+'</b>'+(a.inventario&&a.descricao?' · '+esc(a.descricao):'')+'<div class="j">'+esc(x.motivo||'')+' <small style="color:var(--sutil)">· excluído por '+esc(x.por||'')+', '+fmtData(x.quando)+' às '+fmtHora(x.quando)+'</small></div>'+(fs.length?'<div class="j"><small style="color:var(--sutil)">Ficha guardada: '+fs.map(f=>rotEstadoReg(estSeguro(f))+((f.porFim||f.por)?' por '+esc(f.porFim||f.por):'')+((f.fotos||[]).length?', '+f.fotos.length+' foto'+(f.fotos.length===1?'':'s'):'')).join('; ')+'</small></div>':'')+(souCoordenador()&&!enc?'<button class="btn texto" style="min-height:40px;padding-left:0" onclick="restaurarRetirado(\''+String(x.id).replace(/[^A-Za-z0-9_]/g,'')+'\')">Desfazer a exclusão</button>':'')+'</div>'; }).join(''); }
   $('resumoNotas').innerHTML=itens.length?itens.map(x=>'<div class="nc" style="cursor:pointer" onclick="abrirNotas(\''+esc(x.id)+'\')"><b>'+esc(rotItem(x))+'</b>'+(V.modulo==='localizadas'?' · '+esc(x.descricao):'')+notasDe(V,x.id).map(n=>'<div class="j">'+esc(n.txt)+' <small style="color:var(--sutil)">· '+esc(n.por||'')+', '+fmtData(n.quando)+'</small></div>').join('')+'</div>').join(''):'<div class="vazio" style="padding:10px">Nenhuma nota registrada.</div>';
 }
 
@@ -2457,7 +2497,7 @@ async function criarExtra(){
   if(!u)obs.push(String(f.uarLivre||'').trim()?'Tipo informado em campo ("'+String(f.uarLivre).trim()+'"): UAR a definir pelo especialista.':'UAR não informada: a definir pelo especialista.');
   const quem=(sessao&&sessao.perfil&&sessao.perfil.nome)||V.iniciadaPor||'';
   const a={id:'x_'+uid(),extra:true,nome:desc,inventario:'',local,descricao:desc,planta:(V.planta&&V.planta.codigo)||'',localidade:V.ui.localidade||((V.pontos.find(x=>x.local===local&&x.localidade)||V.pontos.find(x=>x.localidade)||{}).localidade)||'',cc:'',up:u?u.up:'',upNome:u?String(u.up_nome||'').replace(/^\s*\d+\s*-\s*/,''):'',uar:u?u.uar:'',uarCod:u?String(u.uar).padStart(7,'0'):'',uarDesc:u?u.nome:String(f.uarLivre||'').trim(),um:u?u.um:'',quantidade:null,fabricante:String(f.fab||'').trim(),marca:'',modelo:String(f.modelo||'').trim(),serie:'',serieCampo:String(f.serie||'').trim(),atributos:[],linha:null,obs,criadoPor:quem,criadoEm:agoraIso()};
-  V.pontos.push(a); if(f.invLido){ const rg=novoRegAtivo(a); rg.respostas.plaqueta={v:'sim',txt:''}; rg.respostas.confere={v:null,txt:f.invLido}; V.registros[a.id]=rg; } marcarAlterada(); await salvarV(); registrarEvento('ativo_extra',{pv:desc,uar:a.uarCod||a.uarDesc},V.id);
+  V.pontos.push(a); if(f.invLido){ const rg=novoRegAtivo(a); rg.respostas.plaqueta={v:'sim',txt:''}; rg.respostas.confere={v:null,txt:f.invLido}; rg.fim=agoraIso(); if(quem)rg.porFim=quem; V.registros[a.id]=rg; } marcarAlterada(); await salvarV(); registrarEvento('ativo_extra',{pv:desc,uar:a.uarCod||a.uarDesc},V.id);
   fecharExtra(); toast('Ativo incluído. Complete a ficha'); ir('ficha',{vid:V.id,pid:a.id});
 }
 
@@ -2870,7 +2910,7 @@ function htmlRelatorio(v,fotos,opts){
     +(semReg.concat(emAnd).some(p=>notasDe(v,p.id).length)?'<h2>Notas de PVs sem registro</h2>'+semReg.concat(emAnd).filter(p=>notasDe(v,p.id).length).map(p=>'<p class="semreg"><code>'+h(p.nome)+'</code></p>'+notasRelHtml(v,p.id,h)).join(''):'')
     +(comParecer?'<h2>Conclusão e encaminhamentos</h2><div class="parecer">'+(par.conclusao?txtBr(par.conclusao):vazio('Sem conclusão escrita.'))+'</div>'
       +'<p class="assin">'+(fin?'Emitido por <b>'+h(fin.por)+'</b>'+(fin.matricula?' (matr. '+h(fin.matricula)+')':'')+' · Encerramento de Ativos Regulatórios · '+fmtData(fin.quando)+' às '+fmtHora(fin.quando)+'. Documento emitido: retrata a vistoria no momento da emissão.':'Rascunho em preparação'+(par.atualizadoPor?' por '+h(par.atualizadoPor):'')+(par.atualizadoEm?' · última alteração '+fmtData(par.atualizadoEm)+' às '+fmtHora(par.atualizadoEm):'')+'.')+'</p>':'')
-    +'<h2>Trilha</h2><div class="trilha">'
+    +'<h2>Trilha</h2><div class="trilha">'+trilhaNomes(v,h)
     +'<div><b>Carregada no app</b> em '+fmtData(v.criadaEm)+' às '+fmtHora(v.criadaEm)+(v.origem&&v.origem.geradoEm?' · KMZ gerado pelo Conversor em '+fmtData(v.origem.geradoEm)+' às '+fmtHora(v.origem.geradoEm):'')+'</div>'
     +(v.iniciadaEm?'<div><b>Iniciada em campo</b> em '+fmtData(v.iniciadaEm)+' às '+fmtHora(v.iniciadaEm)+(v.iniciadaPor?' por '+h(v.iniciadaPor):'')+'</div>':'')
     +(ini?'<div><b>Registros em campo</b> de '+fmtData(ini)+' '+fmtHora(ini)+' a '+fmtData(fim||ini)+' '+fmtHora(fim||ini)+'</div>':'')
@@ -2981,7 +3021,7 @@ function bloqueada(){ if(!V)return false; if(ehMesa())return !modoCorrecao()||!!
 /* v0.70 · registro garantido: a ficha começada no celular só fecha concluída ou deixada para outro vistoriador, com motivo */
 function deixadaVale(r){ return !!(r&&r.deixada&&(!r.fim||String(r.deixada.quando)>=String(r.fim))); }
 function minhaFicha(r){ const eu=meuNome(); if(!eu)return true; const q=r.porFim||r.por||''; return !q||q===eu; }
-function fichaPresa(){ if(!V||!P||ehMesa()||bloqueada())return false; const r=V.registros[P.id]; if(!r||estSeguro(r)!=='rascunho'||deixadaVale(r))return false; return minhaFicha(r); }
+function fichaPresa(){ if(!V||!P||ehMesa()||bloqueada())return false; const r=V.registros[P.id]; if(!r||!r.fim||estSeguro(r)!=='rascunho'||deixadaVale(r))return false; return minhaFicha(r); }
 function saidaPresa(tela,params){ return telaAtual==='ficha'&&!!P&&fichaPresa()&&!(tela==='ficha'&&params&&params.pid===P.id); }
 async function pedirSaidaFicha(){
   if(!V||!P)return true; const r=V.registros[P.id]; if(!r)return true; const f=pendencias(r); const nomeP=V.modulo==='localizadas'?rotItem(P):P.nome;
@@ -3245,7 +3285,7 @@ async function renderVistorias(){
     let lista=todasVis, remo=remVis, filtroHtml='';
     if(ehMesa()){ // na mesa a lista mostra só as abertas; encerradas ficam a um clique (e sempre na Carteira e em Relatórios)
       const enc=v=>!!(v.encerradaEm||v.encerrada_em); const nEnc=todasVis.filter(enc).length+remVis.filter(enc).length, nAb=todasVis.length+remVis.length-nEnc; const fl=listaMesaFiltro;
-      const mostra=v=>fl==='todas'||(fl==='encerradas'?enc(v):(!enc(v)||(V&&V.id===v.id)));
+      const mostra=v=>fl==='todas'||(fl==='encerradas'?enc(v):!enc(v)); // v0.73: a vistoria aberta na tela não aparece na aba errada
       lista=todasVis.filter(mostra); remo=remVis.filter(mostra);
       filtroHtml='<div class="lista-filtro">'+[['abertas','Abertas',nAb],['encerradas','Encerradas',nEnc],['todas','Todas',nAb+nEnc]].map(([k,tx,n])=>'<button class="'+(fl===k?'on':'')+'" onclick="listaMesaFiltro=\''+k+'\';renderVistorias()">'+tx+'<span>'+n+'</span></button>').join('')+'</div>';
     }
@@ -3287,7 +3327,7 @@ function cardVistoria(v,remoto){
 }
 async function limparOrfas(todas){
   const ids=new Set(todas.map(v=>v.id)); const usadas=new Set();
-  for(const v of todas)for(const k in (v.registros||{}))for(const f of fotosDoReg(v.registros[k]))usadas.add(f);
+  for(const v of todas)for(const k in (v.registros||{}))for(const f of fotosDoReg(v.registros[k]))usadas.add(f); for(const v of todas)for(const f of fotosRetiradas(v))usadas.add(f);
   const fotos=await dbAll('fotos');
   const limite=Date.now()-10*60*1000;
   for(const f of fotos){ if(V)return; if(new Date(f.quando).getTime()>limite)continue; if(!ids.has(f.vistoriaId)||!usadas.has(f.id))await dbDel('fotos',f.id); }
@@ -3337,13 +3377,33 @@ async function resolverPvAPv(v){
   toast('Versões juntadas. Enviando para a equipe…'); await sincronizar(); renderVistorias().catch(()=>{});
   baixarFotosFaltantes(atual).catch(()=>{});
 }
+/* v0.74 · renomear vistoria: especialista e coordenador; o nome mais recente vale para todos; cada troca fica na trilha */
+async function renomearVistoria(vid){
+  if(!souEspecialista())return; let v=(V&&V.id===vid)?V:await dbGet('vistorias',vid); if(!v)return; const atual=nomeV(v);
+  const r=await modal({titulo:'Renomear '+atual,texto:'O nome aparece na lista, no relatório e para toda a equipe. O nome anterior fica registrado na trilha do relatório.',input:'Nome da vistoria',valor:atual,ok:'Salvar nome',cancel:'Cancelar'});
+  if(r===false)return; const novo=String(r||'').replace(/\s+/g,' ').trim();
+  if(!novo){ toast('Escreva o nome da vistoria'); return; } if(novo.length>90){ toast('Use até 90 letras no nome'); return; } if(novo===atual)return;
+  const nn=normNome(novo); const outros=(await dbAll('vistorias')).filter(x=>x.id!==vid).map(nomeV);
+  if(sessao&&sessao.perfil){ try{ for(const x of ((await sb('/rest/v1/vistorias?select=id,ct_nome'))||[]))if(x.id!==vid)outros.push(String(x.ct_nome||'').replace(/_/g,' ')); }catch(e){} }
+  const igual=outros.find(x=>normNome(x)===nn&&nn);
+  if(igual){ await modal({titulo:'Já existe uma vistoria com esse nome',texto:'"'+igual+'". Use um nome diferente para a equipe não confundir as duas.',ok:'Entendi',soOk:true}); return; }
+  v=(V&&V.id===vid)?V:await dbGet('vistorias',vid); if(!v)return;
+  const agora=agoraIso(), quem=meuNome()||'', de=nomeV(v);
+  v.nomes=(v.nomes||[]).concat([{de,para:novo,por:quem,quando:agora}]); v.rotulo=novo; v.rotuloEm=agora; v.rotuloPor=quem;
+  if(V&&V.id===vid){ marcarAlterada(); await salvarV(); }
+  else { const ant=V; V=v; try{ await salvarV(); } finally { V=ant; } }
+  registrarEvento('vistoria_renomeada',{de,para:novo},vid); toast('Nome alterado: '+novo);
+  renderVistorias().catch(()=>{}); if(V&&V.id===vid&&ultimoState&&ultimoState.tela&&ultimoState.tela!=='vistorias')render(ultimoState);
+}
+function trilhaNomes(v,h){ return (v.nomes||[]).map(x=>'<div><b>Nome alterado</b> de "'+h(x.de||'')+'" para "'+h(x.para||'')+'" em '+fmtData(x.quando)+' às '+fmtHora(x.quando)+(x.por?' por '+h(x.por):'')+'</div>').join(''); }
 async function menuVistoria(vid){
   const v=await dbGet('vistorias',vid);
   if(!v){ // está só no servidor
     if(!(sessao&&sessao.perfil))return;
-    const ops=[{id:'baixar',txt:'Baixar para este aparelho'},{id:'rel',txt:'Ver o relatório'}]; if(souEspecialista()&&!atribIndisp)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
+    const ops=[{id:'baixar',txt:'Baixar para este aparelho'},{id:'rel',txt:'Ver o relatório'}]; if(souEspecialista())ops.push({id:'renomear',txt:'Renomear'}); if(souEspecialista()&&!atribIndisp)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); if(souCoordenador())ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
     const op=await modal({titulo:'Vistoria da equipe',texto:'Está na equipe e ainda não neste aparelho.',opcoes:ops,cancel:'Voltar'});
     if(op==='baixar')baixarVistoria(vid);
+    else if(op==='renomear'){ const b=await baixarVistoria(vid,false,true); if(b)await renomearVistoria(b.id); }
     else if(op==='rel')abrirRelatorio(vid);
     else if(op==='atribuir')atribuir(vid);
     else if(op==='equipe'){
@@ -3372,9 +3432,9 @@ async function menuVistoria(vid){
   const txt=logado&&v.sync?(v.sync.pendente?(v.sync.erro?'O último envio não deu certo: '+erroHumano(v.sync.erro)+' ':'Ainda não enviada para a equipe. '):(noServidor?'Na equipe desde as '+fmtHora(v.sync.enviadoEm)+'. ':'')):'';
   let op='local';
   if(logado&&(noServidor||v.sync.pendente)){
-    const ops=[]; if(v.sync.pendente)ops.push({id:'enviar',txt:'Enviar agora'}); ops.push({id:'rel',txt:'Ver o relatório'}); if(souEspecialista()&&noServidor&&!atribIndisp&&!v.treino)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); ops.push({id:'local',txt:'Excluir só deste aparelho'}); if(souCoordenador()&&noServidor)ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
+    const ops=[]; if(v.sync.pendente)ops.push({id:'enviar',txt:'Enviar agora'}); ops.push({id:'rel',txt:'Ver o relatório'}); if(souEspecialista()&&!v.treino)ops.push({id:'renomear',txt:'Renomear'}); if(souEspecialista()&&noServidor&&!atribIndisp&&!v.treino)ops.push({id:'atribuir',txt:'Atribuir a alguém da equipe'}); ops.push({id:'local',txt:'Excluir só deste aparelho'}); if(souCoordenador()&&noServidor)ops.push({id:'equipe',txt:'Excluir da equipe, para todos'});
     op=await modal({titulo:nomeV(v),texto:txt+'O que você quer fazer?',opcoes:ops,cancel:'Voltar'});
-    if(!op)return; if(op==='rel'){abrirRelatorio(vid);return;} if(op==='atribuir'){atribuir(vid);return;} if(op==='enviar'){ v.sync.erro=null; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync.erro=null; toast('Enviando…'); await sincronizar(); return; }
+    if(!op)return; if(op==='rel'){abrirRelatorio(vid);return;} if(op==='renomear'){ await renomearVistoria(vid); return; } if(op==='atribuir'){atribuir(vid);return;} if(op==='enviar'){ v.sync.erro=null; await dbPut('vistorias',v); if(V&&V.id===vid)V.sync.erro=null; toast('Enviando…'); await sincronizar(); return; }
   }else{
     const r=await modal({titulo:nomeV(v),texto:txt+'O que você quer fazer com esta vistoria?',ok:'Excluir do aparelho',cancel:'Voltar',perigo:true});
     if(!r)return;
@@ -3899,6 +3959,7 @@ function renderFicha(){ for(const k in guardaNaoLoc)if(!(V&&P&&k===V.id+'|'+P.id
   ['btnVoltarLista','btnLimpar','barraFicha','acoesFicha'].forEach(id=>$(id).classList.toggle('oculta',leitura));
   if(ehMesa()&&leitura){ $('acoesFicha').classList.remove('oculta'); $('btnVoltarLista').classList.remove('oculta'); $('btnLimpar').classList.add('oculta'); }
   $('btnExcluirPv').classList.toggle('oculta',leitura||!P.extra);
+  { const pr=podeRetirar(); $('btnRetirar').classList.toggle('oculta',!pr); if(pr)$('acoesFicha').classList.remove('oculta'); } // v0.72: só o coordenador
   $('obs').disabled=leitura;
   $('obsBloco').classList.toggle('oculta',!String(r.obs||'').trim()); atualizaBtnNotas(); atualizaBtnRoteiro();
   renderRespostas(); renderFotos();
@@ -3947,7 +4008,7 @@ async function responder(k,v){
 }
 const assRegistro=r=>hashStr(jsonCan([r.respostas,r.fotos,r.obs]));
 function gravarRascunho(){ const r=reg(P.id); const e=recalcEstado(r); if(e===null){delete V.registros[P.id];}else{ const ass=assRegistro(r); const mudou=ass!==r.ass; if(mudou){ r.ass=ass; { const dk=V.id+'|'+P.id, dt=destravadas[dk]; if(dt&&!dt.anotado){ dt.anotado=true; const a=dt.antes; if(a&&a.h){ r.versoes=(r.versoes||[]).filter(x=>x.h!==a.h).concat([a]); V.notas=V.notas||{}; (V.notas[P.id]=V.notas[P.id]||[]).push({id:'n_'+uid(),quando:agoraIso(),por:meuNome()||'sem login',autor:meuAutor(),txt:'Ficha corrigida em campo. Estava registrada por '+(a.por||'outra pessoa')+(a.fim?' em '+fmtData(a.fim)+' às '+fmtHora(a.fim):'')+'; essa versão ficou guardada na ficha.',aposEnc:!!V.encerradaEm}); } } } const deMesa=ehMesa()&&modoCorrecao(); if(!deMesa||!r.fim)r.fim=agoraIso(); /* a correção de mesa fica em r.correcoes e não muda o horário de campo */ if(!deMesa&&meuNome())r.porFim=meuNome(); anotarCorrecao(r); } r.estado=e; } if(!ehMesa())pref('fichaPresa',fichaPresa()?{vid:V.id,pid:P.id}:null).catch(()=>{}); marcarAlterada(); return salvarV(); }
-function setObs(v){ reg(P.id).obs=v; clearTimeout(salvarTimer); salvarTimer=setTimeout(gravarRascunho,400); }
+function setObs(v){ if(!P||bloqueada())return; reg(P.id).obs=v; clearTimeout(salvarTimer); salvarTimer=setTimeout(gravarRascunho,400); }
 /* justificativa */
 let justK=null,justAntes=null;
 function abrirJust(k){
@@ -4106,10 +4167,48 @@ function voltarParaLista(){ if(history.state&&history.state.tela==='ficha')histo
 async function limparFicha(){
   const r=V.registros[P.id]; if(!r||recalcEstado(r)===null){toast('Nada para limpar neste '+uP(1));return;}
   const nf=r.fotos.length, nr=Object.values(r.respostas).filter(a=>a&&a.v).length;
-  if(!(await modal({titulo:(V.modulo==='localizadas'?'Limpar a ficha de '+rotItem(P):'Limpar o '+P.nome)+'?',texto:'Apaga '+([nf?nf+' foto'+(nf===1?'':'s'):'',nr?nr+' resposta'+(nr===1?'':'s'):''].filter(Boolean).join(' e ')||'o que foi marcado')+' deste '+uP(1)+'. Os outros '+uP(2)+' não mudam.',ok:'Limpar',cancel:'Manter',perigo:true})))return;
+  if(!(await modal({titulo:(V.modulo==='localizadas'?'Limpar a ficha de '+rotItem(P):'Limpar o '+P.nome)+'?',texto:'Apaga '+([nf?nf+' foto'+(nf===1?'':'s'):'',nr?nr+' resposta'+(nr===1?'':'s'):''].filter(Boolean).join(' e ')||'o que foi marcado')+' deste '+uP(1)+'.'+((r.versoes&&r.versoes.length)?' A versão guardada de '+[...new Set(r.versoes.map(x=>x.por||'outra pessoa'))].join(' e ')+' também sai.':'')+' Os outros '+uP(2)+' não mudam.',ok:'Limpar',cancel:'Manter',perigo:true})))return;
   for(const fid of r.fotos)await dbDel('fotos',fid); await anotarFotosRemovidas(r.fotos); if(typeof fotosExtraAbertas!=='undefined')fotosExtraAbertas[P.id]=0;
   delete V.registros[P.id]; marcarAlterada(); await salvarV(); renderFicha(); toast('Ficha limpa');
 }
+/* v0.72 · ativo do Anexo 2 incluído por engano: só o coordenador exclui da vistoria. A marca fica em "excluidos" (nenhum aparelho traz de volta),
+   com quem, quando, motivo, o ativo e a ficha guardados; o Resumo e o relatório mostram; o coordenador desfaz pelo Resumo. */
+function ehRetirado(x){ return !!(x&&typeof x==='object'&&x.tipo==='retirado'); }
+function fichasRetirado(x){ return [x&&x.ficha,...((x&&x.depois)||[])].filter(Boolean); }
+function retiradosDe(v){ const ex=(v&&v.excluidos)||{}; const vivos=new Set(((v&&v.pontos)||[]).map(p=>p.restauradoDe).filter(Boolean)); return Object.keys(ex).filter(k=>ehRetirado(ex[k])&&!ex[k].restaurado&&!vivos.has(k)).map(k=>Object.assign({id:k},ex[k])).sort((a,b)=>String(a.quando||'').localeCompare(String(b.quando||''))); }
+function fotosRetiradas(v){ const out=[]; const ex=(v&&v.excluidos)||{}; for(const k in ex){ if(!ehRetirado(ex[k]))continue; for(const f of fichasRetirado(ex[k]))for(const id of fotosDoReg(f))out.push(id); } return out; }
+function juntarExcl(a,b){ const out=Object.assign({},a||{}); for(const k in (b||{})){ const x=out[k], y=b[k]; if(!x){ out[k]=y; continue; }
+    if(ehRetirado(x)&&ehRetirado(y)){ const z=Object.assign({},x,y); const rs=y.restaurado||x.restaurado; if(rs)z.restaurado=rs; const dep=(x.depois||[]).slice(); for(const f of (y.depois||[]))if(!dep.some(d=>hashReg(d)===hashReg(f)))dep.push(f); if(dep.length)z.depois=dep; out[k]=z; }
+    else if(ehRetirado(y)||!ehRetirado(x))out[k]=y; }
+  return out; }
+function nomeRetirado(x){ const a=(x&&x.ativo)||{}; return a.inventario?'Inv. '+a.inventario:String(a.descricao||'ativo'); }
+function podeRetirar(){ return !!(V&&P&&V.modulo==='localizadas'&&!P.extra&&souCoordenador()&&!V.encerradaEm&&(V.pontos||[]).some(p=>p.id===P.id)); }
+async function retirarAtivo(){
+  if(!podeRetirar())return; const a=P, nomeA=rotItem(a); const r=V.registros[a.id]; const temF=!!(r&&recalcEstado(r)!==null); const nf=temF?(r.fotos||[]).length:0; const quemF=temF?(r.porFim||r.por||''):'';
+  const mot=await modal({titulo:'Excluir '+nomeA+' da vistoria?',texto:'Use quando o ativo entrou no Anexo 2 por engano. Ele sai da lista, das contagens e das pendências, e o relatório mostra quem excluiu, quando e o motivo.'+(temF?' A ficha '+(quemF?'registrada por '+quemF:'já começada')+(nf?' ('+nf+' foto'+(nf===1?'':'s')+')':'')+' fica guardada junto com a exclusão.':'')+' Dá para desfazer no Resumo.',input:'Motivo. Ex.: ativo de outra obra, incluído por engano',ok:'Excluir da vistoria',cancel:'Manter',perigo:true});
+  if(mot===false)return; const motivo=String(mot||'').trim(); if(!motivo){ toast('Escreva o motivo para excluir o ativo'); return; }
+  if(!(V&&P&&P.id===a.id&&(V.pontos||[]).some(p=>p.id===a.id)))return;
+  clearTimeout(salvarTimer); salvarTimer=null; const cl=x=>JSON.parse(JSON.stringify(x)); const r2=V.registros[a.id]; const temF2=!!(r2&&recalcEstado(r2)!==null);
+  const marca={tipo:'retirado',quando:agoraIso(),por:meuNome()||'coordenador',motivo,ativo:cl(a),ficha:temF2?cl(r2):null,notas:(V.notas&&V.notas[a.id]&&V.notas[a.id].length)?cl(V.notas[a.id]):null};
+  delete V.registros[a.id]; if(V.notas)delete V.notas[a.id]; V.pontos=V.pontos.filter(x=>x.id!==a.id); (V.excluidos=V.excluidos||{})[a.id]=marca;
+  if(!ehMesa())await pref('fichaPresa',null).catch(()=>{});
+  marcarAlterada(); await salvarV(); registrarEvento('ativo_retirado',{pv:nomeA,motivo},V.id);
+  if(V.ui)V.ui.destaque=null; toast(nomeA+' saiu da vistoria. Para desfazer, use o Resumo.'); voltarParaLista();
+}
+async function restaurarRetirado(id){
+  if(!V||!souCoordenador()||V.encerradaEm)return; const x=(V.excluidos||{})[id]; if(!ehRetirado(x)||x.restaurado)return; const nomeA=nomeRetirado(x); const fs0=fichasRetirado(x);
+  if(!(await modal({titulo:'Desfazer a exclusão de '+nomeA+'?',texto:'O ativo volta para a lista da vistoria'+(fs0.length?', com a ficha que estava guardada':'')+'.',ok:'Desfazer a exclusão',cancel:'Cancelar'})))return;
+  const x2=(V.excluidos||{})[id]; if(!ehRetirado(x2)||x2.restaurado)return; const cl=o=>JSON.parse(JSON.stringify(o));
+  const usados=new Set([...V.pontos.map(q=>q.id),...Object.keys(V.excluidos||{})]); const sfx=String(uid()).replace(/[^A-Za-z0-9]/g,'').slice(-5); let novo=id+'_r'+sfx, j=2; while(usados.has(novo))novo=id+'_r'+sfx+'_'+(j++);
+  const a=cl(x2.ativo||{}); a.id=novo; a.restauradoDe=id; V.pontos.push(a);
+  const fs=fichasRetirado(x2).map(cl); if(fs.length){ const c=cl(fs.reduce((m,q)=>vencedorReg(m,q))); const hc=hashReg(c); for(const f of fs){ const h=hashReg(f); if(h!==hc&&!(c.versoes||[]).some(q=>q.h===h))(c.versoes=c.versoes||[]).push(versaoDe(f)); } V.registros[novo]=c; }
+  if(x2.notas&&x2.notas.length){ V.notas=V.notas||{}; V.notas[novo]=cl(x2.notas); }
+  V.excluidos[id]=Object.assign({},x2,{restaurado:{quando:agoraIso(),por:meuNome()||'coordenador',novoId:novo}});
+  marcarAlterada(); await salvarV(); registrarEvento('ativo_restaurado',{pv:nomeA},V.id); toast(nomeA+' voltou para a vistoria'); renderResumo();
+}
+function retiradosRelHtml(v,h){ const rt=retiradosDe(v); if(!rt.length)return ''; const varios=anexosDe(v).length>1;
+  return '<h2>Ativos excluídos da vistoria ('+rt.length+')</h2><p style="font-size:10pt;color:#3D4954;margin:0 0 6px">Estavam no Anexo 2 por engano e foram excluídos pelo coordenador. Não entram nas contagens nem nas pendências.</p><ul class="pend">'
+    +rt.map(x=>{ const a=x.ativo||{}; const fs=fichasRetirado(x); return '<li>'+(a.inventario?'Inv. '+h(a.inventario)+' · ':'')+h(a.descricao||'')+(varios?' <small>('+(Number(a.anexo)||1)+'º Anexo 2)</small>':'')+'<br><small>'+h(x.motivo||'')+' · excluído por '+h(x.por||'')+' em '+fmtData(x.quando)+' às '+fmtHora(x.quando)+(fs.length?' · a ficha feita em campo ficou guardada no app':'')+'</small></li>'; }).join('')+'</ul>'; }
 async function excluirPvExtra(){
   if(!P.extra)return;
   if(!(await modal({titulo:'Excluir '+(V.modulo==='localizadas'?'o ativo '+rotItem(P):'o '+P.nome)+'?',texto:(V.modulo==='localizadas'?'Este ativo foi incluído em campo, fora do Anexo 2.':'Este '+uP(1)+' foi registrado em campo.')+' Ele some da vistoria junto com as fotos, respostas e notas.',ok:'Excluir',cancel:'Manter',perigo:true})))return;
@@ -4239,9 +4338,9 @@ async function alternarEncerrada(){
   const pendL=V.pontos.filter(p=>{ const e=estadoDe(p.id); return e!=='ok'&&e!=='ressalva'; }); // v0.70: o que ficou sem registro aparece antes de encerrar
   const nomeIt=p=>V.modulo==='localizadas'?(p.inventario?p.inventario+(p.descricao?' '+p.descricao:''):(p.descricao||'')):p.nome;
   const listaP=pendL.slice(0,10).map(nomeIt).join('; ')+(pendL.length>10?' e mais '+(pendL.length-10):'');
-  if(pendL.length&&sessao&&sessao.perfil&&!souEspecialista()){ await modal({titulo:'Ainda há '+pendL.length+' '+uP(pendL.length)+' sem registro',texto:listaP+'. Só o especialista ou o coordenador encerram com '+uP(2)+' pendentes. Termine os que faltam ou avise o especialista.',ok:'Entendi',soOk:true}); return; }
+  if(pendL.length&&sessao&&sessao.perfil&&!souEspecialista()){ await modal({titulo:'Ainda há '+pendL.length+' '+uP(pendL.length)+' pendente'+(pendL.length===1?'':'s'),texto:listaP+'. Só o especialista ou o coordenador encerram com '+uP(2)+' pendentes. Termine os que faltam ou avise o especialista.',ok:'Entendi',soOk:true}); return; }
   const semResp=!(V.responsaveis&&V.responsaveis.length);
-  const r=await modal({titulo:'Encerrar '+nomeV(V)+'?',texto:(pendL.length?pendL.length+' '+uP(pendL.length)+' sem registro: '+listaP+'. Saem no relatório como pendentes. ':'')+c.reg+' '+uP(c.reg)+' '+(V.modulo==='localizadas'?'vistoriado':'registrado')+(c.reg===1?'':'s')+(c.rasc?', '+c.rasc+' em andamento ('+(V.modulo==='localizadas'?'conta'+(c.rasc===1?'':'m')+' como pendente'+(c.rasc===1?'':'s'):'entra'+(c.rasc===1?'':'m')+' como sem registro')+')':'')+'. Depois de encerrar, as fichas ficam só para leitura. Dá para reabrir se precisar.'+(semResp?' Nenhum responsável informado: o relatório sai sem o nome de quem vistoriou.':'')+' Se quiser, deixe abaixo um comentário geral sobre a vistoria.',ok:pendL.length?'Encerrar com '+pendL.length+' pendente'+(pendL.length===1?'':'s'):(semResp?'Encerrar assim mesmo':'Encerrar'),cancel:semResp?'Informar o responsável':'Cancelar',input:'Comentário geral (opcional): condições do dia, acesso, quem acompanhou, pendências',area:true,valor:(V.comentario&&V.comentario.txt)||''});
+  const r=await modal({titulo:'Encerrar '+nomeV(V)+'?',texto:(pendL.length?pendL.length+' '+uP(pendL.length)+' pendente'+(pendL.length===1?'':'s')+': '+listaP+'. Saem no relatório como pendentes. ':'')+c.reg+' '+uP(c.reg)+' '+(V.modulo==='localizadas'?'vistoriado':'registrado')+(c.reg===1?'':'s')+(c.rasc?', '+c.rasc+' em andamento ('+(V.modulo==='localizadas'?'conta'+(c.rasc===1?'':'m')+' como pendente'+(c.rasc===1?'':'s'):'entra'+(c.rasc===1?'':'m')+' como sem registro')+')':'')+'. Depois de encerrar, as fichas ficam só para leitura. Dá para reabrir se precisar.'+(semResp?' Nenhum responsável informado: o relatório sai sem o nome de quem vistoriou.':'')+' Se quiser, deixe abaixo um comentário geral sobre a vistoria.',ok:pendL.length?'Encerrar com '+pendL.length+' pendente'+(pendL.length===1?'':'s'):(semResp?'Encerrar assim mesmo':'Encerrar'),cancel:semResp?'Informar o responsável':'Cancelar',input:'Comentário geral (opcional): condições do dia, acesso, quem acompanhou, pendências',area:true,valor:(V.comentario&&V.comentario.txt)||''});
   if(r!==false)gravarComentario(String(r));
   if(r===false){ const mi=$('modalIn'); if(mi&&String(mi.value).trim()&&String(mi.value).trim()!==((V.comentario&&V.comentario.txt)||'')){ gravarComentario(mi.value); marcarAlterada(); await salvarV(); renderResumo(); toast('Comentário guardado'); }
     if(semResp&&$('respNome')){ $('respNome').scrollIntoView({block:'center'}); setTimeout(()=>$('respNome').focus(),250); } return; }
