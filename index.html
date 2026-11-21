@@ -553,6 +553,12 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
 .modal h3{font-size:19px;line-height:1.3}
 .modal p{font-size:16px;color:var(--sutil);line-height:1.45}
 .modal .acoes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.modal .nome-aviso{background:#FFF4E5;border:1px solid #F5C98B;color:#7A3B00;border-radius:10px;padding:9px 11px;font-size:14.5px;line-height:1.4}
+.modal .nome-lbl{font:600 14px var(--texto);color:var(--ink);margin-bottom:-6px}
+.modal .nome-dica{min-height:18px;font-size:13.5px;color:var(--sutil);margin-top:-6px;line-height:1.35}
+.modal .nome-dica.alerta{color:#9A4A00}
+.modal .nome-sugs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13.5px;color:var(--sutil)}
+.modal .nome-sug{border:1.5px solid var(--botao);background:var(--card);color:var(--botao);font:600 14px var(--texto);padding:6px 12px;border-radius:999px;cursor:pointer;text-align:left}
 .toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border-radius:12px;font-size:15.5px;z-index:40;display:none;align-items:center;gap:14px;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.3);line-height:1.35}
 .toast.on{display:flex}
 #visor{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
@@ -612,7 +618,7 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
     <div id="inicioPainel"></div>
     <div id="inicioMinhas"></div>
   </div>
-  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.74 · 12/11/2026</div>
+  <div class="rodape"><span id="offlineTxt" class="offline-txt"></span>versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1 VISTORIAS -->
@@ -623,26 +629,26 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
   <button class="btn" id="btnAbrirKmz" onclick="document.getElementById('arqKmz').click()">Abrir um KMZ</button>
   <div id="zonaKmz" onclick="document.getElementById('arqKmz').click()">Arraste para esta janela um KMZ do Conversor (Lineares) ou um Anexo 2 em Excel (Localizadas).<br>Ele sobe para a equipe na hora.</div>
   <button class="btn texto" id="btnExemplo" onclick="carregarExemplo()">Carregar o exemplo (CT Gamelinha 3) para treino</button>
-  <div class="rodape"><span id="espaco"></span>versão 0.74 · 12/11/2026</div>
+  <div class="rodape"><span id="espaco"></span>versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1b CARTEIRA DA EQUIPE -->
 <section class="tela" id="t-carteira">
   <div id="carteiraBox"></div>
   <aside id="carteiraLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.74 · 12/11/2026</div>
+  <div class="rodape">versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1c EQUIPE (coordenador) -->
 <section class="tela" id="t-equipe">
   <div id="equipeBox"></div>
-  <div class="rodape">versão 0.74 · 12/11/2026</div>
+  <div class="rodape">versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1f OBSERVAÇÕES PARA O ESPECIALISTA (Localizadas) -->
 <section class="tela" id="t-obs">
   <div id="obsBox" style="display:flex;flex-direction:column;gap:10px"></div>
-  <div class="rodape">versão 0.74 · 12/11/2026</div>
+  <div class="rodape">versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1e BASES DE CONSULTA (mesa) -->
@@ -650,20 +656,20 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
   <div id="basesBox"></div>
   <aside id="basesLado" aria-label="Detalhe da consulta"></aside>
   <input type="file" id="arqBase" class="oculta" accept=".xlsx,.xlsm">
-  <div class="rodape">versão 0.74 · 12/11/2026</div>
+  <div class="rodape">versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1d RELATÓRIOS -->
 <section class="tela" id="t-relatorios">
   <div id="relBox"></div>
   <aside id="relLado" aria-label="Relatório da vistoria escolhida"></aside>
-  <div class="rodape">versão 0.74 · 12/11/2026</div>
+  <div class="rodape">versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T1e PARECER DO ESPECIALISTA -->
 <section class="tela" id="t-parecer">
   <div id="parecerBox"></div>
-  <div class="rodape">versão 0.74 · 12/11/2026</div>
+  <div class="rodape">versão 0.75 · 20/11/2026</div>
 </section>
 
 <!-- T2 LISTA DE PVs -->
@@ -819,7 +825,7 @@ body.mesa .busca .tecla,body.mesa .leitor-btn{display:none}.busca .tecla{height:
 <script>
 /* ===================== dados de exemplo (gerados pelo Conversor 2.8, CT Gamelinha 3) ===================== */
 const EXEMPLO={"versao":1,"geradoEm":"2026-09-12T17:59:44.394Z","conversor":"2.8","ct":{"nome":"CT_GAMELINHA_3","municipio":"São Paulo","uf":"SP","bairro":"Parque Savoy City","un":{"nome":"Leste","sigla":"OL"},"cc":"5932004100 - SÃO PAULO - LESTE - COLETA"},"resumo":{"pontos":30,"transicoes":9,"trechos":28,"extensao":1404.93},"pontos":[{"id":"PV_10","nome":"PV-10","tipo":"PV","lat":-23.557976,"lon":-46.487977,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"prof":2.55,"cota":774.281,"ordem":1},{"id":"PV_11","nome":"PV-11","tipo":"PV","lat":-23.55806,"lon":-46.488567,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-10","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":60.98}],"sai":[{"para":"PV-9","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68}],"prof":2.54,"cota":770.759,"ordem":2},{"id":"PV_9","nome":"PV-9","tipo":"PV","lat":-23.558018,"lon":-46.488614,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-11","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":6.68},{"de":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"sai":[{"para":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"prof":4.78,"cota":770.644,"ordem":3},{"id":"PV_8","nome":"PV-8","tipo":"PV","lat":-23.5571,"lon":-46.488684,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-9","dn":"DN600","mat":"CE","combo":"DN600 CE","len":101.93}],"sai":[{"para":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"prof":11.98,"cota":776.507,"ordem":4},{"id":"PV_7","nome":"PV-7","tipo":"PV","lat":-23.556747,"lon":-46.488708,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-8","dn":"DN600","mat":"CE","combo":"DN600 CE","len":39.28}],"sai":[{"para":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"prof":16.23,"cota":780.607,"ordem":5},{"id":"PV_6","nome":"PV-6","tipo":"PV","lat":-23.556601,"lon":-46.489378,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-7","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.29}],"sai":[{"para":"PV-5","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"prof":11.9,"cota":775.767,"ordem":6},{"id":"PV_5","nome":"PV-5","tipo":"PV","lat":-23.556264,"lon":-46.490025,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-6","dn":"DN600","mat":"CE","combo":"DN600 CE","len":75.88}],"sai":[],"prof":5.12,"cota":768.72,"ordem":7},{"id":"PV_13","nome":"PV-13","tipo":"PV","lat":-23.559173,"lon":-46.4887,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"prof":3.1,"cota":772.423,"ordem":8},{"id":"PV_27","nome":"PV-27","tipo":"PV","lat":-23.559163,"lon":-46.488658,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-15","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69},{"de":"PV-13","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":4.42}],"sai":[{"para":"PV-12","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"prof":3.3,"cota":772.297,"ordem":9},{"id":"PV_12","nome":"PV-12","tipo":"PV","lat":-23.559041,"lon":-46.488622,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17},{"de":"PV-27","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":13.97}],"sai":[{"para":"PV-14","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"prof":3.82,"cota":772.12,"ordem":10},{"id":"PV_14","nome":"PV-14","tipo":"PV","lat":-23.558323,"lon":-46.488581,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-12","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":79.65}],"sai":[{"para":"PV-9","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":33.87}],"prof":2.1,"cota":769.421,"ordem":11},{"id":"PV_15","nome":"PV-15","tipo":"PV","lat":-23.559166,"lon":-46.488642,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-27","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":1.69}],"prof":2.88,"cota":772.2,"ordem":12},{"id":"PV_25","nome":"PV-25","tipo":"PV","lat":-23.560736,"lon":-46.482953,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"prof":1.1,"cota":777.397,"ordem":13},{"id":"PV_24","nome":"PV-24","tipo":"PV","lat":-23.560748,"lon":-46.483264,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-25","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":31.69}],"sai":[{"para":"PV-23","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"prof":0.96,"cota":776.336,"ordem":14},{"id":"PV_23","nome":"PV-23","tipo":"PV","lat":-23.560688,"lon":-46.483405,"transicao":true,"tipoTransicao":"material","chega":[{"de":"PV-24","dn":"DN400","mat":"PVC","combo":"DN400 PVC","len":15.94}],"sai":[{"para":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"prof":2.35,"cota":775.99,"ordem":15},{"id":"PV_22","nome":"PV-22","tipo":"PV","lat":-23.560467,"lon":-46.484106,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-23","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":75.61}],"sai":[{"para":"PV-21","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"prof":3.01,"cota":775.381,"ordem":16},{"id":"PV_21","nome":"PV-21","tipo":"PV","lat":-23.560218,"lon":-46.484907,"transicao":true,"tipoTransicao":"diâmetro","chega":[{"de":"PV-22","dn":"DN400","mat":"PEAD","combo":"DN400 PEAD","len":86.29}],"sai":[{"para":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"prof":4.18,"cota":775.28,"ordem":17},{"id":"PV_20","nome":"PV-20","tipo":"PV","lat":-23.560061,"lon":-46.485408,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-21","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":53.98}],"sai":[{"para":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06}],"prof":3.91,"cota":774.639,"ordem":18},{"id":"PV_19","nome":"PV-19","tipo":"PV","lat":-23.55987,"lon":-46.486093,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-20","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":73.06},{"de":"PV-35","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"sai":[{"para":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"prof":3.58,"cota":773.874,"ordem":19},{"id":"PV_18","nome":"PV-18","tipo":"PV","lat":-23.559655,"lon":-46.486712,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-19","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":67.5}],"sai":[{"para":"PV-17","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"prof":3.48,"cota":773.234,"ordem":20},{"id":"PV_17","nome":"PV-17","tipo":"PV","lat":-23.559469,"lon":-46.487319,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-18","dn":"DN630","mat":"PEAD","combo":"DN630 PEAD","len":65.4}],"sai":[{"para":"PV-16","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"prof":4.01,"cota":772.803,"ordem":21},{"id":"PV_16","nome":"PV-16","tipo":"PV","lat":-23.559272,"lon":-46.487972,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-17","dn":"DN600","mat":"CE","combo":"DN600 CE","len":70.05}],"sai":[{"para":"PV-12","dn":"DN600","mat":"CE","combo":"DN600 CE","len":71.17}],"prof":3.56,"cota":772.073,"ordem":22},{"id":"PV_34","nome":"PV-34","tipo":"PV","lat":-23.560029,"lon":-46.479167,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"prof":0.94,"cota":789.919,"ordem":23},{"id":"PV_26","nome":"PV-26","tipo":"PV","lat":-23.559996,"lon":-46.479194,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-34","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":4.52}],"sai":[{"para":"PV-33","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"prof":1.14,"cota":789.815,"ordem":24},{"id":"PV_33","nome":"PV-33","tipo":"PV","lat":-23.559795,"lon":-46.479034,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-26","dn":"DN200","mat":"PVC","combo":"DN200 PVC","len":27.68}],"sai":[{"para":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"prof":3.65,"cota":791.416,"ordem":25},{"id":"PV_32","nome":"PV-32","tipo":"PV","lat":-23.559128,"lon":-46.47887,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-33","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":75.77}],"sai":[{"para":"PV-31","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"prof":5.34,"cota":792.302,"ordem":26},{"id":"PV_31","nome":"PV-31","tipo":"PV","lat":-23.559398,"lon":-46.47973,"transicao":true,"tipoTransicao":"diâmetro e material","chega":[{"de":"PV-32","dn":"DN315","mat":"PEAD","combo":"DN315 PEAD","len":92.76}],"sai":[{"para":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"prof":2.77,"cota":789.165,"ordem":27},{"id":"PV_29","nome":"PV-29","tipo":"PV","lat":-23.559694,"lon":-46.480642,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-31","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":98.66}],"sai":[{"para":"PV-28","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"prof":1.45,"cota":786.119,"ordem":28},{"id":"PV_28","nome":"PV-28","tipo":"PV","lat":-23.559727,"lon":-46.480654,"transicao":false,"tipoTransicao":null,"chega":[{"de":"PV-29","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":3.94}],"sai":[],"prof":1.44,"cota":785.784,"ordem":29},{"id":"PV_35","nome":"PV-35","tipo":"PV","lat":-23.559873,"lon":-46.486071,"transicao":false,"tipoTransicao":null,"chega":[],"sai":[{"para":"PV-19","dn":"DN300","mat":"PVC","combo":"DN300 PVC","len":2.27}],"prof":1.72,"cota":773.867,"ordem":30}],"trechos":[{"de":"PV-7","para":"PV-6","combo":"DN600 CE","cor":"#008300","len":70.29,"latlngs":[[-23.556747,-46.488708],[-23.556601,-46.489378]]},{"de":"PV-6","para":"PV-5","combo":"DN600 CE","cor":"#008300","len":75.88,"latlngs":[[-23.556601,-46.489378],[-23.556264,-46.490025]]},{"de":"PV-9","para":"PV-8","combo":"DN600 CE","cor":"#008300","len":101.93,"latlngs":[[-23.558018,-46.488614],[-23.5571,-46.488684]]},{"de":"PV-8","para":"PV-7","combo":"DN600 CE","cor":"#008300","len":39.28,"latlngs":[[-23.5571,-46.488684],[-23.556747,-46.488708]]},{"de":"PV-10","para":"PV-11","combo":"DN300 PVC","cor":"#eb6834","len":60.98,"latlngs":[[-23.557976,-46.487977],[-23.55806,-46.488567]]},{"de":"PV-11","para":"PV-9","combo":"DN300 PVC","cor":"#eb6834","len":6.68,"latlngs":[[-23.55806,-46.488567],[-23.558018,-46.488614]]},{"de":"PV-12","para":"PV-14","combo":"DN630 PEAD","cor":"#4a3aa7","len":79.65,"latlngs":[[-23.559041,-46.488622],[-23.558323,-46.488581]]},{"de":"PV-14","para":"PV-9","combo":"DN630 PEAD","cor":"#4a3aa7","len":33.87,"latlngs":[[-23.558323,-46.488581],[-23.558018,-46.488614]]},{"de":"PV-17","para":"PV-16","combo":"DN600 CE","cor":"#008300","len":70.05,"latlngs":[[-23.559469,-46.487319],[-23.559272,-46.487972]]},{"de":"PV-16","para":"PV-12","combo":"DN600 CE","cor":"#008300","len":71.17,"latlngs":[[-23.559272,-46.487972],[-23.559041,-46.488622]]},{"de":"PV-19","para":"PV-18","combo":"DN630 PEAD","cor":"#4a3aa7","len":67.5,"latlngs":[[-23.55987,-46.486093],[-23.559655,-46.486712]]},{"de":"PV-18","para":"PV-17","combo":"DN630 PEAD","cor":"#4a3aa7","len":65.4,"latlngs":[[-23.559655,-46.486712],[-23.559469,-46.487319]]},{"de":"PV-21","para":"PV-20","combo":"DN630 PEAD","cor":"#4a3aa7","len":53.98,"latlngs":[[-23.560218,-46.484907],[-23.560061,-46.485408]]},{"de":"PV-20","para":"PV-19","combo":"DN630 PEAD","cor":"#4a3aa7","len":73.06,"latlngs":[[-23.560061,-46.485408],[-23.55987,-46.486093]]},{"de":"PV-23","para":"PV-22","combo":"DN400 PEAD","cor":"#eda100","len":75.61,"latlngs":[[-23.560688,-46.483405],[-23.560467,-46.484106]]},{"de":"PV-22","para":"PV-21","combo":"DN400 PEAD","cor":"#eda100","len":86.29,"latlngs":[[-23.560467,-46.484106],[-23.560218,-46.484907]]},{"de":"PV-15","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":1.69,"latlngs":[[-23.559166,-46.488642],[-23.559163,-46.488658]]},{"de":"PV-13","para":"PV-27","combo":"DN300 PVC","cor":"#eb6834","len":4.42,"latlngs":[[-23.559173,-46.4887],[-23.559163,-46.488658]]},{"de":"PV-27","para":"PV-12","combo":"DN400 PEAD","cor":"#eda100","len":13.97,"latlngs":[[-23.559163,-46.488658],[-23.559041,-46.488622]]},{"de":"PV-25","para":"PV-24","combo":"DN400 PVC","cor":"#e87ba4","len":31.69,"latlngs":[[-23.560736,-46.482953],[-23.560748,-46.483264]]},{"de":"PV-24","para":"PV-23","combo":"DN400 PVC","cor":"#e87ba4","len":15.94,"latlngs":[[-23.560748,-46.483264],[-23.560688,-46.483405]]},{"de":"PV-31","para":"PV-29","combo":"DN300 PVC","cor":"#eb6834","len":98.66,"latlngs":[[-23.559398,-46.47973],[-23.559694,-46.480642]]},{"de":"PV-29","para":"PV-28","combo":"DN300 PVC","cor":"#eb6834","len":3.94,"latlngs":[[-23.559694,-46.480642],[-23.559727,-46.480654]]},{"de":"PV-33","para":"PV-32","combo":"DN315 PEAD","cor":"#1baf7a","len":75.77,"latlngs":[[-23.559795,-46.479034],[-23.559128,-46.47887]]},{"de":"PV-32","para":"PV-31","combo":"DN315 PEAD","cor":"#1baf7a","len":92.76,"latlngs":[[-23.559128,-46.47887],[-23.559398,-46.47973]]},{"de":"PV-34","para":"PV-26","combo":"DN200 PVC","cor":"#2a78d6","len":4.52,"latlngs":[[-23.560029,-46.479167],[-23.559996,-46.479194]]},{"de":"PV-26","para":"PV-33","combo":"DN200 PVC","cor":"#2a78d6","len":27.68,"latlngs":[[-23.559996,-46.479194],[-23.559795,-46.479034]]},{"de":"PV-35","para":"PV-19","combo":"DN300 PVC","cor":"#eb6834","len":2.27,"latlngs":[[-23.559873,-46.486071],[-23.55987,-46.486093]]}]};
-const VERSAO='0.74';
+const VERSAO='0.75';
 const ESQUEMA=1;
 const NAO_VERIF={cat:'nao-verificado',t:'Não foi possível verificar',chips:['Muito profundo','Veículo sobre o PV','Tampa travada','Trânsito','PV não localizado','Área ou situação de risco','Outro impedimento']};
 const PERGUNTAS=[
@@ -1927,7 +1933,8 @@ async function carregarAnexo2(f){
     if(abertas.length>1){ const r=await modal({titulo:'Mais um Anexo 2 de '+nome,texto:'Esta planta tem '+abertas.length+' vistorias abertas. Empilhar junta estes ativos à escolhida, como mais um Anexo 2.\n\n'+texto,opcoes:abertas.map(a=>({id:'e_'+a.id,txt:'Empilhar em '+a.nome+' ('+a.n+' ativo'+(a.n===1?'':'s')+')'})).concat([{id:'nova',txt:'Criar vistoria separada (outra obra)'}]),cancel:'Cancelar'}); if(!r)return; if(String(r).indexOf('e_')===0){ aberta=abertas.find(a=>'e_'+String(a.id).replace(/['"\\]/g,'')===r); if(!aberta)return; acao='empilhar'; } else acao='nova'; }
     else if(aberta){ acao=await modal({titulo:'Mais um Anexo 2 de '+nome,texto:'Já existe a vistoria '+aberta.nome+' desta planta, ainda aberta ('+aberta.n+' ativo'+(aberta.n===1?'':'s')+'). Empilhar junta estes ativos a ela, marcados como '+(aberta.nAnexos+1)+'º Anexo 2.\n\n'+texto,opcoes:[{id:'empilhar',txt:'Empilhar em '+aberta.nome},{id:'nova',txt:'Criar vistoria separada (outra obra)'}],cancel:'Cancelar'}); if(!acao)return; }
     else if(fechada){ acao=await modal({titulo:'Mais um Anexo 2 de '+nome,texto:'A vistoria '+fechada.nome+' desta planta já está encerrada. A vistoria complementar fica ligada a ela, e o que já foi encerrado ou emitido não muda.\n\n'+texto,opcoes:[{id:'compl',txt:'Criar vistoria complementar de '+fechada.nome},{id:'nova',txt:'Criar vistoria separada (outra obra)'}],cancel:'Cancelar'}); if(!acao)return; }
-    else { const ok=await modal({titulo:'Carregar '+nome+'?',texto,ok:'Carregar',cancel:'Cancelar'}); if(!ok)return; }
+    else { acao='nova'; } // v0.75: a primeira vistoria da planta confirma o nome na mesma janela do resumo
+    const textoNome=(!abertas.length&&!fechada)?texto:'';
     if(acao==='empilhar'){
       if(V&&salvarTimer){ clearTimeout(salvarTimer); salvarTimer=null; await salvarV(); }
       let alvo=(V&&V.id===aberta.id)?V:(aberta.local?await dbGet('vistorias',aberta.id):await baixarVistoria(aberta.id,false,true));
@@ -1942,7 +1949,19 @@ async function carregarAnexo2(f){
       ir('pvs',{vid:alvo.id}); return;
     }
     const usados=new Set(cand.map(c=>c.nome)); const base=acao==='compl'?nome+' · complementar':nome; let sufixo=acao==='compl'?' · complementar':''; if(usados.has(base)){ let k=2; while(usados.has(base+' ('+k+')'))k++; sufixo+=' ('+k+')'; }
-    const v=novaVistoriaLoc(lido,f.name,sufixo); if(acao==='compl')v.complementarDe={id:fechada.id,nome:fechada.nome}; V=v;
+    let rotLoc=null;
+    { // v0.75: nome confirmado; se a planta já tem vistoria, o nome precisa diferenciar a obra
+      const outra=cand.length>0, semBase=!(lido.planta&&lido.planta.nome), comp=limparAnexo(f.name);
+      const nn=normNome(nome), nc=normNome(comp);
+      const sug=(comp&&!nomeGenerico(comp)&&!(nn&&nc&&(nn.includes(nc)||nc.includes(nn))))?[(semBase?comp:nome+' · '+comp)]:((comp&&!nomeGenerico(comp)&&semBase)?[comp]:[]);
+      const valor=semBase?'':(acao==='compl'?nome+' · complementar':(outra?nome+' · ':nome));
+      const rot=await pedirNomeVistoria({titulo:textoNome?'Carregar '+nome+'?':'Nome da vistoria',texto:textoNome||'O nome aparece na lista, no relatório e para toda a equipe.',
+        aviso:semBase?'A planta '+(lido.plantaCod||'')+(lido.conferido?' não está na base de Plantas Globais.':' não pôde ser conferida agora na base de Plantas Globais (sem conexão com a equipe).')+' Informe o nome da obra.':(outra&&acao!=='compl'?'Esta planta já tem a vistoria '+cand[0].nome+'. Dê um nome que diferencie esta obra.':''),
+        valor,sugestoes:sug,usados:await nomesEmUso(rowsEq),ok:textoNome?'Carregar':'Confirmar nome'});
+      if(!rot)return;
+      rotLoc=rot;
+    }
+    const v=novaVistoriaLoc(lido,f.name,sufixo); v.rotulo=rotLoc; v.nomeConfirmado=true; if(acao==='compl')v.complementarDe={id:fechada.id,nome:fechada.nome}; V=v;
     if(!(await salvarV())){ V=null; return; }
     V=null; registrarEvento('anexo2_carregado',{planta:lido.plantaCod,ativos:lido.ativos.length,obs:n},v.id);
     if(!noModulo('localizadas'))setModulo('localizadas',true);
@@ -2994,6 +3013,52 @@ async function anotarFotosRemovidas(ids){ if(!ids||!ids.length)return; const l=(
 function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0;}return (h>>>0).toString(36);}
 const normNome=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const nomeV=v=>(v.rotulo||v.ct.nome);
+/* v0.75: nome de modelo ("Esgoto f23 v6", "Rede", "Planta 000134") não identifica a obra. Mesma regra do Conversor 2.38. */
+const NOME_MODELO=new Set(['esgoto','esgotos','esg','agua','aguas','rede','redes','trecho','trechos','cadastro','shape','shapes','shapefile','shp','gdb','geodatabase','camada','camadas','layer','layers','export','exportado','exportacao','arquivo','arquivos','dados','novo','nova','teste','testes','test','copia','final','sem','nome','vistoria','planta','untitled','default','kmz','kml','zip','de','da','do','das','dos','e','geral','projeto','desenho','modelo','padrao','base','asbuilt','as','built','revisao','rev','versao','coletora','coletor','coleta','sanitario','sanitaria','pluvial']);
+function nomeGenerico(s){
+  const t=String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\.(zip|kmz|kml|gdb|shp|rar|7z)$/,'').replace(/[^a-z0-9]+/g,' ').trim();
+  const resto=t.split(' ').filter(w=>w&&!NOME_MODELO.has(w)&&!NOME_MODELO.has(w.replace(/\d+$/,''))&&!/^(f|v|r|t|rev|ver|pt|parte|fase|etapa|lote)?\d+[a-z]?$/.test(w));
+  return resto.join('').replace(/[^a-z]/g,'').length<3;
+}
+function limparNomeArq(s){ // "RCE VOTORANTIM.kmz" vira "RCE VOTORANTIM"; "Esgoto_f23_v4 (2).kmz" vira "Esgoto f23 v4"
+  let x=String(s||'').replace(/\.(zip|kmz|kml|gdb|shp)$/i,'').replace(/_/g,' ');
+  x=x.replace(/\(\d+\)/g,' ').replace(/[\s.\-]*\b(rev(is[aã]o)?|vers[aã]o)\.?\s*\d+\b/gi,' ').replace(/\b(shapefile|shape|shp|geodatabase|gdb)\b/gi,' ');
+  return x.replace(/\s+/g,' ').replace(/^[\s.\-·]+|[\s.\-·]+$/g,'').trim();
+}
+function limparAnexo(s){ // "PE-ATIVOS0003 V.1 Anexo 2 Lista de Ativos - PONTES_DS4A-4B-4C.xlsm" vira "PONTES DS4A-4B-4C"
+  let x=String(s||'').replace(/\.(xlsx|xlsm|xls|xlsb|csv)$/i,'').replace(/_/g,' ');
+  x=x.replace(/^\s*\d{4,}[-\s]\d+(?:[-\s]\d+)*/,' ').replace(/\bPE[-\s]?ATIVOS\d*\b/gi,' ').replace(/\bV\.\s?\d+(\.\d+)?\b/gi,' ').replace(/\bFTC\b/gi,' ')
+    .replace(/\banexo\s*0?2\b/gi,' ').replace(/\blista de ativos( instalados)?\b/gi,' ').replace(/\brev\.?\s*[\d.\s]+/gi,' ').replace(/\bunificado\b/gi,' ').replace(/\(\d+\)/g,' ');
+  return x.replace(/\s+/g,' ').replace(/^[\s.\-·–]+|[\s.\-·–]+$/g,'').trim();
+}
+// janela do nome: só libera com nome que não seja de modelo nem repetido; devolve o nome ou null (cancelado)
+function pedirNomeVistoria({titulo,texto='',aviso='',valor='',sugestoes=[],usados=[],ok='Confirmar nome',rotulo='Nome da vistoria'}){
+  titulo=noAp(titulo); texto=noAp(texto); aviso=noAp(aviso);
+  const us=new Set(usados.map(normNome).filter(Boolean));
+  return new Promise(res=>{
+    if(modalResolve)modalResolve(false);
+    modalResolve=v=>res((v===false||v==null||v===true)?null:String(v).replace(/\s+/g,' ').trim());
+    $('modal').innerHTML='<h3>'+esc(titulo)+'</h3>'+(texto?'<p>'+esc(texto)+'</p>':'')+(aviso?'<div class="nome-aviso">'+esc(aviso)+'</div>':'')
+      +'<label class="nome-lbl" for="modalIn">'+esc(rotulo)+'</label><input type="text" id="modalIn" maxlength="90" autocomplete="off" spellcheck="false" placeholder="Ex.: CT Ribeirão dos Cubas" value="'+esc(valor)+'">'
+      +'<div id="nomeDica" class="nome-dica" aria-live="polite"></div>'
+      +(sugestoes.length?'<div class="nome-sugs"><span>Sugestão pelo arquivo:</span>'+sugestoes.map((s,i)=>'<button type="button" class="nome-sug" data-i="'+i+'">'+esc(s)+'</button>').join('')+'</div>':'')
+      +'<div class="acoes"><button type="button" class="btn claro" onclick="fecharModal(false)">Cancelar</button><button type="button" class="btn" id="nomeOk">'+esc(ok)+'</button></div>';
+    $('modalFundo').classList.add('on');
+    const i=$('modalIn'), b=$('nomeOk'), d=$('nomeDica');
+    const confere=()=>{ const v=i.value.replace(/\s+/g,' ').trim();
+      const m=!v?'Escreva o nome para seguir.':(nomeGenerico(v)?'Esse nome ainda é de modelo. Inclua o nome da obra, do coletor ou da rua.':(us.has(normNome(v))?'Já existe uma vistoria com esse nome. Use um nome que diferencie esta.':''));
+      b.disabled=!!m; d.textContent=m; d.classList.toggle('alerta',!!v&&!!m); };
+    i.oninput=confere; i.onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); if(!b.disabled)fecharModal(true); } };
+    b.onclick=()=>{ if(!b.disabled)fecharModal(true); };
+    $('modal').querySelectorAll('.nome-sug').forEach(x=>{ x.onclick=()=>{ i.value=sugestoes[+x.dataset.i]; confere(); i.focus(); }; });
+    confere(); setTimeout(()=>{ i.focus(); const n=i.value.length; try{ i.setSelectionRange(n,n); }catch(e){} },60);
+  });
+}
+async function nomesEmUso(rowsEq){ // nomes das vistorias do aparelho e da equipe
+  const l=(await dbAll('vistorias')).map(nomeV);
+  for(const r of (rowsEq||[]))l.push(String(r.ct_nome||'').replace(/_/g,' '));
+  return l;
+}
 
 function novaVistoria(pk,arquivo,sufixo){
   const nome=String(pk.ct&&pk.ct.nome||'Rede').replace(/_/g,' ').trim(); // nome do shapefile vem com sublinhados
@@ -3383,6 +3448,7 @@ async function renomearVistoria(vid){
   const r=await modal({titulo:'Renomear '+atual,texto:'O nome aparece na lista, no relatório e para toda a equipe. O nome anterior fica registrado na trilha do relatório.',input:'Nome da vistoria',valor:atual,ok:'Salvar nome',cancel:'Cancelar'});
   if(r===false)return; const novo=String(r||'').replace(/\s+/g,' ').trim();
   if(!novo){ toast('Escreva o nome da vistoria'); return; } if(novo.length>90){ toast('Use até 90 letras no nome'); return; } if(novo===atual)return;
+  if(nomeGenerico(novo)){ await modal({titulo:'Esse nome é de modelo',texto:'"'+novo+'" não identifica a obra. Use o nome do coletor, da rua ou da obra.',ok:'Entendi',soOk:true}); return; } // v0.75
   const nn=normNome(novo); const outros=(await dbAll('vistorias')).filter(x=>x.id!==vid).map(nomeV);
   if(sessao&&sessao.perfil){ try{ for(const x of ((await sb('/rest/v1/vistorias?select=id,ct_nome'))||[]))if(x.id!==vid)outros.push(String(x.ct_nome||'').replace(/_/g,' ')); }catch(e){} }
   const igual=outros.find(x=>normNome(x)===nn&&nn);
@@ -3503,7 +3569,18 @@ async function atualizarSentido(ex,pk){ // só o sentido e o contra-fluxo; nada 
   ir('pvs',{vid:alvo.id}); return true;
 }
 async function abrirPacote(pk,arquivo){
-  const nome=String((pk.ct&&pk.ct.nome)||'Rede').replace(/_/g,' ').trim();
+  let nome=String((pk.ct&&pk.ct.nome)||'Rede').replace(/_/g,' ').trim();
+  const treinoPk=/^exemplo/i.test(String(arquivo||''));
+  if(!treinoPk&&!(pk.ct&&pk.ct.nomeConfirmado&&!nomeGenerico(nome))){ // v0.75: KMZ de Conversor anterior à 2.38 ou com nome de modelo
+    const g=nomeGenerico(nome), sa=limparNomeArq(arquivo);
+    const n=await pedirNomeVistoria({titulo:'Nome da rede',texto:'O nome aparece na lista, no relatório e para toda a equipe.'+(g?'':' Confira se está correto.'),
+      aviso:g?'O nome que veio no KMZ, "'+nome+'", é um nome de modelo e não identifica a obra.':'',valor:g?'':nome,
+      sugestoes:(sa&&!nomeGenerico(sa)&&normNome(sa)!==normNome(nome))?[sa]:[],rotulo:'Nome da rede',ok:'Confirmar nome'});
+    if(!n)return;
+    pk.ct=Object.assign({},pk.ct||{},{nome:n,nomeConfirmado:true}); if(normNome(n)!==normNome(nome))pk.ct.nomeArquivo=nome;
+    nome=n;
+  }
+  let rotuloNovo=''; // v0.75: outra vistoria da mesma rede ganha um nome que a diferencie (antes, "(2)")
   const iguais=(await dbAll('vistorias')).filter(v=>normNome(v.ct.nome)===normNome(nome));
   let sufixo='';
   if(iguais.length){
@@ -3515,6 +3592,8 @@ async function abrirPacote(pk,arquivo){
     if(r==='sentido'){ await atualizarSentido(ex,pk); return; }
     if(r!=='outra')return;
     const usados=new Set(iguais.map(v=>nomeV(v))); let k=2; while(usados.has(nome+' ('+k+')'))k++; sufixo=' ('+k+')';
+    rotuloNovo=await pedirNomeVistoria({titulo:'Nome da nova vistoria',texto:'Já existe a vistoria '+nomeV(ex)+' desta rede. Dê um nome que diferencie esta, por exemplo o trecho, a etapa ou a data.',valor:nome+' · ',usados:await nomesEmUso()});
+    if(!rotuloNovo)return;
   }
   if(sessao&&sessao.perfil&&navigator.onLine&&!/^exemplo/i.test(String(arquivo||''))){ // a mesma rede já está na equipe? então não nasce outra vistoria (o exemplo de treino fica só aqui)
     try{
@@ -3529,10 +3608,14 @@ async function abrirPacote(pk,arquivo){
         if(r==='sentido'){ const v=await baixarVistoria(r0.id,false,true); if(v)await atualizarSentido(v,pk); return; }
         if(r!=='outra')return;
         const usados=new Set([...iguais.map(v=>nomeV(v)),...naEquipe.map(x=>String(x.ct_nome||'').replace(/_/g,' '))]); let k=2; while(usados.has(nome+' ('+k+')'))k++; sufixo=' ('+k+')';
+        rotuloNovo=await pedirNomeVistoria({titulo:'Nome da nova vistoria',texto:'Já existe a vistoria '+String(r0.ct_nome||'').replace(/_/g,' ')+' desta rede na equipe. Dê um nome que diferencie esta, por exemplo o trecho, a etapa ou a data.',valor:nome+' · ',usados:await nomesEmUso(rows)});
+        if(!rotuloNovo)return;
       }
     }catch(e){ console.warn('conferência na equipe',e); }
   }
-  const v=novaVistoria(pk,arquivo,sufixo); if(/^exemplo/i.test(String(arquivo||'')))v.treino=true; V=v;
+  const v=novaVistoria(pk,arquivo,sufixo); if(/^exemplo/i.test(String(arquivo||'')))v.treino=true;
+  if(rotuloNovo)v.rotulo=rotuloNovo; // v0.75
+  V=v;
   if(!(await salvarV())){V=null;return;}
   await pref('ultimaVistoria',v.id);
   V=null; // fica na lista: quem carrega para a equipe não precisa entrar na vistoria
